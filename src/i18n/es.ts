@@ -5,6 +5,7 @@ export default {
   name: 'Español',
   title: 'Solotvj · Tecnología honesta',
   description: 'Solotvj diseña, construye y opera software.',
+  cta: 'Contanos qué necesitás',
   tagline: 'Tecnología honesta. Solo lo que tu negocio necesita.',
   langNav: 'Idioma',
   legalHeading: 'Información legal',

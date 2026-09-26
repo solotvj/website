@@ -2,7 +2,8 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Wordmark from '../../components/Wordmark.astro';
-import { defaultLang, getLangFromUrl, langs, ui, useTranslations } from '../../i18n';
+import Button from '../../components/Button.astro';
+import { defaultLang, legal, getLangFromUrl, langs, ui, useTranslations } from '../../i18n';
 
 export function getStaticPaths() {
   return langs.map((lang) => ({ params: { lang: lang === defaultLang ? undefined : lang } }));
@@ -35,6 +36,7 @@ const t = useTranslations(lang);
   <main>
     <Wordmark as="h1" class="hero" />
     <p class="body tagline">{t('tagline')}</p>
+    <Button href={`mailto:${legal.email}`}>{t('cta')}</Button>
   </main>
 </BaseLayout>
 

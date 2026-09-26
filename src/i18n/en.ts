@@ -7,6 +7,7 @@ export default {
   name: 'English',
   title: 'Solotvj · Honest tech',
   description: 'Solotvj designs, builds and operates software.',
+  cta: 'Tell us what you need',
   tagline: 'Honest tech. Nothing you don’t need.',
   langNav: 'Language',
   legalHeading: 'Legal information',

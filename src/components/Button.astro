@@ -1,0 +1,37 @@
+---
+// Reproduces the design system's primary Button as a link (bundle.css .stv-btn). One per view.
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a class="stv-btn stv-btn-primary stv-btn-md" href={href}><slot /></a>
+
+<style>
+  .stv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .stv-btn-md {
+    height: 44px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+  .stv-btn-primary {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+  .stv-btn-primary:hover {
+    filter: brightness(1.1);
+  }
+</style>
