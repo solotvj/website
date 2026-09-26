@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solotvj design system check</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="bundle.css">
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="bundle.js"></script>
+  <style>main { max-width: 1040px; margin: 0 auto; padding: var(--space-16) var(--space-6); display: grid; gap: var(--space-10); }</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    var S = window.Solotvj, h = React.createElement;
+    ReactDOM.createRoot(document.getElementById('root')).render(h(React.Fragment, null,
+      h(S.NavBar, { links: [{ label: 'Services', active: true }, { label: 'Work' }, { label: 'Contact' }], action: h(S.Button, { size: 'sm' }, 'Book a call') }),
+      h('main', null,
+        h(S.SectionHeader, { eyebrow: 'WhatsApp agents', title: 'Your customers get answers in seconds, at any hour.', size: 'xl', level: 1,
+          lede: 'We design, build and operate conversational agents that answer with your own knowledge.',
+          actions: h(S.Button, { iconRight: true }, 'Book a call') }),
+        h(S.Conversation, { title: 'Clínica Austral', subtitle: 'WhatsApp', status: h(S.Badge, { tone: 'success' }, 'Agent on') },
+          h(S.ChatBubble, { from: 'customer', time: '21:12' }, 'Can I reschedule my appointment?'),
+          h(S.ChatBubble, { from: 'agent', time: '21:12', status: 'read' }, 'Of course. Would Friday at 9:00 or 11:30 work?'))
+      )));
+  </script>
+</body>
+</html>

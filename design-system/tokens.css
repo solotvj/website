@@ -1,0 +1,69 @@
+/* Solotvj design tokens. Generated from tokens.json. Theme: <html data-theme="dark|light"> (dark is default). */
+
+:root, [data-theme="dark"] {
+  --surface-000: #0a0b0d;
+  --surface-100: #111317;
+  --surface-200: #181b21;
+  --line: #272b33;
+  --border-control: #6a707a;
+  --ink: #ecebe6;
+  --ink-muted: #9ba1aa;
+  --ink-subtle: #838993;
+  --accent: #5b8cff;
+  --accent-fill: #2f5fe8;
+  --on-accent: #ffffff;
+  --bone: #ecebe6;
+  --ink-on-bone: #0d0f12;
+  --success: #4cc38a;
+  --danger: #ff6b5e;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --surface-000: #f6f5f1;
+  --surface-100: #ffffff;
+  --surface-200: #eeede8;
+  --line: #dddbd4;
+  --border-control: #80858d;
+  --ink: #0d0f12;
+  --ink-muted: #565c66;
+  --ink-subtle: #5f656e;
+  --accent: #1f4fd6;
+  --accent-fill: #1f4fd6;
+  --on-accent: #ffffff;
+  --bone: #ecebe6;
+  --ink-on-bone: #0d0f12;
+  --success: #177249;
+  --danger: #b42318;
+  color-scheme: light;
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-10: 40px;
+  --space-16: 64px;
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-full: 9999px;
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Type styles */
+.display-xl { font-family: var(--font-display); font-size: 72px; line-height: 1; font-weight: 400; letter-spacing: -0.01em; }
+.display { font-family: var(--font-display); font-size: 44px; line-height: 1.05; font-weight: 400; }
+.heading { font-family: var(--font-sans); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
+.subheading { font-family: var(--font-sans); font-size: 18px; line-height: 26px; font-weight: 500; }
+.body { font-family: var(--font-sans); font-size: 16px; line-height: 26px; font-weight: 400; }
+.small { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.code { font-family: var(--font-mono); font-size: 14px; line-height: 22px; font-weight: 400; }
+
+/* Sensible page defaults */
+body { margin: 0; background: var(--surface-000); color: var(--ink); font-family: var(--font-sans); font-size: 16px; line-height: 26px; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
