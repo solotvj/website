@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Colours mirror tokens.css (surface-000, ink, accent); SVG favicons cannot read CSS variables or web fonts. -->
+  <rect width="32" height="32" rx="6" fill="#0a0b0d"/>
+  <text x="14" y="25" text-anchor="middle" font-family="'Instrument Serif', 'Iowan Old Style', Georgia, serif" font-size="26" fill="#ecebe6">S<tspan fill="#5b8cff">.</tspan></text>
+</svg>

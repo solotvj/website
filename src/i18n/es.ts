@@ -1,0 +1,16 @@
+export default {
+  htmlLang: 'es-AR',
+  ogLocale: 'es_AR',
+  code: 'ES',
+  name: 'Español',
+  title: 'Solotvj · Tecnología honesta',
+  description: 'Solotvj diseña, construye y opera software.',
+  tagline: 'Tecnología honesta. Solo lo que tu negocio necesita.',
+  langNav: 'Idioma',
+  legalHeading: 'Información legal',
+  email: 'Correo',
+  address: 'Dirección',
+  notFoundTitle: 'Página no encontrada · Solotvj',
+  notFoundText: 'No encontramos esta página.',
+  notFoundLink: 'Volvé al inicio',
+};

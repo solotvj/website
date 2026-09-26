@@ -1,0 +1,65 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { defaultLang, langs, ui } from '../i18n';
+
+// GitHub Pages serves this one file for every missing URL in any language, so it speaks all of them.
+---
+
+<BaseLayout lang={defaultLang} notFound>
+  <main>
+    <h1 class="code-mark">404<span class="dot">.</span></h1>
+    {
+      langs.map((l) => (
+        <p class="body" lang={ui[l].htmlLang}>
+          <span class="text">{ui[l].notFoundText}</span>
+          <a href={getRelativeLocaleUrl(l)}>{ui[l].notFoundLink}</a>
+        </p>
+      ))
+    }
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    box-sizing: border-box;
+    flex: 1;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-4);
+    padding: var(--space-16) var(--space-6);
+    text-align: center;
+  }
+
+  /* The error code set like the wordmark: display face, accent full stop. */
+  .code-mark {
+    margin: 0 0 var(--space-6);
+    font-family: var(--font-display);
+    font-size: clamp(96px, 20vw + 24px, 240px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .dot {
+    color: var(--accent);
+  }
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 var(--space-2);
+    margin: 0;
+  }
+
+  .text {
+    color: var(--ink-muted);
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import { legal, useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = useTranslations(Astro.props.lang);
+---
+
+<footer class="small" aria-labelledby="legal-heading">
+  <h2 id="legal-heading" class="label">{t('legalHeading')}</h2>
+  <p class="brand">{legal.brand}</p>
+  <p lang={legal.noteLang}>{legal.note}</p>
+  <address>
+    <p>{t('email')}: <a href={`mailto:${legal.email}`}>{legal.email}</a></p>
+    <p>{t('address')}: {legal.address}</p>
+  </address>
+</footer>
+
+<style>
+  footer {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-6);
+    color: var(--ink-muted);
+    text-align: center;
+  }
+
+  h2 {
+    margin: 0 0 var(--space-2);
+    color: var(--ink-subtle);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .brand {
+    color: var(--ink);
+  }
+
+  address {
+    display: grid;
+    gap: var(--space-1);
+    font-style: normal;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 3px;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+</style>

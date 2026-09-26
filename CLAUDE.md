@@ -15,3 +15,5 @@ This project uses the Solotvj design system in `design-system/`.
 - One primary button per view, one `bone` card per page, one highlighted stat per row.
 - No gradients, glows or heavy shadows. Flat surfaces, hairlines (`--line`) and a single blue.
 - Treat `design-system/` as read-only; if something is missing, add it in the project's own CSS using the tokens.
+
+When a step does not need my input, keep going, and put status notes in the same message as your next action. Stop and ask only when you cannot continue without me, or before anything that cannot be undone, such as deleting files, overwriting other people's work or changing anything outside this folder.

@@ -1,0 +1,27 @@
+---
+// Reproduces the design system's Wordmark (bundle.css .stv-wordmark) without React.
+interface Props {
+  as?: 'h1' | 'span';
+  class?: string;
+}
+
+const { as: Tag = 'span', class: className } = Astro.props;
+---
+
+<Tag class:list={['stv-wordmark', className]}>Solotvj<span class="stv-wordmark-dot">.</span></Tag>
+
+<style>
+  .stv-wordmark {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 72px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .stv-wordmark-dot {
+    color: var(--accent);
+  }
+</style>

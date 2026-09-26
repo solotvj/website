@@ -1,0 +1,18 @@
+import type { Dict } from './index';
+
+export default {
+  htmlLang: 'en',
+  ogLocale: 'en_US',
+  code: 'EN',
+  name: 'English',
+  title: 'Solotvj · Honest tech',
+  description: 'Solotvj designs, builds and operates software.',
+  tagline: 'Honest tech. Nothing you don’t need.',
+  langNav: 'Language',
+  legalHeading: 'Legal information',
+  email: 'Email',
+  address: 'Address',
+  notFoundTitle: 'Page not found · Solotvj',
+  notFoundText: 'We couldn’t find this page.',
+  notFoundLink: 'Back to the home page',
+} satisfies Dict;

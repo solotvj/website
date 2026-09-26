@@ -1,0 +1,82 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Wordmark from '../../components/Wordmark.astro';
+import { defaultLang, getLangFromUrl, langs, ui, useTranslations } from '../../i18n';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang: lang === defaultLang ? undefined : lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang}>
+  <nav class="langs label" aria-label={t('langNav')}>
+    {
+      langs.map((l, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true">/</span>}
+          <a
+            href={getRelativeLocaleUrl(l)}
+            hreflang={ui[l].htmlLang}
+            lang={ui[l].htmlLang}
+            aria-label={ui[l].name}
+            aria-current={l === lang ? 'page' : undefined}
+          >
+            {ui[l].code}
+          </a>
+        </>
+      ))
+    }
+  </nav>
+
+  <main>
+    <Wordmark as="h1" class="hero" />
+    <p class="body tagline">{t('tagline')}</p>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    box-sizing: border-box;
+    flex: 1;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: var(--space-6);
+    padding: var(--space-16) var(--space-6);
+    text-align: center;
+  }
+
+  /* 72px (display-xl) at 360px, growing to 160px on wide screens. :global because the h1 lives in Wordmark's scope. */
+  main :global(.hero) {
+    font-size: clamp(72px, 12vw + 24px, 160px);
+  }
+
+  .tagline {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .langs {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: flex;
+    align-items: center;
+    color: var(--ink-subtle);
+  }
+
+  .langs a {
+    padding: var(--space-2);
+    color: var(--ink-subtle);
+    text-decoration: none;
+  }
+
+  .langs a:hover,
+  .langs a[aria-current='page'] {
+    color: var(--ink);
+  }
+</style>
