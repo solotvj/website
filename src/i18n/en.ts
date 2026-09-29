@@ -13,6 +13,8 @@ export default {
   legalHeading: 'Legal information',
   email: 'Email',
   address: 'Address',
+  privacyLink: 'Privacy policy',
+  privacyPath: '/privacy',
   notFoundTitle: 'Page not found · Solotvj',
   notFoundText: 'We couldn’t find this page.',
   notFoundLink: 'Back to the home page',

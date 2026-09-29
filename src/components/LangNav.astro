@@ -1,0 +1,54 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { langs, ui, useTranslations, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Link for each language; defaults to each language's home. */
+  hrefs?: Record<Lang, string>;
+}
+
+const { lang, hrefs } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<nav class="langs label" aria-label={t('langNav')}>
+  {
+    langs.map((l, i) => (
+      <>
+        {i > 0 && <span aria-hidden="true">/</span>}
+        <a
+          href={hrefs?.[l] ?? getRelativeLocaleUrl(l)}
+          hreflang={ui[l].htmlLang}
+          lang={ui[l].htmlLang}
+          aria-label={ui[l].name}
+          aria-current={l === lang ? 'page' : undefined}
+        >
+          {ui[l].code}
+        </a>
+      </>
+    ))
+  }
+</nav>
+
+<style>
+  .langs {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: flex;
+    align-items: center;
+    color: var(--ink-subtle);
+  }
+
+  .langs a {
+    padding: var(--space-2);
+    color: var(--ink-subtle);
+    text-decoration: none;
+  }
+
+  .langs a:hover,
+  .langs a[aria-current='page'] {
+    color: var(--ink);
+  }
+</style>

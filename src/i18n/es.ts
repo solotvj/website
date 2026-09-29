@@ -11,6 +11,8 @@ export default {
   legalHeading: 'Información legal',
   email: 'Correo',
   address: 'Dirección',
+  privacyLink: 'Política de privacidad',
+  privacyPath: '/privacidad',
   notFoundTitle: 'Página no encontrada · Solotvj',
   notFoundText: 'No encontramos esta página.',
   notFoundLink: 'Volvé al inicio',

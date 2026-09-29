@@ -9,10 +9,20 @@ interface Props {
   lang: Lang;
   /** 404 page: own title, noindex, no canonical or alternates. */
   notFound?: boolean;
+  title?: string;
+  description?: string;
+  /** Absolute URL of this page in each language; defaults to each language's home. */
+  urls?: Record<Lang, string>;
 }
 
-const { lang, notFound = false } = Astro.props;
-const d = ui[lang];
+const d = ui[Astro.props.lang];
+const {
+  lang,
+  notFound = false,
+  title = notFound ? d.notFoundTitle : d.title,
+  description = d.description,
+  urls = Object.fromEntries(langs.map((l) => [l, getAbsoluteLocaleUrl(l)])) as Record<Lang, string>,
+} = Astro.props;
 const base = import.meta.env.BASE_URL;
 const background = tokens.color.tokens.find((t) => t.name === 'surface-000')!.value.dark;
 ---
@@ -22,17 +32,17 @@ const background = tokens.color.tokens.find((t) => t.name === 'surface-000')!.va
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{notFound ? d.notFoundTitle : d.title}</title>
-    <meta name="description" content={d.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <meta name="theme-color" content={background} />
     {
       notFound ? (
         <meta name="robots" content="noindex" />
       ) : (
         <>
-          <link rel="canonical" href={getAbsoluteLocaleUrl(lang)} />
-          {langs.map((l) => <link rel="alternate" hreflang={ui[l].htmlLang} href={getAbsoluteLocaleUrl(l)} />)}
-          <link rel="alternate" hreflang="x-default" href={getAbsoluteLocaleUrl(defaultLang)} />
+          <link rel="canonical" href={urls[lang]} />
+          {langs.map((l) => <link rel="alternate" hreflang={ui[l].htmlLang} href={urls[l]} />)}
+          <link rel="alternate" hreflang="x-default" href={urls[defaultLang]} />
         </>
       )
     }
@@ -41,9 +51,9 @@ const background = tokens.color.tokens.find((t) => t.name === 'surface-000')!.va
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Solotvj" />
-    <meta property="og:title" content={d.title} />
-    <meta property="og:description" content={d.description} />
-    <meta property="og:url" content={getAbsoluteLocaleUrl(lang)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={urls[lang]} />
     <meta property="og:locale" content={d.ogLocale} />
     {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={ui[l].ogLocale} />)}
 
@@ -52,7 +62,7 @@ const background = tokens.color.tokens.find((t) => t.name === 'surface-000')!.va
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif&family=JetBrains+Mono:wght@500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=JetBrains+Mono:wght@500&display=swap"
     />
   </head>
   <body>

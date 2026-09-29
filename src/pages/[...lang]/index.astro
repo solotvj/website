@@ -1,9 +1,9 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Wordmark from '../../components/Wordmark.astro';
 import Button from '../../components/Button.astro';
-import { defaultLang, legal, getLangFromUrl, langs, ui, useTranslations } from '../../i18n';
+import LangNav from '../../components/LangNav.astro';
+import { defaultLang, legal, getLangFromUrl, langs, useTranslations } from '../../i18n';
 
 export function getStaticPaths() {
   return langs.map((lang) => ({ params: { lang: lang === defaultLang ? undefined : lang } }));
@@ -14,24 +14,7 @@ const t = useTranslations(lang);
 ---
 
 <BaseLayout lang={lang}>
-  <nav class="langs label" aria-label={t('langNav')}>
-    {
-      langs.map((l, i) => (
-        <>
-          {i > 0 && <span aria-hidden="true">/</span>}
-          <a
-            href={getRelativeLocaleUrl(l)}
-            hreflang={ui[l].htmlLang}
-            lang={ui[l].htmlLang}
-            aria-label={ui[l].name}
-            aria-current={l === lang ? 'page' : undefined}
-          >
-            {ui[l].code}
-          </a>
-        </>
-      ))
-    }
-  </nav>
+  <LangNav lang={lang} />
 
   <main>
     <Wordmark as="h1" class="hero" />
@@ -60,25 +43,5 @@ const t = useTranslations(lang);
   .tagline {
     margin: 0;
     color: var(--ink-muted);
-  }
-
-  .langs {
-    position: absolute;
-    top: var(--space-4);
-    right: var(--space-4);
-    display: flex;
-    align-items: center;
-    color: var(--ink-subtle);
-  }
-
-  .langs a {
-    padding: var(--space-2);
-    color: var(--ink-subtle);
-    text-decoration: none;
-  }
-
-  .langs a:hover,
-  .langs a[aria-current='page'] {
-    color: var(--ink);
   }
 </style>

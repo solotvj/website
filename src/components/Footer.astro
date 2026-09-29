@@ -16,6 +16,7 @@ const t = useTranslations(Astro.props.lang);
     <p>{t('email')}: <a href={`mailto:${legal.email}`}>{legal.email}</a></p>
     <p>{t('address')}: {legal.address}</p>
   </address>
+  <p class="links"><a href={t('privacyPath')}>{t('privacyLink')}</a></p>
 </footer>
 
 <style>
@@ -44,6 +45,10 @@ const t = useTranslations(Astro.props.lang);
     display: grid;
     gap: var(--space-1);
     font-style: normal;
+  }
+
+  .links {
+    margin-top: var(--space-2);
   }
 
   a {
