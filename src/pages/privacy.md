@@ -7,7 +7,7 @@ description: How Solotvj handles personal data in its automated WhatsApp assista
 
 # Privacy policy
 
-**Last updated:** 29 September 2026\
+**Last updated:** 7 October 2026\
 **Version:** 2.1
 
 > English translation provided for convenience and for review by third parties such as
@@ -213,10 +213,8 @@ the data for its own purposes or for model training:
 | Provider | Purpose | What it receives | Location |
 |---|---|---|---|
 | **Meta Platforms, Inc.** — WhatsApp Business Platform | Message transport | All content and metadata, as the channel | USA and others |
-| **OpenAI** | Generating the reply (primary) | Your message text and the Customer's business information needed to answer | USA |
-| **OpenRouter** | Unified gateway to the AI models that generate the reply | Your message text and the Customer's business information needed to answer | USA |
-| **Anthropic** | Generating the reply (failover) | Same as above | USA |
-| **OpenAI (Whisper)** | Voice note transcription | The voice note audio file | USA |
+| **OpenRouter** — AI models from OpenAI and Anthropic, served through OpenRouter by their providers (e.g. Microsoft Azure, Amazon Web Services, Google) | Generating the assistant's reply | Your message text and the Customer's business information needed to answer | USA |
+| **OpenRouter**, to a transcription model from **OpenAI** or **Whisper** hosted by **Groq** | Voice note transcription | The voice note audio file | USA |
 | **Hostinger** | Application and database hosting | All service data, encrypted | Brazil |
 | **Cloudflare R2** | Encrypted backups | All service data, encrypted | USA |
 | **Google Workspace** | Notifications to the Customer's staff | Recipient address and a link to the conversation; not clinical content | USA |
@@ -239,7 +237,7 @@ requires it.
 ## 9. International data transfers
 
 Several providers in section 8 are established outside Argentina. In particular, message
-content is sent to **Meta, OpenRouter, OpenAI and Anthropic** in the **United States**,
+content is sent to **Meta, OpenRouter and the providers serving the AI models** (e.g. Microsoft Azure, Amazon Web Services, Google and Groq) in the **United States**,
 which is **not** on the list of countries recognised by the Argentine
 authority as providing an adequate level of protection. These are therefore
 **international transfers** under Article 12 of Law No. 25.326.
@@ -278,7 +276,7 @@ Set by the Customer as controller. Unless configured otherwise, our defaults are
 
 | Data | Retention |
 |---|---|
-| Message content and conversation history | 12 months from the last message |
+| Message content and conversation history | 90 days from the date of each message |
 | Voice note audio files | Deleted **immediately after transcription**; never more than 7 days |
 | Audio transcriptions | Same as message content |
 | Record of the privacy notice (date and time) | Duration of the Customer relationship plus 5 years, as evidence of the information duty |

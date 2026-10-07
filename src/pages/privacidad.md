@@ -7,7 +7,7 @@ description: Cómo Solotvj trata los datos personales en su servicio de asistent
 
 # Política de privacidad
 
-**Última actualización:** 29 de septiembre de 2026\
+**Última actualización:** 7 de octubre de 2026\
 **Versión:** 2.1
 
 ---
@@ -247,10 +247,8 @@ no usar los datos para fines propios ni para entrenar modelos:
 | Proveedor | Para qué | Qué recibe | Ubicación |
 |---|---|---|---|
 | **Meta Platforms, Inc.** — Plataforma de WhatsApp Business | Transporte de los mensajes | Todo el contenido y los metadatos, por ser el canal | EE. UU. y otros |
-| **OpenAI** | Generación de la respuesta del asistente (proveedor principal) | El texto de su mensaje y la información de negocio del Cliente necesaria para responder | EE. UU. |
-| **OpenRouter** | Pasarela unificada hacia los modelos de IA que generan la respuesta | El texto de su mensaje y la información de negocio del Cliente necesaria para responder | EE. UU. |
-| **Anthropic** | Generación de la respuesta (proveedor de contingencia) | Igual que el anterior | EE. UU. |
-| **OpenAI (Whisper)** | Transcripción de notas de voz a texto | El archivo de audio de la nota de voz | EE. UU. |
+| **OpenRouter** — modelos de IA de OpenAI y Anthropic, servidos a través de OpenRouter por sus proveedores (p. ej. Microsoft Azure, Amazon Web Services, Google) | Generación de la respuesta del asistente | El texto de su mensaje y la información de negocio del Cliente necesaria para responder | EE. UU. |
+| **OpenRouter**, hacia un modelo de transcripción de **OpenAI** o **Whisper** alojado por **Groq** | Transcripción de notas de voz a texto | El archivo de audio de la nota de voz | EE. UU. |
 | **Hostinger** | Alojamiento de la aplicación y la base de datos | Todos los datos del servicio, cifrados | Brasil |
 | **Cloudflare R2** | Copias de seguridad cifradas | Todos los datos del servicio, cifrados | EE. UU. |
 | **Google Workspace** | Notificaciones al equipo del Cliente | Dirección de correo del destinatario y un enlace a la conversación; no el contenido clínico | EE. UU. |
@@ -273,8 +271,8 @@ competente que así lo imponga.
 ## 9. Transferencia internacional de datos
 
 Varios de los proveedores de la sección 8 están radicados fuera de la República
-Argentina. En particular, el contenido de los mensajes se envía a **Meta, OpenRouter,
-OpenAI y Anthropic**, en los **Estados Unidos de América**, país que **no integra** la
+Argentina. En particular, el contenido de los mensajes se envía a **Meta, OpenRouter y
+los proveedores que sirven los modelos de IA** (p. ej. Microsoft Azure, Amazon Web Services, Google y Groq), en los **Estados Unidos de América**, país que **no integra** la
 nómina de Estados con nivel adecuado de protección reconocida por la autoridad argentina.
 Por lo tanto, esas transferencias constituyen **transferencia internacional** en los
 términos del artículo 12 de la Ley N° 25.326.
@@ -316,7 +314,7 @@ configuración distinta, aplicamos por defecto:
 
 | Dato | Plazo |
 |---|---|
-| Contenido de mensajes e historial de conversación | 12 meses desde el último mensaje |
+| Contenido de mensajes e historial de conversación | 90 días desde la fecha de cada mensaje |
 | Archivos de audio de notas de voz | Se eliminan **inmediatamente después de transcribirse**; nunca más de 7 días |
 | Transcripciones de audio | Igual plazo que el contenido de mensajes |
 | Registro del aviso de privacidad (fecha y hora) | Mientras dure la relación con el Cliente, más 5 años, como prueba del cumplimiento del deber de información |
