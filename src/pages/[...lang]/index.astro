@@ -11,22 +11,79 @@ export function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const cards = [
+  [t('svc1Title'), t('svc1Body')],
+  [t('svc2Title'), t('svc2Body')],
+  [t('svc3Title'), t('svc3Body')],
+];
+const demo = [
+  ['customer', t('demo1')],
+  ['agent', t('demo2')],
+  ['customer', t('demo3')],
+  ['agent', t('demo4')],
+];
 ---
 
 <BaseLayout lang={lang}>
   <LangNav lang={lang} />
 
   <main>
-    <Wordmark as="h1" class="hero" />
-    <p class="body tagline">{t('tagline')}</p>
-    <Button href={`mailto:${legal.email}`}>{t('cta')}</Button>
+    <section class="hero-block">
+      <Wordmark as="h1" class="hero" />
+      <p class="body tagline">{t('tagline')}</p>
+      <Button href={`mailto:${legal.email}`}>{t('cta')}</Button>
+    </section>
+
+    <section class="service" aria-labelledby="service-title">
+      <header class="stv-section-header">
+        <p class="stv-eyebrow">{t('svcEyebrow')}</p>
+        <h2 id="service-title" class="stv-section-title">{t('svcTitle')}</h2>
+        <p class="stv-section-lede">{t('svcLede')}</p>
+      </header>
+
+      <div class="service-grid">
+        <section class="stv-convo" aria-label={t('demoLabel')}>
+          <header class="stv-convo-head">
+            <span class="stv-convo-avatar" aria-hidden="true">{t('demoTitle').charAt(0)}</span>
+            <div class="stv-convo-who">
+              <p class="stv-convo-title">{t('demoTitle')}</p>
+              <p class="stv-convo-sub">{t('demoSub')}</p>
+            </div>
+          </header>
+          <div class="stv-convo-body">
+            {demo.map(([from, text]) => (
+              <div class={`stv-bubble-row stv-bubble-${from}`}>
+                <div class="stv-bubble"><div class="stv-bubble-text">{text}</div></div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div class="cards">
+          {cards.map(([title, body]) => (
+            <section class="stv-card stv-card-default">
+              <header class="stv-card-head"><h3 class="stv-card-title">{title}</h3></header>
+              <div class="stv-card-body">{body}</div>
+            </section>
+          ))}
+        </div>
+      </div>
+
+      <p class="small privacy">
+        {t('svcPrivacy')} <a href={t('privacyPath')}>{t('svcPrivacyLink')}</a>
+      </p>
+    </section>
   </main>
 </BaseLayout>
 
 <style>
   main {
-    box-sizing: border-box;
     flex: 1;
+  }
+
+  .hero-block {
+    box-sizing: border-box;
+    min-height: 80svh;
     display: grid;
     place-content: center;
     justify-items: center;
@@ -36,12 +93,71 @@ const t = useTranslations(lang);
   }
 
   /* 72px (display-xl) at 360px, growing to 160px on wide screens. :global because the h1 lives in Wordmark's scope. */
-  main :global(.hero) {
+  .hero-block :global(.hero) {
     font-size: clamp(72px, 12vw + 24px, 160px);
   }
 
   .tagline {
     margin: 0;
     color: var(--ink-muted);
+  }
+
+  .service {
+    box-sizing: border-box;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: var(--space-16) var(--space-6);
+    display: grid;
+    gap: var(--space-10);
+    border-top: 1px solid var(--line);
+  }
+
+  .service-grid {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .cards {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .privacy {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+
+  .privacy a {
+    color: var(--accent);
+  }
+
+  /* Design system rules this page uses (bundle.css), copied like Button.astro does. */
+  .stv-eyebrow { margin: 0; font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-subtle); }
+  .stv-section-header { display: flex; flex-direction: column; gap: var(--space-4); max-width: 720px; font-family: var(--font-sans); }
+  .stv-section-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.05; color: var(--ink); }
+  .stv-section-lede { margin: 0; font-size: 18px; line-height: 28px; color: var(--ink-muted); max-width: 60ch; }
+  .stv-card { box-sizing: border-box; display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-6); border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-100); color: var(--ink); font-family: var(--font-sans); }
+  .stv-card-head { display: flex; flex-direction: column; gap: var(--space-2); }
+  .stv-card-title { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em; }
+  .stv-card-body { font-size: 15px; line-height: 24px; color: var(--ink-muted); }
+  .stv-convo { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-100); overflow: hidden; font-family: var(--font-sans); }
+  .stv-convo-head { display: flex; align-items: center; gap: 12px; padding: 12px var(--space-4); border-bottom: 1px solid var(--line); }
+  .stv-convo-avatar { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--radius-full); background: var(--surface-200); border: 1px solid var(--line); color: var(--ink); font-weight: 600; font-size: 15px; }
+  .stv-convo-who { flex: 1; min-width: 0; }
+  .stv-convo-who p { margin: 0; }
+  .stv-convo-title { font-size: 15px; line-height: 20px; font-weight: 600; color: var(--ink); }
+  .stv-convo-sub { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+  .stv-convo-body { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4); }
+  .stv-bubble-row { display: flex; font-family: var(--font-sans); }
+  .stv-bubble-agent { justify-content: flex-end; }
+  .stv-bubble { max-width: 78%; padding: 8px 12px 6px; border-radius: var(--radius-md); font-size: 15px; line-height: 22px; }
+  .stv-bubble-customer .stv-bubble { background: var(--surface-200); color: var(--ink); border: 1px solid var(--line); border-top-left-radius: var(--radius-sm); }
+  .stv-bubble-agent .stv-bubble { background: var(--accent-fill); color: var(--on-accent); border-top-right-radius: var(--radius-sm); }
+
+  @media (min-width: 800px) {
+    .service-grid {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    }
   }
 </style>
