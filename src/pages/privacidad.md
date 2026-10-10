@@ -7,8 +7,8 @@ description: Cómo Solotvj trata los datos personales en su servicio de asistent
 
 # Política de privacidad
 
-**Última actualización:** 7 de octubre de 2026\
-**Versión:** 2.1
+**Última actualización:** 10 de octubre de 2026\
+**Versión:** 2.2
 
 ---
 
@@ -184,8 +184,9 @@ mecanismo es el siguiente:
 2. Ese aviso se envía **una sola vez por número de contacto**, y se registra la fecha y
    hora de su envío, a los solos efectos de acreditar que la información fue brindada.
 3. Si usted no desea continuar, **simplemente no responda**. También puede escribir
-   `BAJA` en cualquier momento y dejaremos de procesar sus mensajes en este canal
-   (sección 12).
+   `BAJA` en cualquier momento: el asistente deja de responderle y no le enviamos más
+   mensajes por este canal, hasta que escriba `ALTA`. `BAJA` no borra sus datos; para
+   eso, vea la sección 12.
 
 Su respuesta posterior a ese aviso, enviada por escrito desde su propio número de
 teléfono, constituye la manifestación de voluntad exigida por la ley.
@@ -401,8 +402,9 @@ ocultos. Si actúa en representación de otra persona, deberá acreditar esa rep
 Puede pedir la eliminación de sus datos por cualquiera de estas vías:
 
 **1. Por WhatsApp, en la misma conversación.**
-Escriba **`BAJA`**. El asistente dejará de procesar sus mensajes y su pedido se
-transmitirá al Cliente para su supresión.
+Escriba que quiere que se eliminen sus datos. El pedido le llega al equipo del Cliente,
+que lo ejecuta desde nuestro sistema. (Escribir `BAJA` solamente detiene los mensajes:
+no borra sus datos.)
 
 **2. Por correo electrónico.**
 Escriba a **soporte@solotvj.com.ar** indicando:
@@ -411,16 +413,23 @@ Escriba a **soporte@solotvj.com.ar** indicando:
 
 **3. Directamente ante el consultorio o comercio**, que es el responsable del tratamiento.
 
-Para verificar su identidad aplicamos el mismo criterio de la sección 11: basta con
-exhibir el DNI; si fuera indispensable una imagen, sólo el frente, con el número de
+Si lo pide por WhatsApp desde el mismo número con el que escribió, ese número lo
+identifica y no hace falta nada más. Si lo pide por otra vía, para verificar su identidad
+aplicamos el mismo criterio de la sección 11: basta con exhibir el DNI; si fuera indispensable una imagen, sólo el frente, con el número de
 trámite y el código de barras ocultos; y quien actúe en representación de otra persona
 deberá acreditarla.
 
 ### Qué eliminamos
 
-El historial de la conversación, los datos que usted aportó (nombre, motivo,
-disponibilidad), las transcripciones de notas de voz y el vínculo entre su número y esa
-conversación.
+Su nombre y su número de teléfono, el texto de sus mensajes y de las respuestas, las
+transcripciones de notas de voz, los datos que usted aportó (nombre, motivo,
+disponibilidad) y las copias técnicas de los mensajes recibidos.
+
+### Qué conservamos
+
+Un identificador técnico de WhatsApp, sin contenido, y la fecha de su `BAJA` si la pidió,
+para poder seguir respetándola; y registros sin contenido (fechas, horas, estado de
+entrega de cada mensaje y la constancia del aviso de la sección 6.1).
 
 ### Qué no podemos eliminar
 
