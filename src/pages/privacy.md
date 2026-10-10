@@ -218,6 +218,8 @@ the data for its own purposes or for model training:
 | **OpenRouter**, to a transcription model from **OpenAI** or **Whisper** hosted by **Groq** | Voice note transcription | The voice note audio file | USA |
 | **Hostinger** | Application and database hosting | All service data, encrypted | Brazil |
 | **Cloudflare R2** | Encrypted backups | All service data, encrypted | USA |
+| **Cloudflare** — Tunnel | Secure connection between the internet and the application | All application traffic in transit, including message content | USA and others |
+| **Sentry** (Functional Software, Inc.) | Error, performance and technical logging | The error type and its location in the code, response times and technical logs; no message content or contact details | USA |
 | **Google Workspace** | Notifications to the Customer's staff | Recipient address and a link to the conversation; not clinical content | USA |
 
 ### 8.2 Website providers
@@ -238,7 +240,7 @@ requires it.
 ## 9. International data transfers
 
 Several providers in section 8 are established outside Argentina. In particular, message
-content is sent to **Meta, OpenRouter and the providers serving the AI models** (e.g. Microsoft Azure, Amazon Web Services, Google and Groq) in the **United States**,
+content is sent to **Meta, Cloudflare, OpenRouter and the providers serving the AI models** (e.g. Microsoft Azure, Amazon Web Services, Google and Groq) in the **United States**,
 which is **not** on the list of countries recognised by the Argentine
 authority as providing an adequate level of protection. These are therefore
 **international transfers** under Article 12 of Law No. 25.326.

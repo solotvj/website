@@ -252,6 +252,8 @@ no usar los datos para fines propios ni para entrenar modelos:
 | **OpenRouter**, hacia un modelo de transcripción de **OpenAI** o **Whisper** alojado por **Groq** | Transcripción de notas de voz a texto | El archivo de audio de la nota de voz | EE. UU. |
 | **Hostinger** | Alojamiento de la aplicación y la base de datos | Todos los datos del servicio, cifrados | Brasil |
 | **Cloudflare R2** | Copias de seguridad cifradas | Todos los datos del servicio, cifrados | EE. UU. |
+| **Cloudflare** — Tunnel | Conexión segura entre Internet y la aplicación | Todo el tráfico de la aplicación en tránsito, incluido el contenido de los mensajes | EE. UU. y otros |
+| **Sentry** (Functional Software, Inc.) | Registro de errores, rendimiento y registros técnicos | El tipo de error y su ubicación en el código, tiempos de respuesta y registros técnicos; sin contenido de mensajes ni datos de contacto | EE. UU. |
 | **Google Workspace** | Notificaciones al equipo del Cliente | Dirección de correo del destinatario y un enlace a la conversación; no el contenido clínico | EE. UU. |
 
 ### 8.2 Proveedores del sitio web
@@ -272,7 +274,7 @@ competente que así lo imponga.
 ## 9. Transferencia internacional de datos
 
 Varios de los proveedores de la sección 8 están radicados fuera de la República
-Argentina. En particular, el contenido de los mensajes se envía a **Meta, OpenRouter y
+Argentina. En particular, el contenido de los mensajes se envía a **Meta, Cloudflare, OpenRouter y
 los proveedores que sirven los modelos de IA** (p. ej. Microsoft Azure, Amazon Web Services, Google y Groq), en los **Estados Unidos de América**, país que **no integra** la
 nómina de Estados con nivel adecuado de protección reconocida por la autoridad argentina.
 Por lo tanto, esas transferencias constituyen **transferencia internacional** en los
