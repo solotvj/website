@@ -7,8 +7,8 @@ description: How Solotvj handles personal data in its automated WhatsApp assista
 
 # Privacy policy
 
-**Last updated:** 8 October 2026\
-**Version:** 2.1
+**Last updated:** 10 October 2026\
+**Version:** 2.2
 
 > English translation provided for convenience and for review by third parties such as
 > Meta Platforms. The operative version is the Spanish one at
@@ -154,8 +154,9 @@ Article 5 of Law No. 25.326 requires consent to be **free, express and informed*
 2. That notice is sent **once per contact number**, and the date and time of sending are
    recorded solely to evidence that the information was given.
 3. If you do not wish to continue, **simply do not reply**. You may also write `BAJA`
-   (unsubscribe) at any time and we will stop processing your messages on this channel
-   (section 12).
+   (unsubscribe) at any time: the assistant stops replying and we send you no more
+   messages on this channel, until you write `ALTA`. `BAJA` does not delete your data;
+   for that, see section 12.
 
 Your subsequent reply, sent in writing from your own phone number, constitutes the
 statement of will the law requires.
@@ -356,8 +357,9 @@ of that representation.
 You can request deletion by any of these routes:
 
 **1. On WhatsApp, in the same conversation.**
-Send **`BAJA`**. The assistant will stop processing your messages and your request will be
-passed to the Customer for erasure.
+Write that you want your data deleted. The request reaches the Customer's team, who carry
+it out from our system. (Writing `BAJA` only stops the messages: it does not delete your
+data.)
 
 **2. By email.**
 Write to **soporte@solotvj.com.ar** stating the WhatsApp number you messaged from
@@ -365,14 +367,23 @@ and the name of the practice or business you contacted.
 
 **3. Directly to the practice or business**, which is the controller.
 
-We verify identity by the same standard as in section 11: showing your DNI is enough;
+If you ask on WhatsApp from the number you wrote from, that number identifies you and
+nothing else is needed. By any other route, we verify identity by the same standard as in
+section 11: showing your DNI is enough;
 where an image is indispensable, only the front, with the procedure number and barcode
 obscured; and anyone acting on another person's behalf must prove that representation.
 
 ### What we delete
 
-The conversation history, the data you provided (name, reason, availability), voice note
-transcriptions, and the link between your number and that conversation.
+Your name and phone number, the text of your messages and of the replies, voice note
+transcriptions, the data you provided (name, reason, availability), and the technical
+copies of the messages received.
+
+### What we keep
+
+A technical WhatsApp identifier, without content, and the date of your `BAJA` if you sent
+one, so we can keep respecting it; and records without content (dates, times, each
+message's delivery status, and the evidence of the notice in section 6.1).
 
 ### What we cannot delete
 
