@@ -1,48 +1,244 @@
 ---
-// Layout for Markdown legal pages (src/pages/*.md). Frontmatter: lang, title, description.
+// Layout for Markdown legal pages (src/pages/*.md). Frontmatter: lang, title, description, optional paths.
 import BaseLayout from './BaseLayout.astro';
 import LangNav from '../components/LangNav.astro';
 import Wordmark from '../components/Wordmark.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { langs, ui, type Lang } from '../i18n';
+import type { MarkdownHeading } from 'astro';
+import { langs, ui, useTranslations, type Lang } from '../i18n';
 
-const { lang, title, description } = Astro.props.frontmatter as { lang: Lang; title: string; description: string };
-const hrefs = Object.fromEntries(langs.map((l) => [l, ui[l].privacyPath])) as Record<Lang, string>;
+const { lang, title, description, paths } = Astro.props.frontmatter as {
+  lang: Lang;
+  title: string;
+  description: string;
+  /** This page in each language; defaults to the privacy policy's paths. */
+  paths?: Record<Lang, string>;
+};
+const hrefs = paths ?? (Object.fromEntries(langs.map((l) => [l, ui[l].privacyPath])) as Record<Lang, string>);
 const urls = Object.fromEntries(langs.map((l) => [l, new URL(hrefs[l], Astro.site).href])) as Record<Lang, string>;
+const t = useTranslations(lang);
+
+// Index from the numbered sections ("## 1. Quiénes somos"): number in mono, title beside it.
+const toc = (Astro.props.headings as MarkdownHeading[])
+  .filter((h) => h.depth === 2)
+  .map((h) => {
+    const [, num = '', text = h.text] = h.text.match(/^(\d+)\.\s+(.*)$/) ?? [];
+    return { slug: h.slug, num, text };
+  });
 ---
 
 <BaseLayout lang={lang} title={`${title} · Solotvj`} description={description} urls={urls}>
-  <header>
+  <header class="top">
     <a href={getRelativeLocaleUrl(lang)} class="home" aria-label="Solotvj"><Wordmark /></a>
-    <LangNav lang={lang} hrefs={hrefs} />
   </header>
-  <main class="body prose">
-    <slot />
-  </main>
+  <LangNav lang={lang} hrefs={hrefs} />
+
+  <div class="page">
+    <nav class="toc" aria-label={t('tocLabel')}>
+      <!-- Phones: collapsed above the text. Wide screens: the sticky list below. -->
+      <details class="toc-mobile">
+        <summary class="label">{t('tocLabel')}</summary>
+        <ol>{toc.map((h) => <li><a href={`#${h.slug}`}><span class="num">{h.num}</span>{h.text}</a></li>)}</ol>
+      </details>
+      <div class="toc-desktop">
+        <p class="label">{t('tocLabel')}</p>
+        <ol>{toc.map((h) => <li><a href={`#${h.slug}`}><span class="num">{h.num}</span>{h.text}</a></li>)}</ol>
+      </div>
+    </nav>
+
+    <main class="body prose">
+      <slot />
+    </main>
+  </div>
 </BaseLayout>
 
+<script>
+  // Marks the section being read in the index, and keeps it visible in the sticky list.
+  const headings = [...document.querySelectorAll<HTMLElement>('.prose h2[id]')];
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc a')];
+  const list = document.querySelector<HTMLElement>('.toc-desktop ol');
+  let current = '';
+
+  function update() {
+    const passed = headings.filter((h) => h.getBoundingClientRect().top <= 120);
+    // At the bottom the last sections can't reach the top, so the last one wins.
+    const atEnd = innerHeight + scrollY >= document.documentElement.scrollHeight - 2;
+    const id = (atEnd ? headings.at(-1) : passed.at(-1))?.id ?? '';
+    if (id === current) return;
+    current = id;
+    for (const a of links) {
+      const on = decodeURIComponent(a.hash) === `#${id}`;
+      if (on) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    }
+    const active = list?.querySelector<HTMLElement>('[aria-current]');
+    if (list && active) {
+      const r = active.getBoundingClientRect();
+      const box = list.getBoundingClientRect();
+      if (r.top < box.top) list.scrollTop -= box.top - r.top + 8;
+      else if (r.bottom > box.bottom) list.scrollTop += r.bottom - box.bottom + 8;
+    }
+  }
+
+  let queued = false;
+  addEventListener(
+    'scroll',
+    () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    },
+    { passive: true },
+  );
+  update();
+
+  // Picking a section on phones closes the index.
+  document.querySelectorAll('.toc-mobile a').forEach((a) =>
+    a.addEventListener('click', () => a.closest('details')?.removeAttribute('open')),
+  );
+</script>
+
 <style>
-  header {
-    padding: var(--space-4) var(--space-6);
+  .top {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 var(--space-6);
+    border-bottom: 1px solid var(--line);
   }
 
   .home {
     display: inline-block;
     text-decoration: none;
+    border-radius: var(--radius-sm);
   }
 
   .home :global(.stv-wordmark) {
     font-size: 32px;
   }
 
-  main {
+  .page {
     box-sizing: border-box;
     flex: 1;
+    display: grid;
     width: 100%;
-    max-width: 760px;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: var(--space-10) var(--space-4) var(--space-16);
+    padding: var(--space-10) var(--space-6) var(--space-16);
+  }
+
+  main {
+    min-width: 0;
+    max-width: 720px;
     color: var(--ink-muted);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  .prose :global(h2) {
+    scroll-margin-top: var(--space-10);
+  }
+
+  /* Index */
+  .toc ol {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .toc a {
+    display: grid;
+    grid-template-columns: 3ch minmax(0, 1fr);
+    gap: var(--space-2);
+    padding: 6px var(--space-2);
+    border-left: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .toc a:hover {
+    color: var(--ink);
+  }
+
+  .toc a[aria-current] {
+    border-left-color: var(--accent);
+    color: var(--ink);
+  }
+
+  .toc .num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-subtle);
+  }
+
+  .toc a[aria-current] .num {
+    color: var(--accent);
+  }
+
+  .toc .label {
+    margin: 0;
+    color: var(--ink-subtle);
+  }
+
+  .toc-mobile {
+    margin-bottom: var(--space-10);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface-100);
+  }
+
+  .toc-mobile summary {
+    padding: var(--space-4);
+    cursor: pointer;
+    color: var(--ink-muted);
+  }
+
+  .toc-mobile ol {
+    padding: 0 var(--space-4) var(--space-4);
+  }
+
+  .toc-desktop {
+    display: none;
+  }
+
+  @media (min-width: 960px) {
+    .page {
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: var(--space-16);
+    }
+
+    .toc-mobile {
+      display: none;
+    }
+
+    /* The list scrolls on its own if the window is short. */
+    .toc-desktop {
+      display: grid;
+      gap: var(--space-4);
+      max-height: calc(100svh - 2 * var(--space-10));
+    }
+
+    .toc-desktop ol {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    /* Follows the scroll. */
+    .toc {
+      align-self: start;
+      position: sticky;
+      top: var(--space-10);
+    }
   }
 
   /* Markdown output has no classes, so the type classes from tokens.css are mirrored on its elements. */
