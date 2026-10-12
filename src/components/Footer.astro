@@ -29,6 +29,8 @@ const t = useTranslations(Astro.props.lang);
     <p class="links">
       <a href={t('privacyPath')}>{t('privacyLink')}</a>
       <a href={t('termsPath')}>{t('termsLink')}</a>
+      <a href="/baja" hreflang="es">{t('cancelLink')}</a>
+      <a href="/baja#arrepentimiento" hreflang="es">{t('withdrawLink')}</a>
     </p>
     <!-- ARCA's Data Fiscal (form F960/NM), as ARCA issues it. The link redirects to https; the image is loaded over https. -->
     <a class="data-fiscal" href="http://qr.afip.gob.ar/?qr=zcNxLI9w2PbVkd5sgKuBAw,," target="_F960AFIPInfo" rel="noopener">

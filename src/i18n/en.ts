@@ -1,4 +1,4 @@
-import { pricing } from '../pricing';
+import { introUntil, pricing } from '../pricing';
 import type { Dict } from './index';
 
 export default {
@@ -26,7 +26,7 @@ export default {
   step4Title: 'Your team takes over',
   step4Body: 'When a person is needed, it emails your team and stops replying.',
   offerTitle: `First ${pricing.introMonths} months at half price.`,
-  offerBody: `US$${pricing.intro} a month instead of US$${pricing.fee}, with no per-user charge. Work out your price; the calculator is in Spanish.`,
+  offerBody: `US$${pricing.intro} a month instead of US$${pricing.fee}, with no per-user charge, for sign-ups until ${introUntil('en-GB')}. Work out your price; the calculator is in Spanish.`,
   offerCta: 'Work out your price',
   contactTitle: 'Let’s talk on WhatsApp',
   contactBody: 'Tell us what you need and we’ll reply in the same chat. If you prefer email, write to',
@@ -48,6 +48,8 @@ export default {
   privacyPath: '/privacy',
   termsLink: 'Terms of service',
   termsPath: '/terms',
+  cancelLink: 'Cancel the service',
+  withdrawLink: 'Withdrawal button',
   notFoundTitle: 'Page not found · Solotvj',
   notFoundText: 'We couldn’t find this page.',
   notFoundLink: 'Back to the home page',

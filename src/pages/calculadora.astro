@@ -5,7 +5,7 @@ import Wordmark from '../components/Wordmark.astro';
 import Button from '../components/Button.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { whatsappUrl } from '../i18n';
-import { pricing } from '../pricing';
+import { introUntil, pricing } from '../pricing';
 
 // Spanish only: every language's alternate is this page, so its canonical isn't the homepage's.
 const page = new URL('/calculadora', Astro.site).href;
@@ -55,7 +55,7 @@ const demo = [
       </p>
       <p class="offer">
         <span class="offer-title">Los primeros {pricing.introMonths} meses, mitad de precio.</span>
-        <span class="offer-body">US$ {pricing.intro} por mes en vez de US$ {pricing.fee}, mientras ves cómo responde a tus clientes.</span>
+        <span class="offer-body">US$ {pricing.intro} por mes en vez de US$ {pricing.fee}, mientras ves cómo responde a tus clientes. Para quienes contraten hasta el {introUntil()}.</span>
       </p>
     </header>
 
@@ -172,8 +172,8 @@ const demo = [
           <h3 class="subheading">Pagás en pesos</h3>
           <ul>
             <li>
-              Nuestros precios están en dólares. Te facturamos en pesos, al tipo de cambio oficial del Banco Central
-              (BCRA) del día de la factura.
+              Nuestros precios están en dólares y son finales: no sumamos IVA (somos monotributistas). Te facturamos en
+              pesos, al tipo de cambio oficial del Banco Central (BCRA) del día hábil anterior a la factura.
             </li>
             <li>
               Hoy: <output id="rate">–</output>, según el BCRA del <output id="rate-date">–</output>.{' '}
@@ -191,6 +191,14 @@ const demo = [
               US$ {pricing.metaRate.toLocaleString('es-AR')} por respuesta, la tarifa para Argentina.
             </li>
             <li>Meta te cobra a vos, con una tarjeta que cargás al conectar tu número. No pasa por nosotros.</li>
+            <li>
+              Precio de inicio: para nuevos clientes que contraten hasta el {introUntil()}, un número por cliente. La
+              configuración se cobra aparte. Sin permanencia mínima. No se acumula con otras promociones.
+            </li>
+            <li>
+              Si te arrepentís dentro de los 10 días y el asistente todavía no está activado, te devolvemos todo,
+              configuración incluida. <a href="/baja#arrepentimiento">Botón de arrepentimiento</a>
+            </li>
             <li>Los mensajes que te mandan tus clientes son gratis.</li>
             <li>Las respuestas que vos o tu equipo mandan desde la app WhatsApp Business también son gratis.</li>
           </ul>

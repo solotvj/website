@@ -1,4 +1,4 @@
-import { pricing } from '../pricing';
+import { introUntil, pricing } from '../pricing';
 
 export default {
   htmlLang: 'es-AR',
@@ -25,7 +25,7 @@ export default {
   step4Title: 'Tu equipo toma la posta',
   step4Body: 'Cuando hace falta una persona, le avisa a tu equipo por correo y deja de responder.',
   offerTitle: `Los primeros ${pricing.introMonths} meses, mitad de precio.`,
-  offerBody: `US$ ${pricing.intro} por mes en vez de US$ ${pricing.fee}, sin costo por usuario. Calculá cuánto pagarías, en pesos.`,
+  offerBody: `US$ ${pricing.intro} por mes en vez de US$ ${pricing.fee}, sin costo por usuario, si contratás hasta el ${introUntil()}. Calculá cuánto pagarías, en pesos.`,
   offerCta: 'Calculá tu precio',
   contactTitle: 'Hablemos por WhatsApp',
   contactBody: 'Contanos qué necesitás y te respondemos por el mismo chat. Si preferís el correo, escribinos a',
@@ -47,6 +47,8 @@ export default {
   privacyPath: '/privacidad',
   termsLink: 'Términos y condiciones',
   termsPath: '/terminos',
+  cancelLink: 'Botón de baja',
+  withdrawLink: 'Botón de arrepentimiento',
   notFoundTitle: 'Página no encontrada · Solotvj',
   notFoundText: 'No encontramos esta página.',
   notFoundLink: 'Volvé al inicio',
