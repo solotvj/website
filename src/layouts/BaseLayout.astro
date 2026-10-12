@@ -2,6 +2,7 @@
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import tokens from '../../design-system/tokens.json';
 import '../../design-system/tokens.css';
+import '../../design-system/bundle.css';
 import Footer from '../components/Footer.astro';
 import { defaultLang, langs, ui, type Lang } from '../i18n';
 
@@ -55,15 +56,17 @@ const background = tokens.color.tokens.find((t) => t.name === 'surface-000')!.va
     <meta property="og:description" content={description} />
     <meta property="og:url" content={urls[lang]} />
     <meta property="og:locale" content={d.ogLocale} />
+    <!-- Preview card for shared links (WhatsApp, Facebook); generated from og/template.html. -->
+    <meta property="og:image" content={new URL(`og-${lang}.png`, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={d.title} />
+    <meta name="twitter:card" content="summary_large_image" />
     {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={ui[l].ogLocale} />)}
 
-    <!-- ponytail: Google Fonts, as the design system specifies; self-host with @fontsource if we drop the third-party request. -->
+    <!-- Fonts come from design-system/bundle.css (its @import); preconnect so they start early. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif&family=JetBrains+Mono:wght@500&display=swap"
-    />
   </head>
   <body>
     <slot />

@@ -15,8 +15,12 @@ export const legal = {
   note: 'Solotvj es un servicio comercializado por Tomás Villanueva Jousset',
   noteLang: 'es-AR',
   email: 'ventas@solotvj.com.ar',
-  address: 'Comandante Luis Piedrabuena 318, Argentina',
+  whatsapp: '+54 11 7812-1723',
 };
+
+/** WhatsApp chat link, optionally with a prefilled message. */
+export const whatsappUrl = (text?: string) =>
+  `https://wa.me/${legal.whatsapp.replace(/\D/g, '')}${text ? `?text=${encodeURIComponent(text)}` : ''}`;
 
 export function getLangFromUrl(url: URL): Lang {
   const [first] = url.pathname.slice(import.meta.env.BASE_URL.length).split('/').filter(Boolean);

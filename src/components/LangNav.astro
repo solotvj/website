@@ -10,9 +10,12 @@ interface Props {
 
 const { lang, hrefs } = Astro.props;
 const t = useTranslations(lang);
+// With other links in the slot it's the site's navigation, not only the language switch.
+const label = Astro.slots.has('default') ? undefined : t('langNav');
 ---
 
-<nav class="langs label" aria-label={t('langNav')}>
+<nav class="langs label" aria-label={label}>
+  <slot />
   {
     langs.map((l, i) => (
       <>
@@ -32,23 +35,36 @@ const t = useTranslations(lang);
 </nav>
 
 <style>
+  /* Centred in the 64px top bar; each link is a 44px touch target. */
   .langs {
     position: absolute;
-    top: var(--space-4);
+    top: 10px;
     right: var(--space-4);
     display: flex;
     align-items: center;
     color: var(--ink-subtle);
   }
 
-  .langs a {
-    padding: var(--space-2);
+  /* :global so links passed in the slot (e.g. Precios) look the same. */
+  .langs :global(a) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 var(--space-2);
+    box-sizing: border-box;
     color: var(--ink-subtle);
     text-decoration: none;
   }
 
-  .langs a:hover,
-  .langs a[aria-current='page'] {
+  .langs :global(a:hover),
+  .langs :global(a[aria-current='page']) {
     color: var(--ink);
+  }
+
+  /* A link before the languages sits apart from them. */
+  .langs :global(.nav-extra) {
+    margin-right: var(--space-4);
   }
 </style>
