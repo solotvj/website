@@ -11,7 +11,14 @@ const t = useTranslations(Astro.props.lang);
 
 <footer>
   <div class="main">
-    <Wordmark class="brand" />
+    <!-- The wordmark, with ARCA's Data Fiscal beside it. -->
+    <div class="brand-block">
+      <Wordmark class="brand" />
+      <!-- ARCA's Data Fiscal (form F960/NM), as ARCA issues it. The link redirects to https; the image is loaded over https. -->
+      <a class="data-fiscal" href="http://qr.afip.gob.ar/?qr=zcNxLI9w2PbVkd5sgKuBAw,," target="_F960AFIPInfo" rel="noopener">
+        <img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" width="239" height="327" alt="Data Fiscal (ARCA)" loading="lazy" />
+      </a>
+    </div>
     <address>
       <p>
         <span class="label">WhatsApp</span>
@@ -32,10 +39,6 @@ const t = useTranslations(Astro.props.lang);
       <a href="/baja" hreflang="es">{t('cancelLink')}</a>
       <a href="/baja#arrepentimiento" hreflang="es">{t('withdrawLink')}</a>
     </p>
-    <!-- ARCA's Data Fiscal (form F960/NM), as ARCA issues it. The link redirects to https; the image is loaded over https. -->
-    <a class="data-fiscal" href="http://qr.afip.gob.ar/?qr=zcNxLI9w2PbVkd5sgKuBAw,," target="_F960AFIPInfo" rel="noopener">
-      <img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" width="239" height="327" alt="Data Fiscal (ARCA)" loading="lazy" />
-    </a>
   </div>
 </footer>
 
@@ -109,10 +112,16 @@ const t = useTranslations(Astro.props.lang);
     text-underline-offset: 3px;
   }
 
+  .brand-block {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
   .data-fiscal img {
     display: block;
     width: auto;
-    height: 64px;
+    height: 48px;
   }
 
   .links {
