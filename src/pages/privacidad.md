@@ -7,8 +7,8 @@ description: Cómo Solotvj trata los datos personales en su servicio de asistent
 
 # Política de privacidad
 
-**Última actualización:** 10 de octubre de 2026\
-**Versión:** 2.2
+**Última actualización:** 12 de octubre de 2026\
+**Versión:** 2.3
 
 ---
 
@@ -250,7 +250,7 @@ no usar los datos para fines propios ni para entrenar modelos:
 | **Meta Platforms, Inc.** — Plataforma de WhatsApp Business | Transporte de los mensajes | Todo el contenido y los metadatos, por ser el canal | EE. UU. y otros |
 | **OpenRouter** — modelos de IA de OpenAI y Anthropic, servidos a través de OpenRouter por sus proveedores (p. ej. Microsoft Azure, Amazon Web Services, Google) | Generación de la respuesta del asistente | El texto de su mensaje y la información de negocio del Cliente necesaria para responder | EE. UU. |
 | **OpenRouter**, hacia un modelo de transcripción de **OpenAI** o **Whisper** alojado por **Groq** | Transcripción de notas de voz a texto | El archivo de audio de la nota de voz | EE. UU. |
-| **Hostinger** | Alojamiento de la aplicación y la base de datos | Todos los datos del servicio, cifrados | Brasil |
+| **Hostinger** | Alojamiento de la aplicación y la base de datos | Todos los datos del servicio, cifrados | EE. UU. |
 | **Cloudflare R2** | Copias de seguridad cifradas | Todos los datos del servicio, cifrados | EE. UU. |
 | **Cloudflare** — Tunnel | Conexión segura entre Internet y la aplicación | Todo el tráfico de la aplicación en tránsito, incluido el contenido de los mensajes | EE. UU. y otros |
 | **Sentry** (Functional Software, Inc.) | Registro de errores, rendimiento y registros técnicos | El tipo de error y su ubicación en el código, tiempos de respuesta y registros técnicos; sin contenido de mensajes ni datos de contacto | EE. UU. |
@@ -274,7 +274,7 @@ competente que así lo imponga.
 ## 9. Transferencia internacional de datos
 
 Varios de los proveedores de la sección 8 están radicados fuera de la República
-Argentina. En particular, el contenido de los mensajes se envía a **Meta, Cloudflare, OpenRouter y
+Argentina. En particular, el contenido de los mensajes se envía a **Meta, Hostinger, Cloudflare, OpenRouter y
 los proveedores que sirven los modelos de IA** (p. ej. Microsoft Azure, Amazon Web Services, Google y Groq), en los **Estados Unidos de América**, país que **no integra** la
 nómina de Estados con nivel adecuado de protección reconocida por la autoridad argentina.
 Por lo tanto, esas transferencias constituyen **transferencia internacional** en los
@@ -295,15 +295,12 @@ estado de cada uno escribiendo a la dirección de la sección 16.
 
 **La base de datos de Clientes y facturación**, de la que Solotvj es responsable y que
 está declarada bajo el Legajo RL-2026-95041698-APN-DNPDP#AAIP (sección 7), **también es
-objeto de transferencia internacional**:
+objeto de transferencia internacional** a los **Estados Unidos de América**, donde
+Hostinger aloja la aplicación y la base de datos, Cloudflare R2 guarda las copias de
+respaldo cifradas y Google Workspace procesa los correos con las personas de contacto de
+cada Cliente.
 
-- a **Brasil**, donde Hostinger aloja la aplicación y la base de datos; y
-- a los **Estados Unidos de América**, donde Cloudflare R2 guarda las copias de respaldo
-  cifradas y Google Workspace procesa los correos con las personas de contacto de cada
-  Cliente.
-
-Ninguno de los dos países integra la nómina de Estados con nivel adecuado de protección.
-Estas transferencias se amparan en las mismas cláusulas contractuales modelo descriptas
+Esta transferencia se ampara en las mismas cláusulas contractuales modelo descriptas
 arriba.
 
 ---

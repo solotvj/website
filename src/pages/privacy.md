@@ -7,8 +7,8 @@ description: How Solotvj handles personal data in its automated WhatsApp assista
 
 # Privacy policy
 
-**Last updated:** 10 October 2026\
-**Version:** 2.2
+**Last updated:** 12 October 2026\
+**Version:** 2.3
 
 > English translation provided for convenience and for review by third parties such as
 > Meta Platforms. The operative version is the Spanish one at
@@ -216,7 +216,7 @@ the data for its own purposes or for model training:
 | **Meta Platforms, Inc.** — WhatsApp Business Platform | Message transport | All content and metadata, as the channel | USA and others |
 | **OpenRouter** — AI models from OpenAI and Anthropic, served through OpenRouter by their providers (e.g. Microsoft Azure, Amazon Web Services, Google) | Generating the assistant's reply | Your message text and the Customer's business information needed to answer | USA |
 | **OpenRouter**, to a transcription model from **OpenAI** or **Whisper** hosted by **Groq** | Voice note transcription | The voice note audio file | USA |
-| **Hostinger** | Application and database hosting | All service data, encrypted | Brazil |
+| **Hostinger** | Application and database hosting | All service data, encrypted | United States |
 | **Cloudflare R2** | Encrypted backups | All service data, encrypted | USA |
 | **Cloudflare** — Tunnel | Secure connection between the internet and the application | All application traffic in transit, including message content | USA and others |
 | **Sentry** (Functional Software, Inc.) | Error, performance and technical logging | The error type and its location in the code, response times and technical logs; no message content or contact details | USA |
@@ -240,7 +240,7 @@ requires it.
 ## 9. International data transfers
 
 Several providers in section 8 are established outside Argentina. In particular, message
-content is sent to **Meta, Cloudflare, OpenRouter and the providers serving the AI models** (e.g. Microsoft Azure, Amazon Web Services, Google and Groq) in the **United States**,
+content is sent to **Meta, Hostinger, Cloudflare, OpenRouter and the providers serving the AI models** (e.g. Microsoft Azure, Amazon Web Services, Google and Groq) in the **United States**,
 which is **not** on the list of countries recognised by the Argentine
 authority as providing an adequate level of protection. These are therefore
 **international transfers** under Article 12 of Law No. 25.326.
@@ -260,14 +260,11 @@ in section 16.
 
 **The Customer and billing database**, for which Solotvj is the controller and which is
 declared under Legajo RL-2026-95041698-APN-DNPDP#AAIP (section 7), **is also subject to
-international transfer**:
+international transfer** to the **United States**, where Hostinger hosts the application
+and database, Cloudflare R2 stores the encrypted backups and Google Workspace handles
+email with each Customer's contact persons.
 
-- to **Brazil**, where Hostinger hosts the application and database; and
-- to the **United States**, where Cloudflare R2 stores the encrypted backups and Google
-  Workspace handles email with each Customer's contact persons.
-
-Neither country is on the list of countries with an adequate level of protection. These
-transfers rely on the same model contractual clauses described above.
+This transfer relies on the same model contractual clauses described above.
 
 ---
 
