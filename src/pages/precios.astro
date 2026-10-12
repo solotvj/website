@@ -8,7 +8,7 @@ import { whatsappUrl } from '../i18n';
 import { introUntil, pricing } from '../pricing';
 
 // Spanish only: every language's alternate is this page, so its canonical isn't the homepage's.
-const page = new URL('/calculadora', Astro.site).href;
+const page = new URL('/precios', Astro.site).href;
 
 // BCRA's official reference rate (Comunicación A 3500). Read at build time so the page works offline;
 // the browser fetches it again so a visitor sees today's rate.

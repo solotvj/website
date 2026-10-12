@@ -1,4 +1,4 @@
-// Our prices and Meta's, in US$. The homepage and the calculator (src/pages/calculadora.astro) both read them from here.
+// Our prices and Meta's, in US$. The homepage and the calculator (src/pages/precios.astro) both read them from here.
 /** The offer's end date in Spanish, e.g. "31 de diciembre de 2026". */
 export const introUntil = (lang = 'es-AR') =>
   new Date(`${pricing.introUntil}T12:00:00`).toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' });

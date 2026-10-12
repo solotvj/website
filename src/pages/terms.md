@@ -78,7 +78,7 @@ We confirm your request with a reference number within 24 hours.
 
 ## 5. Prices and billing
 
-- Current prices are those published at [solotvj.com.ar/calculadora](/calculadora) when
+- Current prices are those published at [solotvj.com.ar/precios](/precios) when
   you hire the service.
 - **Published prices are final.** Solotvj is registered in the Simplified Regime
   (Monotributo): it does not itemise VAT and its invoices do not generate a VAT credit. If

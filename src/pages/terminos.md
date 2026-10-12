@@ -80,7 +80,7 @@ por correo electrónico. Le confirmamos el pedido con un número de trámite den
 
 ## 5. Precios y facturación
 
-- Los precios vigentes son los publicados en [solotvj.com.ar/calculadora](/calculadora) al
+- Los precios vigentes son los publicados en [solotvj.com.ar/precios](/precios) al
   momento de contratar.
 - **Los precios publicados son precios finales.** Solotvj es sujeto adherido al Régimen
   Simplificado (Monotributo): no discrimina IVA y sus facturas no generan crédito fiscal.
