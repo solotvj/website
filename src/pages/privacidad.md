@@ -7,8 +7,8 @@ description: Cómo Solotvj trata los datos personales en su servicio de asistent
 
 # Política de privacidad
 
-**Última actualización:** 12 de octubre de 2026\
-**Versión:** 2.3
+**Última actualización:** 13 de octubre de 2026\
+**Versión:** 2.4
 
 ---
 
@@ -187,6 +187,11 @@ mecanismo es el siguiente:
    `BAJA` en cualquier momento: el asistente deja de responderle y no le enviamos más
    mensajes por este canal, hasta que escriba `ALTA`. `BAJA` no borra sus datos; para
    eso, vea la sección 12.
+4. Algunos Clientes requieren su consentimiento expreso antes de que el asistente procese
+   sus mensajes. En ese caso, el primer mensaje que usted reciba incluirá un botón
+   «Acepto» junto con el enlace a esta política; el asistente no procesará ni responderá
+   sus mensajes hasta que usted lo toque (o escriba «Acepto»). Registramos la fecha y hora
+   de su aceptación, el texto que se le mostró y la versión de esta política.
 
 Su respuesta posterior a ese aviso, enviada por escrito desde su propio número de
 teléfono, constituye la manifestación de voluntad exigida por la ley.
@@ -317,7 +322,7 @@ configuración distinta, aplicamos por defecto:
 | Contenido de mensajes e historial de conversación | 90 días desde la fecha de cada mensaje |
 | Archivos de audio de notas de voz | Se eliminan **inmediatamente después de transcribirse**; nunca más de 7 días |
 | Transcripciones de audio | Igual plazo que el contenido de mensajes |
-| Registro del aviso de privacidad (fecha y hora) | Mientras dure la relación con el Cliente, más 5 años, como prueba del cumplimiento del deber de información |
+| Registro del aviso de privacidad (fecha y hora) | Mientras dure la relación con el Cliente. Al finalizar el servicio se entrega al Cliente en su exportación de datos y se elimina de la plataforma junto con los demás datos |
 | Registros técnicos y de acceso | 90 días |
 | Copias de respaldo cifradas | 30 días en rotación |
 | Datos de facturación y administración de Clientes | El plazo exigido por la legislación fiscal y comercial |

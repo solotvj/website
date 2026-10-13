@@ -7,8 +7,8 @@ description: How Solotvj handles personal data in its automated WhatsApp assista
 
 # Privacy policy
 
-**Last updated:** 12 October 2026\
-**Version:** 2.3
+**Last updated:** 13 October 2026\
+**Version:** 2.4
 
 > English translation provided for convenience and for review by third parties such as
 > Meta Platforms. The operative version is the Spanish one at
@@ -157,6 +157,11 @@ Article 5 of Law No. 25.326 requires consent to be **free, express and informed*
    (unsubscribe) at any time: the assistant stops replying and we send you no more
    messages on this channel, until you write `ALTA`. `BAJA` does not delete your data;
    for that, see section 12.
+4. Some Customers require your express consent before the assistant processes your
+   messages. In that case, the first message you receive includes an «Acepto» (I accept)
+   button together with the link to this policy; the assistant will not process or reply
+   to your messages until you tap it (or write «Acepto»). We record the date and time of
+   your acceptance, the text you were shown and the version of this policy.
 
 Your subsequent reply, sent in writing from your own phone number, constitutes the
 statement of will the law requires.
@@ -279,7 +284,7 @@ Set by the Customer as controller. Unless configured otherwise, our defaults are
 | Message content and conversation history | 90 days from the date of each message |
 | Voice note audio files | Deleted **immediately after transcription**; never more than 7 days |
 | Audio transcriptions | Same as message content |
-| Record of the privacy notice (date and time) | Duration of the Customer relationship plus 5 years, as evidence of the information duty |
+| Record of the privacy notice (date and time) | Duration of the Customer relationship. When the service ends it is handed to the Customer in its data export and deleted from the platform with the rest of the data |
 | Technical and access logs | 90 days |
 | Encrypted backups | 30 days rolling |
 | Customer billing and administration data | As required by tax and commercial law |
