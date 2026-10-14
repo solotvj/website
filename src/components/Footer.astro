@@ -1,5 +1,6 @@
 ---
-import { legal, useTranslations, type Lang } from '../i18n';
+import Wordmark from './Wordmark.astro';
+import { legal, whatsappUrl, useTranslations, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
@@ -8,28 +9,91 @@ interface Props {
 const t = useTranslations(Astro.props.lang);
 ---
 
-<footer class="small" aria-labelledby="legal-heading">
-  <h2 id="legal-heading" class="label">{t('legalHeading')}</h2>
-  <p class="brand">{legal.brand}</p>
-  <p lang={legal.noteLang}>{legal.note}</p>
-  <address>
-    <p>{t('email')}: <a href={`mailto:${legal.email}`}>{legal.email}</a></p>
-    <p>{t('address')}: {legal.address}</p>
-  </address>
-  <p class="links"><a href={t('privacyPath')}>{t('privacyLink')}</a></p>
+<footer>
+  <div class="main">
+    <!-- The wordmark, with ARCA's Data Fiscal beside it. -->
+    <div class="brand-block">
+      <Wordmark class="brand" />
+      <!-- ARCA's Data Fiscal (form F960/NM), as ARCA issues it. The link redirects to https; the image is loaded over https. -->
+      <a class="data-fiscal" href="http://qr.afip.gob.ar/?qr=zcNxLI9w2PbVkd5sgKuBAw,," target="_F960AFIPInfo" rel="noopener">
+        <img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" width="239" height="327" alt="Data Fiscal (ARCA)" loading="lazy" />
+      </a>
+    </div>
+    <address>
+      <p>
+        <span class="label">WhatsApp</span>
+        <a href={whatsappUrl()} target="_blank" rel="noopener">{legal.whatsapp}</a>
+      </p>
+      <p>
+        <span class="label">{t('email')}</span>
+        <a href={`mailto:${legal.email}`}>{legal.email}</a>
+      </p>
+    </address>
+  </div>
+
+  <div class="legal small">
+    <p lang={legal.noteLang}>{legal.note}</p>
+    <p class="links">
+      <a href={t('privacyPath')}>{t('privacyLink')}</a>
+      <a href={t('termsPath')}>{t('termsLink')}</a>
+      <a href="/baja" hreflang="es">{t('cancelLink')}</a>
+      <a href="/baja#arrepentimiento" hreflang="es">{t('withdrawLink')}</a>
+    </p>
+  </div>
 </footer>
 
 <style>
   footer {
-    display: grid;
-    gap: var(--space-1);
-    padding: var(--space-6);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
     color: var(--ink-muted);
-    text-align: center;
   }
 
-  h2 {
-    margin: 0 0 var(--space-2);
+  .main,
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-6);
+    border-top: 1px solid var(--line);
+  }
+
+  .main {
+    align-items: flex-start;
+    padding: var(--space-10) 0;
+  }
+
+  /* :global because the span lives in Wordmark's scope. */
+  .main :global(.brand) {
+    font-size: 32px;
+  }
+
+  address {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6) var(--space-10);
+    font-style: normal;
+  }
+
+  address p {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  address .label {
+    color: var(--ink-subtle);
+  }
+
+  address a {
+    color: var(--ink);
+  }
+
+  .legal {
+    align-items: center;
+    padding: var(--space-6) 0;
     color: var(--ink-subtle);
   }
 
@@ -37,26 +101,32 @@ const t = useTranslations(Astro.props.lang);
     margin: 0;
   }
 
-  .brand {
-    color: var(--ink);
-  }
-
-  address {
-    display: grid;
-    gap: var(--space-1);
-    font-style: normal;
-  }
-
-  .links {
-    margin-top: var(--space-2);
-  }
-
   a {
     color: inherit;
-    text-underline-offset: 3px;
+    text-decoration: none;
   }
 
   a:hover {
     color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .brand-block {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .data-fiscal img {
+    display: block;
+    width: auto;
+    height: 48px;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
   }
 </style>

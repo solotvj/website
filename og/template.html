@@ -1,0 +1,47 @@
+<!doctype html>
+<!--
+  Link preview image (og:image), 1200×630. Copy is the homepage's (src/i18n). Regenerate after changing it:
+    for l in es en; do "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+      --allow-file-access-from-files --window-size=1200,630 --virtual-time-budget=3000 \
+      --screenshot=public/og-$l.png "file://$PWD/og/template.html?$l"; done
+-->
+<html data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../design-system/tokens.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500&family=Instrument+Serif&display=swap" />
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--surface-000); }
+  .card { box-sizing: border-box; display: grid; grid-template-columns: 1fr 440px; gap: 56px; align-items: center; height: 100%; padding: 64px 72px; }
+  .copy { display: grid; gap: 40px; align-content: space-between; height: 100%; }
+  .mark { font-family: var(--font-display); font-size: 44px; line-height: 1; color: var(--ink); }
+  .mark span { color: var(--accent); }
+  h1 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 76px; line-height: 1.02; letter-spacing: -0.01em; color: var(--ink); }
+  h1 span { display: block; }
+  .site { font-family: var(--font-sans); font-size: 22px; color: var(--ink-muted); }
+  .chat { display: grid; gap: 12px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-100); font-family: var(--font-sans); font-size: 22px; line-height: 31px; }
+  .b { max-width: 85%; padding: 12px 16px; border-radius: var(--radius-md); }
+  .c { justify-self: start; background: var(--surface-200); color: var(--ink); border: 1px solid var(--line); border-top-left-radius: var(--radius-sm); }
+  .a { justify-self: end; background: var(--accent-fill); color: var(--on-accent); border-top-right-radius: var(--radius-sm); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="copy">
+    <div class="mark">Solotvj<span>.</span></div>
+    <h1 id="title"></h1>
+    <div class="site">solotvj.com.ar</div>
+  </div>
+  <div class="chat"><div class="b c" id="q"></div><div class="b a" id="r"></div></div>
+</div>
+<script>
+  const copy = {
+    es: ['Respondemos lo de siempre. Tu equipo, lo importante.', 'Hola, ¿a qué hora abren los sábados?', 'Hola, soy el asistente virtual del negocio. Los sábados abrimos de 9 a 13 h.'],
+    en: ['We handle the usual questions. Your team, the ones that matter.', 'Hi, what time do you open on Saturdays?', 'Hi, I’m the business’s virtual assistant. On Saturdays we open from 9 am to 1 pm.'],
+  }[location.search.slice(1) || 'es'];
+  document.getElementById('title').innerHTML = copy[0].split(/(?<=\.)\s+/).map((l) => `<span>${l}</span>`).join('');
+  document.getElementById('q').textContent = copy[1];
+  document.getElementById('r').textContent = copy[2];
+</script>
+</body>
+</html>

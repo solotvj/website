@@ -1,0 +1,132 @@
+---
+// Cancellation and withdrawal buttons (terms §4 and §9; Ley 24.240 art. 10 ter, Res. 424/2020).
+// Both requests go to a person by WhatsApp or email; we confirm with a reference number within 24 h.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Wordmark from '../components/Wordmark.astro';
+import Button from '../components/Button.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { legal, whatsappUrl } from '../i18n';
+
+// Spanish only: every language's alternate is this page.
+const page = new URL('/baja', Astro.site).href;
+const mail = (subject: string, body: string) =>
+  `mailto:${legal.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+const requests = [
+  {
+    id: 'baja',
+    title: 'Darte de baja',
+    body: [
+      'Sin permanencia mínima ni penalidad. El servicio sigue hasta el final del mes ya pagado; si querés que el asistente deje de responder antes, lo desactivamos dentro del día hábil siguiente.',
+      'Tu número sigue siendo tuyo y funciona en tu app WhatsApp Business como antes. Te ofrecemos exportar tus datos durante 30 días y después los eliminamos.',
+    ],
+    wa: 'Hola, quiero dar de baja el servicio de Solotvj. Mi negocio es: ',
+    subject: 'Baja del servicio',
+    terms: '/terminos#9-baja',
+    cta: ['Pedir la baja por WhatsApp', 'Pedir la baja por correo'],
+  },
+  {
+    id: 'arrepentimiento',
+    title: 'Botón de arrepentimiento',
+    body: [
+      'Dentro de los 10 días corridos desde que contrataste, y mientras el asistente todavía no esté activado, podés revocar la contratación sin dar motivos.',
+      'Te devolvemos todo lo que pagaste, incluido el cargo de configuración, en pesos y por el mismo importe facturado.',
+    ],
+    wa: 'Hola, quiero revocar la contratación del servicio de Solotvj (arrepentimiento). Mi negocio es: ',
+    subject: 'Arrepentimiento de la contratación',
+    terms: '/terminos#4-arrepentimiento',
+    cta: ['Arrepentirme por WhatsApp', 'Arrepentirme por correo'],
+  },
+];
+---
+
+<BaseLayout
+  lang="es"
+  urls={{ es: page, en: page }}
+  title="Baja y arrepentimiento · Solotvj"
+  description="Pedí la baja del servicio o revocá la contratación, por WhatsApp o por correo."
+>
+  <header class="top">
+    <a href={getRelativeLocaleUrl('es')} class="home" aria-label="Solotvj"><Wordmark /></a>
+  </header>
+
+  <main>
+    <h1 class="display">Baja y arrepentimiento</h1>
+    <p class="body lede">
+      Pedilo por el medio que prefieras, sin dar motivos. Te confirmamos el pedido con un número de trámite
+      dentro de las 24 horas.
+    </p>
+
+    {requests.map((r) => (
+      <section id={r.id} class="request" aria-labelledby={`${r.id}-title`}>
+        <h2 id={`${r.id}-title`} class="heading">{r.title}</h2>
+        {r.body.map((p) => <p class="body muted">{p}</p>)}
+        <div class="actions">
+          <Button href={whatsappUrl(r.wa)} variant="secondary" target="_blank" rel="noopener">{r.cta[0]}</Button>
+          <Button href={mail(r.subject, r.wa)} variant="secondary">{r.cta[1]}</Button>
+        </div>
+        <p class="small"><a href={r.terms}>Ver las condiciones en los términos</a></p>
+      </section>
+    ))}
+  </main>
+</BaseLayout>
+
+<style>
+  .top {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 var(--space-6);
+    border-bottom: 1px solid var(--line);
+  }
+  .home {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .home :global(.stv-wordmark) {
+    font-size: 32px;
+  }
+
+  main {
+    box-sizing: border-box;
+    flex: 1;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-10) var(--space-4) var(--space-16);
+  }
+  h1 {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(40px, 6vw + 16px, 56px);
+  }
+  p {
+    margin: 0;
+  }
+  .lede,
+  .muted {
+    color: var(--ink-muted);
+  }
+
+  .request {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+    scroll-margin-top: var(--space-6);
+  }
+  .request h2 {
+    margin: 0;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  @media (min-width: 640px) {
+    .actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+</style>
