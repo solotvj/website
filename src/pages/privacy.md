@@ -161,7 +161,10 @@ Article 5 of Law No. 25.326 requires consent to be **free, express and informed*
    messages. In that case, the first message you receive includes an «Acepto» (I accept)
    button together with the link to this policy; the assistant will not process or reply
    to your messages until you tap it (or write «Acepto»). We record the date and time of
-   your acceptance, the text you were shown and the version of this policy.
+   your acceptance, the text you were shown and the version of this policy. If you prefer
+   not to accept, the «Prefiero una persona» (I'd rather talk to a person) button hands the
+   conversation to a person on the Customer's team, and the assistant does not process
+   your messages.
 
 Your subsequent reply, sent in writing from your own phone number, constitutes the
 statement of will the law requires.

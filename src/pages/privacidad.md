@@ -191,7 +191,9 @@ mecanismo es el siguiente:
    sus mensajes. En ese caso, el primer mensaje que usted reciba incluirá un botón
    «Acepto» junto con el enlace a esta política; el asistente no procesará ni responderá
    sus mensajes hasta que usted lo toque (o escriba «Acepto»). Registramos la fecha y hora
-   de su aceptación, el texto que se le mostró y la versión de esta política.
+   de su aceptación, el texto que se le mostró y la versión de esta política. Si prefiere no
+   aceptar, el botón «Prefiero una persona» pasa la conversación a una persona del equipo
+   del Cliente, y el asistente no procesa sus mensajes.
 
 Su respuesta posterior a ese aviso, enviada por escrito desde su propio número de
 teléfono, constituye la manifestación de voluntad exigida por la ley.
