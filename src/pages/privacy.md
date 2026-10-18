@@ -7,8 +7,8 @@ description: How Solotvj handles personal data in its automated WhatsApp assista
 
 # Privacy policy
 
-**Last updated:** 13 October 2026\
-**Version:** 2.4
+**Last updated:** 18 October 2026\
+**Version:** 2.5
 
 > English translation provided for convenience and for review by third parties such as
 > Meta Platforms. The operative version is the Spanish one at
@@ -294,12 +294,13 @@ Set by the Customer as controller. Unless configured otherwise, our defaults are
 
 On expiry, data is removed by automated purge processes.
 
-### 10.2 Retention at the language model provider
+### 10.2 Retention at the language model providers
 
-**Current position:** the primary provider retains requests for **up to 30 days** solely to
-detect abuse, and does not use them to train models. **We do not currently have a
-zero-data-retention arrangement in place.** If we obtain one, this section and the policy
-date will be updated.
+Requests to AI models (generating replies and transcribing voice notes) are sent, through
+OpenRouter, **only to providers with zero data retention**: they do not keep the content
+of a request once it has been answered, and do not use it to train models. OpenRouter does
+not keep that content either. A restriction configured on our OpenRouter account
+guarantees it: it prevents a request from being sent to a provider without that regime.
 
 ### 10.3 What happens when a Customer leaves
 
