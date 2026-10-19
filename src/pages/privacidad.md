@@ -7,8 +7,8 @@ description: Cómo Solotvj trata los datos personales en su servicio de asistent
 
 # Política de privacidad
 
-**Última actualización:** 13 de octubre de 2026\
-**Versión:** 2.4
+**Última actualización:** 18 de octubre de 2026\
+**Versión:** 2.5
 
 ---
 
@@ -331,12 +331,14 @@ configuración distinta, aplicamos por defecto:
 
 Vencido el plazo, los datos se eliminan mediante procesos automáticos de purga.
 
-### 10.2 Retención en el proveedor de modelos de lenguaje
+### 10.2 Retención en los proveedores de modelos de lenguaje
 
-**Situación actual:** el proveedor principal conserva las solicitudes por **hasta 30
-días** con la única finalidad de detectar usos abusivos, y no las utiliza para entrenar
-modelos. **No tenemos actualmente vigente un régimen de retención nula (zero data
-retention).** Si lo obtenemos, actualizaremos esta sección y la fecha de la política.
+Las solicitudes a los modelos de IA (la generación de respuestas y la transcripción de notas
+de voz) se envían, a través de OpenRouter, **únicamente a proveedores con retención nula
+(zero data retention)**: no conservan el contenido de las solicitudes una vez respondidas
+y no lo utilizan para entrenar modelos. OpenRouter tampoco conserva ese contenido. Lo
+garantiza una restricción configurada en nuestra cuenta de OpenRouter, que impide enviar
+una solicitud a un proveedor sin ese régimen.
 
 ### 10.3 Qué pasa cuando un Cliente deja de usar el servicio
 
