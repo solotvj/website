@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Wordmark from '../../components/Wordmark.astro';
-import Button from '../../components/Button.astro';
 import LangNav from '../../components/LangNav.astro';
+import '../../styles/loca.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { defaultLang, legal, getLangFromUrl, langs, useTranslations, whatsappUrl } from '../../i18n';
 
@@ -12,378 +12,676 @@ export function getStaticPaths() {
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-// 1.5px line icons, drawn inline as the design system asks (no icon set yet).
-const icon = (d: string) =>
-  `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-const icons = {
-  // Two chain links: connecting the number.
-  connect: icon('<path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/>'),
-  // A note with lines: what you tell us about the business.
-  brief: icon('<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/>'),
-  // A clock: replies at any hour.
-  clock: icon('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'),
-  // A person: your team takes over.
-  person: icon('<circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/>'),
-};
-const phases = [
-  [t('phase1Label'), [
-    [icons.connect, t('step1Title'), t('step1Body')],
-    [icons.brief, t('step2Title'), t('step2Body')],
-  ]],
-  [t('phase2Label'), [
-    [icons.clock, t('step3Title'), t('step3Body')],
-    [icons.person, t('step4Title'), t('step4Body')],
-  ]],
-] as const;
-const demo = [
-  ['customer', t('demo1')],
-  ['agent', t('demo2')],
-  ['customer', t('demo3')],
-  ['agent', t('demo4')],
-  ['note', t('demoNote')],
-];
 const wa = whatsappUrl(t('waText'));
+
+// The ticker repeats its line so the loop has no gap.
+const ticker = `★ ${[1, 2, 3, 4, 5, 6].map((n) => t(`marquee${n}` as 'marquee1')).join(' ★ ')} ★ `.repeat(2);
+const misses = [1, 2, 3, 4].map((n) => [t(`miss${n}When` as 'miss1When'), t(`miss${n}` as 'miss1')]);
+const steps = [1, 2, 3, 4].map((n) => [t(`step${n}Title` as 'step1Title'), t(`step${n}Body` as 'step1Body')]);
+// What you and the assistant are doing at each hour: [from hour, key]. The first band also covers 22–23 h's message.
+const bands = (
+  [
+    [0, 'Night'],
+    [6, 'Early'],
+    [9, 'Morning'],
+    [13, 'Lunch'],
+    [15, 'Afternoon'],
+    [19, 'Evening'],
+    [22, 'Late'],
+  ] as const
+).map(([from, k]) => ({ from, you: t(`hour${k}`), msg: t(`hour${k}Msg`) }));
+const startHour = 3;
+const band = bands.findLast((b) => b.from <= startHour)!;
 ---
 
 <BaseLayout lang={lang}>
-  <header class="top">
-    <a class="home" href={getRelativeLocaleUrl(lang)} aria-label="Solotvj"><Wordmark class="brand" /></a>
-  </header>
-  <LangNav lang={lang}><a class="nav-extra" href="/precios" hreflang="es">{t('navPricing')}</a></LangNav>
+  <div class="loca">
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track"><span>{ticker}</span><span>{ticker}</span></div>
+    </div>
 
-  <main>
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <h1 id="hero-title" class="hero-title">
-          {t('heroTitle').split(/(?<=\.)\s+/).map((line) => <span>{line}</span>)}
-        </h1>
-        <p class="hero-lede">{t('heroLede')}</p>
-        <div class="stv-section-actions">
-          <Button href={wa} target="_blank" rel="noopener">{t('ctaWhatsapp')}</Button>
-          <Button href="/precios" variant="secondary" hreflang="es">{t('ctaPricing')}</Button>
-        </div>
+    <header class="loca-header">
+      <div class="loca-wrap">
+        <a class="loca-home" href={getRelativeLocaleUrl(lang)} aria-label="Solotvj"><Wordmark class="stv-on-bone" /></a>
+        <LangNav lang={lang}>
+          <a class="nav-link" href="#como">{t('navSteps')}</a>
+          <a class="nav-link" href="#precio">{t('navPricing')}</a>
+          <a class="nav-link nav-cta nav-extra" href="#contacto">{t('navContact')}</a>
+        </LangNav>
       </div>
+    </header>
 
-      <section class="stv-convo" aria-label={t('demoLabel')}>
-        <header class="stv-convo-head">
-          <span class="stv-convo-avatar" aria-hidden="true">{t('demoTitle').charAt(0)}</span>
-          <div class="stv-convo-who">
-            <p class="stv-convo-title">{t('demoTitle')}</p>
-            <p class="stv-convo-sub">{t('demoSub')}</p>
+    <main>
+      <section class="loca-wrap hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="hero-title">
+            <span>{t('heroTitle1')}</span>
+            <span>{t('heroTitle2')}</span>
+            <em>{t('heroTitle3')}</em>
+          </h1>
+          <p class="hero-lede">{t('heroLede')}</p>
+          <div class="actions">
+            <a class="loca-btn loca-btn-blue" href="#contacto">{t('heroCta')}</a>
+            <a class="more" href="/precios" hreflang="es">{t('heroPricing')} <span aria-hidden="true">→</span></a>
           </div>
-        </header>
-        <div class="stv-convo-body">
-          {demo.map(([from, text], i) => (
-            <div class={`stv-bubble-row stv-bubble-${from}`} style={`--i: ${i}`}>
-              <div class="stv-bubble"><div class="stv-bubble-text">{text}</div></div>
+        </div>
+
+        <div class="chat-wrap">
+          <div class="loca-sticker sticker" aria-hidden="true">{t('sticker')}</div>
+          <section class="chat" aria-label={t('chatLabel')}>
+            <header class="chat-head loca-label">
+              <span>{t('chatTitle')}</span>
+              <span class="chat-time">03:12</span>
+            </header>
+            <div class="chat-body">
+              <p class="bubble bubble-in">{t('chat1')}</p>
+              <p class="bubble bubble-out">{t('chat2')}</p>
+              <p class="chat-note loca-label">{t('chatNote')}</p>
             </div>
-          ))}
+          </section>
         </div>
-        <p class="small privacy">
-          {t('svcPrivacy')} <a href={t('privacyPath')}>{t('svcPrivacyLink')}</a>
-        </p>
       </section>
-    </section>
 
-    <section class="steps" aria-labelledby="steps-title">
-      <header class="stv-section-header">
-        <h2 id="steps-title" class="stv-section-title">{t('stepsTitle')}</h2>
-        <p class="stv-section-lede">{t('stepsLede')}</p>
-      </header>
+      <section class="band dark" aria-labelledby="miss-title">
+        <div class="loca-wrap stack miss">
+          <h2 id="miss-title" class="loca-display">{t('missTitle1')} <em class="accent">{t('missTitle2')}</em></h2>
+          <ul class="rows">
+            {misses.map(([when, what]) => (
+              <li class="row">
+                <span class="row-when loca-label">{when}</span>
+                <span class="row-what">{what}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      <div class="phases">
-        {phases.map(([label, items]) => (
-          <div class="phase">
-            <p class="label phase-label">{label}</p>
-            <ol class="step-list">
-              {items.map(([svg, title, body]) => (
-                <li>
-                  <span class="step-icon" aria-hidden="true" set:html={svg} />
-                  <div class="step-text">
-                    <h3 class="subheading">{title}</h3>
-                    <p class="body">{body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+      <section class="band blue" aria-labelledby="hour-title" data-bands={JSON.stringify(bands)}>
+        <div class="loca-wrap stack hours">
+          <h2 id="hour-title" class="loca-display">{t('hourTitle')}</h2>
+          <div class="clock-row">
+            <output class="clock" id="clock" for="hora">{String(startHour).padStart(2, '0')}:00</output>
+            <div class="clock-control">
+              <label class="loca-label" for="hora">{t('hourLabel')}</label>
+              <input id="hora" type="range" min="0" max="23" step="1" value={startHour} />
+            </div>
           </div>
-        ))}
-      </div>
+          <div class="pair" aria-live="polite">
+            <div class="who who-you">
+              <p class="loca-label">{t('hourYou')}</p>
+              <p class="who-state" id="you">{band.you}</p>
+            </div>
+            <div class="who who-bot">
+              <p class="loca-label">{t('hourAssistant')}</p>
+              <p class="who-state">{t('hourReplying')}</p>
+              <p class="who-msg">{t('hourWrote')} “<span id="msg">{band.msg}</span>”</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    </section>
+      <section id="como" class="loca-wrap stack steps" aria-labelledby="steps-title">
+        <h2 id="steps-title" class="loca-display">{t('stepsTitle1')} <em class="blue-text">{t('stepsTitle2')}</em></h2>
+        <ol class="cards">
+          {steps.map(([title, body], i) => (
+            <li class="card">
+              <span class="card-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="card-title">{title}</h3>
+              <p class="card-body">{body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-    <section class="offer" aria-labelledby="offer-title">
-      <div class="offer-copy">
-        <h2 id="offer-title" class="offer-title">{t('offerTitle')}</h2>
-        <p class="offer-body">{t('offerBody')}</p>
-      </div>
-      <Button href="/precios" variant="secondary" hreflang="es">{t('offerCta')}</Button>
-    </section>
+      <section id="precio" class="band yellow" aria-labelledby="price-title">
+        <div class="loca-wrap stack price">
+          <h2 id="price-title" class="price-title">{t('priceTitle1')}<br /><em>{t('priceTitle2')}</em></h2>
+          <p class="price-row">
+            <span class="price-now">{t('priceNow')}</span>
+            <s class="price-was"><span class="visually-hidden">{t('priceWasLabel')} </span>{t('priceWas')}</s>
+            <span class="price-per">{t('perMonth')}</span>
+          </p>
+          <p class="price-note">{t('priceNote')}</p>
+          <a class="loca-btn loca-btn-ink" href="/precios" hreflang="es">{t('offerCta')}</a>
+        </div>
+      </section>
 
-    <section class="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title" class="display">{t('contactTitle')}</h2>
-      <a class="number" href={wa} target="_blank" rel="noopener">{legal.whatsapp}</a>
-      <p class="body">
-        {t('contactBody')} <a href={`mailto:${legal.email}`}>{legal.email}</a>.
-      </p>
-      <Button href={wa} target="_blank" rel="noopener">{t('ctaWhatsapp')}</Button>
-    </section>
-  </main>
+      <section id="contacto" class="band dark" aria-labelledby="contact-title">
+        <div class="loca-wrap stack contact">
+          <h2 id="contact-title" class="loca-display">{t('contactTitle1')}<br /><em class="accent">{t('contactTitle2')}</em></h2>
+          <a class="number" href={wa} target="_blank" rel="noopener">{legal.whatsapp}</a>
+          <p class="contact-body">{t('contactBody')} <a href={`mailto:${legal.email}`}>{legal.email}</a>.</p>
+          <a class="loca-btn loca-btn-blue loca-btn-on-dark" href={wa} target="_blank" rel="noopener">{t('ctaWhatsapp')}</a>
+        </div>
+      </section>
+    </main>
+  </div>
 </BaseLayout>
 
+<script>
+  // The hour slider: what you're doing at that hour, and what a customer just asked the assistant.
+  const section = document.querySelector<HTMLElement>('[data-bands]')!;
+  const bands = JSON.parse(section.dataset.bands!) as { from: number; you: string; msg: string }[];
+  const input = document.getElementById('hora') as HTMLInputElement;
+  input.addEventListener('input', () => {
+    const h = Number(input.value);
+    const band = bands.findLast((b) => b.from <= h)!;
+    document.getElementById('clock')!.textContent = `${String(h).padStart(2, '0')}:00`;
+    document.getElementById('you')!.textContent = band.you;
+    document.getElementById('msg')!.textContent = band.msg;
+  });
+</script>
+
 <style>
-  main {
-    flex: 1;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 var(--space-6);
+  html {
+    scroll-behavior: smooth;
   }
 
-  .top {
+  /* Ticker above the bar: the offer and the hours, on a loop. */
+  .ticker {
+    overflow: hidden;
+    background: var(--ink-on-bone);
+    color: var(--bone);
+    font: 400 13px/16px var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .ticker-track {
     display: flex;
-    align-items: center;
-    height: 64px;
-    padding: 0 var(--space-6);
-    border-bottom: 1px solid var(--line);
+    width: max-content;
+    animation: ticker 40s linear infinite;
   }
 
-  .home {
+  .ticker-track span {
+    padding: 12px 0;
+  }
+
+  @keyframes ticker {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* LangNav sits in the bar here instead of floating over it; its links take bone's ink. */
+  .loca-header :global(.langs) {
+    position: static;
+    flex-wrap: wrap;
+  }
+
+  .loca-header :global(.langs a) {
+    color: var(--ink-on-bone-muted);
+  }
+
+  .loca-header :global(.langs a:hover),
+  .loca-header :global(.langs a[aria-current='page']) {
+    color: var(--ink-on-bone);
+  }
+
+  .loca-header :global(.langs) .nav-link {
+    display: none;
+    font: 500 15px/20px var(--font-sans);
+    letter-spacing: normal;
+    text-transform: none;
+    margin-right: var(--space-4);
+    color: var(--ink-on-bone);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* A wider gap between "Escribinos" and the languages; tighter on phones so the bar stays one line. */
+  .loca-header :global(.langs) .nav-extra {
+    margin-right: var(--space-2);
+  }
+
+  @media (min-width: 640px) {
+    .loca-header :global(.langs) .nav-extra {
+      margin-right: var(--space-6);
+    }
+  }
+
+  .loca-header :global(.langs) .nav-cta {
+    display: inline-flex;
+    padding: 0 var(--space-4);
+    background: var(--ink-on-bone);
+    color: var(--bone);
     text-decoration: none;
-    border-radius: var(--radius-sm);
-  }
-
-  /* :global because the span lives in Wordmark's scope. */
-  .home :global(.brand) {
-    font-size: 32px;
   }
 
   .hero {
-    display: grid;
-    gap: var(--space-10);
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    padding: var(--space-16) 0;
+    gap: var(--space-16);
+    padding-block: var(--space-16) 128px;
   }
 
   .hero-copy {
-    container-type: inline-size;
-    display: grid;
-    gap: var(--space-6);
-    justify-items: start;
+    flex: 1 1 560px;
+    min-width: 0;
   }
 
-  /* One sentence per line, sized to the column so the longer one (EN, ~10.4em) fits; display (44px) floor on phones, where it wraps; caps at display-xl. */
   .hero-title {
     margin: 0;
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(44px, 9.5cqi, 72px);
-    line-height: 1;
-    letter-spacing: -0.01em;
-    text-wrap: balance;
+    font-size: clamp(64px, 11vw, 168px);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
   }
 
-  .hero-title span {
+  .hero-title > * {
     display: block;
   }
 
+  .hero-title em,
+  .blue-text {
+    color: var(--accent-fill);
+  }
+
   .hero-lede {
+    margin: var(--space-10) 0 0;
+    max-width: 520px;
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 500;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+    margin-top: var(--space-10);
+  }
+
+  .more {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 500;
+  }
+
+  .chat-wrap {
+    position: relative;
+    flex: 1 1 360px;
+    max-width: 460px;
+    min-width: 0;
+  }
+
+  .sticker {
+    top: -48px;
+    right: -24px;
+    background: var(--highlight);
+  }
+
+  .chat {
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 12px 12px 0 var(--ink-on-bone);
+    transform: rotate(2deg);
+  }
+
+  .chat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border-bottom: var(--stroke);
+    font-size: 12px;
+  }
+
+  .chat-time {
+    padding: 2px var(--space-2);
+    background: var(--ink-on-bone);
+    color: var(--bone);
+  }
+
+  .chat-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    min-height: 260px;
+    padding: var(--space-6);
+  }
+
+  .bubble {
+    max-width: 88%;
     margin: 0;
-    max-width: 52ch;
-    font-size: 18px;
-    line-height: 28px;
+    padding: 12px var(--space-4);
+    border: var(--stroke);
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  .bubble-in {
+    align-self: flex-start;
+    background: var(--bone);
+  }
+
+  .bubble-out {
+    align-self: flex-end;
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+
+  .chat-note {
+    align-self: center;
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+    color: var(--ink-on-bone-muted);
+  }
+
+  /* Full-width colour bands. */
+  .band.dark {
+    background: var(--ink-on-bone);
+    color: var(--bone);
+  }
+
+  .band.blue {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+
+  .band.yellow {
+    background: var(--highlight);
+    border-block: var(--stroke);
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding-block: 128px;
+  }
+
+  .stack p {
+    margin: 0;
+  }
+
+  .miss {
+    padding-bottom: var(--space-16);
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--bone);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-10);
+    padding: var(--space-6) var(--space-4);
+    border-bottom: 2px solid var(--bone);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .row:hover {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+
+  .row-when {
+    flex: 0 0 160px;
+    font-size: 14px;
     color: var(--ink-muted);
   }
 
-  .hero .stv-section-actions {
-    padding-top: 0;
+  .row:hover .row-when {
+    color: inherit;
   }
 
-  /* The page's one motion: the sample conversation plays in once. */
-  @media (prefers-reduced-motion: no-preference) {
-    .stv-bubble-row {
-      animation: bubble-in 0.4s ease-out both;
-      animation-delay: calc(0.3s + var(--i) * 0.6s);
-    }
+  .row-what {
+    flex: 1 1 400px;
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 64px);
+    line-height: 1.05;
   }
 
-  @keyframes bubble-in {
-    from {
-      opacity: 0;
-      transform: translateY(var(--space-2));
-    }
-  }
-
-  .steps {
-    display: grid;
-    gap: var(--space-10);
-    padding: var(--space-16) 0;
-    border-top: 1px solid var(--line);
-  }
-
-  /* Two phases (once / every day): stacked on phones, side by side on wide screens. */
-  .phases {
-    display: grid;
+  .hours {
     gap: var(--space-10);
   }
 
-  .phase {
-    display: grid;
-    gap: var(--space-6);
-    align-content: start;
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--line);
+  .clock-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6) var(--space-10);
   }
 
-  .phase-label {
+  .clock {
+    font-family: var(--font-display);
+    font-size: clamp(88px, 14vw, 200px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .clock-control {
+    flex: 1 1 300px;
+    min-width: 0;
+  }
+
+  .clock-control label {
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+
+  #hora {
+    width: 100%;
+    height: 48px;
     margin: 0;
-    color: var(--ink-subtle);
+    accent-color: var(--highlight);
   }
 
-  .step-list {
-    display: grid;
+  .pair {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .who {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 320px;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+    padding: var(--space-6);
+    border: var(--stroke);
+  }
+
+  .who-you {
+    background: var(--ink-on-bone);
+    color: var(--bone);
+  }
+
+  .who-you .loca-label {
+    color: var(--ink-muted);
+  }
+
+  .who-bot {
+    background: var(--highlight);
+    color: var(--ink-on-bone);
+  }
+
+  .who-state {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.05;
+  }
+
+  .who-msg {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-6);
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .step-list li {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-4);
-    align-items: start;
-  }
-
-  .step-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--space-10);
-    height: var(--space-10);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--surface-100);
-    color: var(--ink-muted);
-  }
-
-  .step-text {
-    display: grid;
-    gap: var(--space-1);
-  }
-
-  .step-list h3,
-  .step-list p {
-    margin: 0;
-  }
-
-  .step-list p {
-    color: var(--ink-muted);
-  }
-
-  /* Caption under the sample chat: what happens to the messages, next to the messages. */
-  .privacy {
-    margin: auto 0 0;
-    padding: var(--space-4);
-    border-top: 1px solid var(--line);
-    color: var(--ink-muted);
-  }
-
-  .privacy a {
-    color: var(--accent);
-  }
-
-  /* Launch offer between "how it works" and contact; same treatment as on the calculator it links to. */
-  .offer {
+  .card {
+    box-sizing: border-box;
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-    margin-bottom: var(--space-16);
+    flex: 1 1 240px;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
     padding: var(--space-6);
-    border: 1px solid var(--accent);
-    border-radius: var(--radius-md);
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 8px 8px 0 var(--ink-on-bone);
+    transition: transform 0.15s;
   }
-  .offer-copy {
-    display: grid;
-    gap: var(--space-1);
-    max-width: 60ch;
+
+  .card:hover {
+    transform: translateY(-6px) rotate(-1deg);
   }
-  .offer-title {
+
+  .card-n {
+    font-family: var(--font-display);
+    font-size: 112px;
+    line-height: 0.9;
+    color: var(--accent-fill);
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  .card-body {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .price {
+    align-items: flex-start;
+    gap: var(--space-10);
+  }
+
+  .price-title {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(28px, 2vw + 18px, 36px);
     font-weight: 400;
-    line-height: 1.1;
-    color: var(--accent);
+    font-size: clamp(56px, 10vw, 144px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
   }
-  .offer-body {
-    margin: 0;
-    color: var(--ink-muted);
+
+  .price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) 32px;
   }
-  @media (max-width: 639px) {
-    .offer .stv-btn {
-      width: 100%;
-    }
+
+  .price-now {
+    font-family: var(--font-display);
+    font-size: clamp(88px, 16vw, 232px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .price-was {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 64px);
+    text-decoration-thickness: 4px;
+  }
+
+  .price-per {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .price-note {
+    max-width: 640px;
+    font-size: 22px;
+    line-height: 32px;
+    font-weight: 500;
   }
 
   .contact {
-    display: grid;
-    justify-items: start;
-    gap: var(--space-4);
-    margin-bottom: var(--space-16);
-    padding: var(--space-10) var(--space-6);
-    border-radius: var(--radius-md);
-    background: var(--bone);
-    color: var(--ink-on-bone);
+    align-items: flex-start;
+    gap: var(--space-10);
   }
 
-  .contact h2,
-  .contact p {
-    margin: 0;
-  }
-
-  .contact .number {
+  .number {
     font-family: var(--font-display);
-    font-size: clamp(36px, 5vw + 18px, 72px);
+    font-size: clamp(44px, 9vw, 136px);
     line-height: 1;
-    letter-spacing: -0.01em;
-    color: inherit;
+    letter-spacing: -0.02em;
     text-decoration: none;
     white-space: nowrap;
   }
 
-  .contact .number:hover {
-    color: var(--accent-fill);
+  .number:hover {
+    color: var(--accent);
   }
 
-  .contact p a {
-    color: var(--accent-fill);
+  .contact-body {
+    max-width: 560px;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--ink-muted);
   }
 
-  .contact .stv-btn {
-    margin-top: var(--space-2);
+  .contact-body a {
+    color: var(--bone);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  /* On a phone the sticker stays inside the screen: rotated, it reaches ~15px past its box. */
+  @media (max-width: 639px) {
+    .sticker {
+      right: 0;
+    }
   }
 
   @media (min-width: 640px) {
-    .contact {
-      padding: var(--space-16);
+    .loca-header :global(.langs) .nav-link {
+      display: inline-flex;
     }
   }
 
-  @media (min-width: 960px) {
-    .hero {
-      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
-      min-height: calc(90svh - 64px);
-      box-sizing: border-box;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
     }
 
-    .phases {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .ticker-track {
+      animation: none;
     }
 
+    .row,
+    .card {
+      transition: none;
+    }
   }
-
 </style>
