@@ -1,0 +1,150 @@
+/* The bold look shared by the homepage and the calculator: bone pages, 2px ink borders, hard offset shadows.
+   It goes beyond the design system on purpose; the extra colours are defined here, next to the tokens they sit with. */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap');
+
+:root {
+  --highlight: #ffe14d; /* the yellow: price band, stickers, the assistant's card */
+  --paper: #ffffff; /* cards and inputs that sit on bone */
+  --ink-on-bone-muted: #3b4048; /* secondary text on bone and paper */
+  --stroke: 2px solid var(--ink-on-bone);
+}
+
+.loca {
+  flex: 1;
+  background: var(--bone);
+  color: var(--ink-on-bone);
+  font: 400 18px/28px var(--font-sans);
+}
+
+.loca a {
+  color: inherit;
+}
+
+.loca :focus-visible {
+  outline: 3px solid var(--accent-fill);
+  outline-offset: 3px;
+}
+
+/* Page width and side gutter. */
+.loca-wrap {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: clamp(16px, 4vw, 32px);
+}
+
+.loca-header {
+  border-bottom: var(--stroke);
+}
+
+.loca-header .loca-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  min-height: 72px;
+}
+
+.loca-header .stv-wordmark {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.loca-home {
+  text-decoration: none;
+}
+
+/* Big serif headlines; the italic half is the punchline. */
+.loca-display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(48px, 8vw, 112px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.loca-display em,
+.loca-em {
+  font-style: italic;
+}
+
+.loca-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Buttons that cast a hard shadow and press into it on hover. */
+.loca-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 64px;
+  padding: 0 32px;
+  border: var(--stroke);
+  box-shadow: 6px 6px 0 var(--ink-on-bone);
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.loca .loca-btn:hover {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 var(--ink-on-bone);
+}
+
+/* `.loca` in front so the colour beats `.loca a`. */
+.loca .loca-btn-blue {
+  background: var(--accent-fill);
+  color: var(--on-accent);
+}
+
+.loca .loca-btn-ink {
+  background: var(--ink-on-bone);
+  color: var(--bone);
+  box-shadow: 6px 6px 0 var(--accent-fill);
+}
+
+/* On the dark bands the outline and shadow turn bone. */
+.loca .loca-btn-on-dark {
+  border-color: var(--bone);
+  box-shadow: 6px 6px 0 var(--bone);
+}
+
+.loca .loca-btn-on-dark:hover {
+  box-shadow: 2px 2px 0 var(--bone);
+}
+
+/* The round, tilted "half price" sticker. */
+.loca-sticker {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 132px;
+  height: 132px;
+  border: var(--stroke);
+  border-radius: var(--radius-full);
+  font: 500 13px/16px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: pre-line;
+  transform: rotate(12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loca-btn {
+    transition: none;
+  }
+}

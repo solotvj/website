@@ -1,11 +1,11 @@
 ---
-// Client-facing pricing, step by step: our fees plus what Meta bills for the replies, in pesos or dollars.
+// Client-facing pricing: pick a volume, see our fees plus what Meta bills for the replies, in pesos or dollars.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Wordmark from '../components/Wordmark.astro';
-import Button from '../components/Button.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { whatsappUrl } from '../i18n';
-import { introUntil, pricing } from '../pricing';
+import { pricing } from '../pricing';
+import '../styles/loca.css';
 
 // Spanish only: every language's alternate is this page, so its canonical isn't the homepage's.
 const page = new URL('/precios', Astro.site).href;
@@ -22,19 +22,10 @@ try {
   // Without a rate the page shows dollars only.
 }
 
-const kinds = [
-  { replies: 2, title: 'Cortas', body: 'Preguntan un dato, como el horario o la dirección, y listo.' },
-  { replies: 3, title: 'Normales', body: 'Una consulta con alguna repregunta.' },
-  { replies: 5, title: 'Largas', body: 'Coordinan algo paso a paso, como un turno o un pedido.' },
-];
 const presets = [100, 300, 600, 1500];
-// A made-up exchange for the closing section: late at night, a question, a handoff to staff.
-const demo = [
-  ['customer', 'Hola, ¿mañana abren? Necesito pasar a retirar un pedido.', '23:41'],
-  ['agent', 'Hola. Sí, mañana abrimos de 9 a 18. Para retirar, traé el número de pedido.', '23:41'],
-  ['customer', '¿Y puedo cambiar el talle cuando lo retiro?', '23:42'],
-  ['agent', 'Eso lo confirma el equipo. Ya les pasé tu consulta y te escriben mañana a primera hora.', '23:42'],
-];
+// One rate for every business: about 3 assistant replies per conversation.
+const replies = 3;
+const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
 ---
 
 <BaseLayout
@@ -43,223 +34,123 @@ const demo = [
   title="Cuánto pagás por mes · Solotvj"
   description="Calculá lo que pagás por el asistente de WhatsApp: nuestro abono y lo que cobra Meta, en pesos o en dólares."
 >
-  <header class="top">
-    <a href={getRelativeLocaleUrl('es')} class="home" aria-label="Solotvj"><Wordmark /></a>
-  </header>
-
-  <main data-pricing={JSON.stringify(pricing)} data-rate={JSON.stringify(rate)} data-bcra={BCRA}>
-    <header class="intro">
-      <h1 class="display">Cuánto pagás por mes</h1>
-      <p class="body lede">
-        Respondé dos preguntas y te mostramos lo que pagarías, en pesos o en dólares.
-      </p>
-      <p class="offer">
-        <span class="offer-title">Los primeros {pricing.introMonths} meses, mitad de precio.</span>
-        <span class="offer-body">US$ {pricing.intro} por mes en vez de US$ {pricing.fee}, mientras ves cómo responde a tus clientes. Para quienes contraten hasta el {introUntil()}.</span>
-      </p>
+  <div class="loca">
+    <header class="loca-header">
+      <div class="loca-wrap">
+        <a class="loca-home" href={getRelativeLocaleUrl('es')} aria-label="Solotvj"><Wordmark class="stv-on-bone" /></a>
+        <a class="back" href={getRelativeLocaleUrl('es')}><span aria-hidden="true">←</span> Volver al inicio</a>
+      </div>
     </header>
 
-    <form id="calc" novalidate>
-      <p class="progress small" aria-live="polite"><span id="progress">Paso 1 de 3</span></p>
+    <main class="loca-wrap" data-pricing={JSON.stringify({ ...pricing, replies })} data-rate={JSON.stringify(rate)} data-bcra={BCRA}>
+      <h1 class="title">
+        <span>Cuánto pagás</span>
+        <em>por mes.</em>
+      </h1>
 
-      <section class="step" data-step="1" aria-labelledby="q1">
-        <h2 id="q1" class="heading" tabindex="-1">¿Cuántas conversaciones tenés por mes?</h2>
-        <p class="small muted">
-          Cada cliente que te escribe es una conversación. Si vuelve otro día, cuenta de nuevo. Si no sabés, elegí lo
-          más parecido.
-        </p>
-        <div class="chips" role="group" aria-label="Valores frecuentes">
-          {presets.map((n) => <button type="button" class="chip" data-convs={n}>{n.toLocaleString('es-AR')}</button>)}
-        </div>
-        <div class="volume">
-          <input id="convs-range" type="range" min="0" max="3000" step="50" value="300" aria-label="Conversaciones por mes" />
-          <input class="stv-input" id="convs" type="number" inputmode="numeric" min="0" step="50" value="300" aria-label="Conversaciones por mes, número exacto" />
-        </div>
-        <div class="actions">
-          <button type="button" class="stv-btn stv-btn-md stv-btn-primary" data-go="2">Siguiente</button>
-        </div>
-      </section>
-
-      <section class="step" data-step="2" aria-labelledby="q2" hidden>
-        <h2 id="q2" class="heading" tabindex="-1">¿Cómo son esas conversaciones?</h2>
-        <p class="small muted">Si tu cliente manda varios mensajes seguidos, el asistente responde una sola vez.</p>
-        <fieldset class="kinds">
-          <legend class="visually-hidden">Largo de las conversaciones</legend>
-          {kinds.map((k) => (
-            <label class="kind">
-              <input type="radio" name="replies" value={k.replies} checked={k.replies === 3} />
-              <span class="kind-text">
-                <span class="subheading">{k.title}</span>
-                <span class="small muted">{k.body}</span>
-                <span class="small muted">Unas {k.replies} respuestas del asistente.</span>
-              </span>
-            </label>
-          ))}
-        </fieldset>
-        <div class="actions">
-          <button type="button" class="stv-btn stv-btn-md stv-btn-primary" data-go="3">Ver lo que pagás</button>
-          <button type="button" class="stv-btn stv-btn-md stv-btn-secondary" data-go="1">Atrás</button>
-        </div>
-      </section>
-
-      <section class="step" data-step="3" aria-labelledby="q3" hidden>
-        <h2 id="q3" class="heading" tabindex="-1">Tu precio</h2>
-        <p class="small muted summary"><span id="summary"></span><button type="button" class="change" data-go="1">Cambiar</button></p>
-
-        <div class="currency" role="radiogroup" aria-label="Moneda" id="currency" hidden>
-          <label><input type="radio" name="currency" value="ARS" checked /> Pesos</label>
-          <label><input type="radio" name="currency" value="USD" /> Dólares</label>
-        </div>
-
-        <div class="stv-card stv-card-bone">
-          <div class="block">
-            <p class="small strong">Los primeros {pricing.introMonths} meses, a mitad de precio</p>
-            <p class="total"><output id="monthly-intro">–</output><span class="per"> por mes</span></p>
-            <p class="small" id="per-day"></p>
+      <form id="calc" class="calc" novalidate>
+        <section class="question" aria-labelledby="q1">
+          <div class="question-head">
+            <p class="loca-label">Una sola pregunta</p>
+            <h2 id="q1" class="question-title">¿Cuántas conversaciones tenés por mes?</h2>
+            <p class="question-hint">
+              Cada cliente que te escribe es una conversación. Si vuelve otro día, cuenta de nuevo. Si no sabés, elegí lo
+              más parecido.
+            </p>
           </div>
-          <table class="breakdown small">
-            <caption class="visually-hidden">Lo que pagás por mes en los primeros meses, y a quién</caption>
-            <tbody>
-              <tr>
-                <th scope="row"><span class="key key-fee" aria-hidden="true"></span>Abono Solotvj, a nosotros</th>
-                <td>
-                  <s class="was"><span class="visually-hidden">Antes </span><output data-money={pricing.fee}>–</output></s>
-                  <output data-money={pricing.intro}>–</output>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="key key-meta" aria-hidden="true"></span>Respuestas por WhatsApp, a Meta</th>
-                <td><output class="meta">–</output></td>
-              </tr>
-            </tbody>
-          </table>
-          <p class="small soft" id="meta-note"></p>
-        </div>
+          <div class="chips" role="group" aria-label="Valores frecuentes">
+            {presets.map((n) => <button type="button" class="chip" data-convs={n}>{n.toLocaleString('es-AR')}</button>)}
+          </div>
+          <div class="other">
+            <label for="convs">¿Otro número?</label>
+            <input id="convs" type="number" inputmode="numeric" min="0" step="50" value="300" />
+          </div>
+        </section>
 
-        <div class="then">
-          <h3 class="subheading">Cómo sigue</h3>
-          <ol class="timeline small">
-            <li>
-              <span>Al empezar, una vez</span>
-              <span><output data-money={pricing.setup}>–</output> <span class="muted">configuración</span></span>
-            </li>
-            <li>
-              <span>Meses 1 a {pricing.introMonths}</span>
-              <span><output data-money={pricing.intro}>–</output> <span class="muted">por mes, mitad de precio</span></span>
-            </li>
-            <li>
-              <span>Desde el mes {pricing.introMonths + 1}</span>
-              <span><output data-money={pricing.fee}>–</output> <span class="muted">por mes</span></span>
-            </li>
-          </ol>
-          <p class="small muted">
-            <span id="then-note"></span> La configuración incluye cargar la información de tu negocio, conectar tu número
-            y probar el asistente antes de activarlo.
-          </p>
-        </div>
+        <section class="result-wrap" aria-labelledby="result-title" aria-live="polite">
+          <div class="loca-sticker sticker" aria-hidden="true">{`Mitad de\nprecio\n×${pricing.introMonths} meses`}</div>
+          <div class="result">
+            <div class="result-head">
+              <h2 id="result-title" class="loca-label">Tu precio, los primeros {pricing.introMonths} meses</h2>
+              <div class="currency" role="radiogroup" aria-label="Moneda" id="currency" hidden>
+                <label><input type="radio" name="currency" value="ARS" checked /> Pesos</label>
+                <label><input type="radio" name="currency" value="USD" /> Dólares</label>
+              </div>
+            </div>
 
-        <figure class="chart">
-          <figcaption class="subheading">Desde el mes {pricing.introMonths + 1}, tu total según las conversaciones</figcaption>
-          <svg id="chart" viewBox="0 0 360 230" role="img" aria-describedby="chart-desc"></svg>
-          <p id="chart-desc" class="visually-hidden"></p>
-          <ul class="legend small">
-            <li><span class="key key-fee" aria-hidden="true"></span>Abono Solotvj</li>
-            <li><span class="key key-meta" aria-hidden="true"></span>Meta</li>
-          </ul>
-        </figure>
+            <div class="figures">
+              <p class="total-row">
+                <output class="total" id="monthly-intro">–</output>
+                <span class="per">por mes</span>
+              </p>
+              <p class="after">
+                <span>Después: <output id="monthly-after">–</output> por mes.</span>
+                <span class="muted" id="per-day"></span>
+              </p>
+            </div>
 
-        <div class="pesos small" id="pesos" hidden>
-          <h3 class="subheading">Pagás en pesos</h3>
-          <ul>
-            <li>
-              Nuestros precios están en dólares y son finales: no sumamos IVA (somos monotributistas). Te facturamos en
-              pesos, al tipo de cambio oficial del Banco Central (BCRA) del día hábil anterior a la factura.
-            </li>
-            <li>
-              Hoy: <output id="rate">–</output>, según el BCRA del <output id="rate-date">–</output>.{' '}
-              <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipos_de_cambios.asp" target="_blank" rel="noopener">Ver en el BCRA</a>
-            </li>
-            <li>Meta te factura en pesos directamente, con su propia tarifa. Lo que ves acá es una estimación.</li>
-          </ul>
-        </div>
+            <table class="breakdown">
+              <caption class="visually-hidden">Qué pagás, a quién y cada cuánto</caption>
+              <tbody>
+                <tr>
+                  <th scope="row"><span class="key" aria-hidden="true"></span>Abono desde el mes {pricing.introMonths + 1}, a nosotros</th>
+                  <td><output class="strong" data-money={pricing.fee}>–</output> por mes</td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="key" aria-hidden="true"></span>Configuración, una sola vez, a nosotros</th>
+                  <td><output class="strong" data-money={pricing.setup}>–</output></td>
+                </tr>
+                <tr class="meta-row">
+                  <th scope="row"><span class="key" aria-hidden="true"></span>Respuestas por WhatsApp, a Meta</th>
+                  <td><output class="strong" id="meta">–</output> por mes</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="note" id="meta-note"></p>
 
-        <details class="how small">
-          <summary class="subheading">Cómo lo calculamos</summary>
-          <ul>
-            <li>
-              Meta no cobra las primeras {pricing.free.toLocaleString('es-AR')} respuestas de cada mes. Después cobra unos
-              US$ {pricing.metaRate.toLocaleString('es-AR')} por respuesta, la tarifa para Argentina.
-            </li>
-            <li>Meta te cobra a vos, con una tarjeta que cargás al conectar tu número. No pasa por nosotros.</li>
-            <li>
-              Precio de inicio: para nuevos clientes que contraten hasta el {introUntil()}, un número por cliente. La
-              configuración se cobra aparte. Sin permanencia mínima. No se acumula con otras promociones.
-            </li>
-            <li>
-              Si te arrepentís dentro de los 10 días y el asistente todavía no está activado, te devolvemos todo,
-              configuración incluida. <a href="/baja#arrepentimiento">Botón de arrepentimiento</a>
-            </li>
-            <li>Los mensajes que te mandan tus clientes son gratis.</li>
-            <li>Las respuestas que vos o tu equipo mandan desde la app WhatsApp Business también son gratis.</li>
-          </ul>
-        </details>
-
-        <section class="close" aria-labelledby="close-title">
-          <h2 id="close-title" class="display close-title">Desde el día en que lo activamos, tus clientes tienen respuesta.</h2>
-
-          <div class="stv-convo" aria-label="Ejemplo de conversación">
-            <div class="stv-convo-body">
-              {demo.map(([from, text, time]) => (
-                <div class={`stv-bubble-row stv-bubble-${from}`}>
-                  <div class="stv-bubble">
-                    <div class="stv-bubble-text">{text}</div>
-                    <p class="stv-bubble-meta">{time}</p>
-                  </div>
-                </div>
-              ))}
+            <div class="start">
+              <a id="cta" class="loca-btn loca-btn-ink" href={start} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+              <span class="note">Sin compromiso: podés darte de baja cuando quieras.</span>
             </div>
           </div>
-
-          <ul class="facts">
-            <li>
-              <span class="subheading">A cualquier hora</span>
-              <span class="small muted">De noche, los fines de semana y los feriados, en segundos.</span>
-            </li>
-            <li>
-              <span class="subheading">Solo con lo que es cierto</span>
-              <span class="small muted">Responde con la información de tu negocio. Si no sabe algo, no lo inventa: le pasa la conversación a tu equipo.</span>
-            </li>
-            <li>
-              <span class="subheading">Tu WhatsApp sigue siendo tuyo</span>
-              <span class="small muted">Seguís usando WhatsApp Business en tu celular y podés responder vos cuando quieras.</span>
-            </li>
-          </ul>
-
-          <div class="actions">
-            <Button id="cta" href={whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.')} target="_blank" rel="noopener">Quiero empezar</Button>
-            <button type="button" class="stv-btn stv-btn-md stv-btn-secondary" data-go="1">Cambiar mis respuestas</button>
-          </div>
-          <p class="small muted">
-            Te escribimos por WhatsApp para coordinar. Sin compromiso: podés darte de baja cuando quieras.
-            <a href="/terminos">Ver términos y condiciones</a>
-          </p>
         </section>
-      </section>
-    </form>
-  </main>
+      </form>
+
+      <details class="how">
+        <summary>
+          Cómo se paga y cómo lo calculamos
+          <svg class="chev" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+        </summary>
+        <ul>
+          <li>Nuestros precios están en dólares y son finales: no sumamos IVA (somos monotributistas).</li>
+          <li>
+            Te facturamos en pesos, al tipo de cambio oficial del Banco Central (BCRA) del día hábil anterior a la
+            factura.<span id="rate-line" hidden>{' '}Hoy: <output id="rate">–</output>, según el BCRA del <output id="rate-date">–</output>.</span>
+          </li>
+          <li>
+            Abono: US$ {pricing.fee} por mes, US$ {pricing.intro} los primeros {pricing.introMonths} meses. Configuración:
+            US$ {pricing.setup}, una sola vez.
+          </li>
+          <li>
+            Calculamos unas {replies} respuestas del asistente por conversación. Meta no cobra las primeras
+            {' '}{pricing.free.toLocaleString('es-AR')} respuestas de cada mes; lo que pase de ahí te lo factura Meta en pesos,
+            con su propia tarifa, y acá es una estimación.
+          </li>
+        </ul>
+      </details>
+    </main>
+  </div>
 </BaseLayout>
 
 <script>
-  type Pricing = { setup: number; intro: number; introMonths: number; fee: number; metaRate: number; free: number };
+  type Pricing = { setup: number; intro: number; fee: number; metaRate: number; free: number; replies: number };
   const main = document.querySelector('main')!;
   const P = JSON.parse(main.dataset.pricing!) as Pricing;
   let rate = JSON.parse(main.dataset.rate!) as { value: number; date: string } | null;
 
   const form = document.getElementById('calc') as HTMLFormElement;
-  const $ = <T extends Element = HTMLElement>(id: string) => document.getElementById(id) as unknown as T;
-  const range = $<HTMLInputElement>('convs-range');
-  const convs = $<HTMLInputElement>('convs');
-  const svg = $<SVGSVGElement>('chart');
+  const $ = (id: string) => document.getElementById(id)!;
+  const convs = $('convs') as HTMLInputElement;
 
   const int = (n: number) => Math.round(n).toLocaleString('es-AR');
   const currency = () => (rate ? (form.elements.namedItem('currency') as RadioNodeList).value : 'USD');
@@ -267,102 +158,45 @@ const demo = [
     currency() === 'ARS'
       ? (usd * rate!.value).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 })
       : usd.toLocaleString('es-AR', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 2 });
-  const replies = () => Number((form.elements.namedItem('replies') as RadioNodeList).value) || 3;
   const volume = () => Math.max(0, Number(convs.value) || 0);
-  const meta = (c: number, r: number) => Math.max(0, c * r - P.free) * P.metaRate;
-
-  // Steps: one visible at a time; focus moves to the new question so screen readers follow.
-  function go(step: number) {
-    document.querySelectorAll<HTMLElement>('.step').forEach((s) => (s.hidden = s.dataset.step !== String(step)));
-    $('progress').textContent = step < 3 ? `Paso ${step} de 3` : 'Paso 3 de 3: tu resultado';
-    render();
-    $(`q${step}`).focus();
-    $(`q${step}`).scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-  }
-  document.querySelectorAll<HTMLButtonElement>('[data-go]').forEach((b) => b.addEventListener('click', () => go(Number(b.dataset.go))));
-
-  // Chart geometry, in viewBox units: sized for a phone, scales up.
-  const W = 360, H = 230, L = 44, R = 8, T = 22, B = 26;
-  // Round axis steps (1, 2, 2.5, 5 × 10^n) covering 0..max in about n steps.
-  const ticks = (max: number, n: number) => {
-    const raw = max / n;
-    const mag = 10 ** Math.floor(Math.log10(raw));
-    const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw)!;
-    return Array.from({ length: Math.ceil(max / step) + 1 }, (_, i) => i * step);
-  };
-
-  function draw(c: number, r: number) {
-    const k = currency() === 'ARS' ? rate!.value : 1;
-    const xMax = Math.max(2000, Math.ceil((c * 1.25) / 500) * 500);
-    const total = (v: number) => (P.fee + meta(v, r)) * k;
-    const yTicks = ticks(total(xMax), 4);
-    const yMax = yTicks.at(-1)!;
-    const x = (v: number) => L + (v / xMax) * (W - L - R);
-    const y = (v: number) => H - B - (v / yMax) * (H - T - B);
-    const knee = Math.min(xMax, P.free / r); // conversations where Meta starts billing
-    const short = (v: number) =>
-      v >= 1e6 ? `${(v / 1e6).toLocaleString('es-AR')} M` : v >= 1e3 ? `${(v / 1e3).toLocaleString('es-AR')} mil` : v.toLocaleString('es-AR');
-
-    svg.innerHTML = `
-      ${yTicks.map((t) => `<line class="grid" x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}"/><text class="tick" x="${L - 6}" y="${y(t) + 4}" text-anchor="end">${short(t)}</text>`).join('')}
-      ${ticks(xMax, 4).filter((t) => t <= xMax).map((t) => `<text class="tick" x="${x(t)}" y="${H - B + 17}" text-anchor="${t === xMax ? 'end' : 'middle'}">${int(t)}</text>`).join('')}
-      <rect class="fee" x="${L}" y="${y(P.fee * k)}" width="${W - L - R}" height="${y(0) - y(P.fee * k)}"/>
-      <polygon class="meta" points="${x(knee)},${y(P.fee * k)} ${x(xMax)},${y(total(xMax))} ${x(xMax)},${y(P.fee * k)}"/>
-      <line class="free" x1="${x(knee)}" x2="${x(knee)}" y1="${T}" y2="${y(0)}"/>
-      <text class="tick" x="${x(knee) + 4}" y="${T + 2}">Meta empieza a cobrar</text>
-      <line class="marker" x1="${x(c)}" x2="${x(c)}" y1="${y(total(c))}" y2="${y(0)}"/>
-      <circle class="dot" cx="${x(c)}" cy="${y(total(c))}" r="4.5"/>
-      <text class="tick" x="${L - 6}" y="${T - 10}" text-anchor="end">${currency() === 'ARS' ? '$' : 'US$'}</text>`;
-    $('chart-desc').textContent =
-      `Desde el mes ${P.introMonths + 1}, el abono es fijo en ${money(P.fee)}. Meta empieza a cobrar a partir de unas ${int(knee)} conversaciones por mes. Con ${int(c)} conversaciones pagás ${money(P.fee + meta(c, r))} en total.`;
-  }
 
   function render() {
     const c = volume();
-    const r = replies();
-    const m = meta(c, r);
-    const billed = Math.max(0, c * r - P.free);
+    const meta = Math.max(0, c * P.replies - P.free) * P.metaRate;
+    const intro = P.intro + meta;
 
     document.querySelectorAll<HTMLOutputElement>('[data-money]').forEach((o) => (o.textContent = money(Number(o.dataset.money))));
-    const intro = P.intro + m;
+    $('meta').textContent = money(meta);
     $('monthly-intro').textContent = money(intro);
-    $('then-note').textContent = m
-      ? `Más lo que cobra Meta: con tu volumen, ${money(m)} por mes. Desde el mes ${P.introMonths + 1}, tu total sería ${money(P.fee + m)} por mes.`
-      : `Con tu volumen, Meta no te cobra nada: desde el mes ${P.introMonths + 1} pagás ${money(P.fee)} por mes.`;
-    document.querySelectorAll('output.meta').forEach((o) => (o.textContent = money(m)));
-    $('per-day').textContent = c
-      ? `Son unos ${money(intro / 30)} por día: ${money(intro / c)} por cada conversación.`
-      : `Son unos ${money(intro / 30)} por día.`;
+    $('monthly-after').textContent = money(P.fee + meta);
+    $('per-day').textContent = `Hoy son unos ${money(intro / 30)} por día.`;
+    $('meta-note').textContent = meta
+      ? `Meta te factura esa parte aparte, en pesos y con su propia tarifa: acá es una estimación. Las primeras ${int(P.free)} respuestas de cada mes son gratis.`
+      : `Con este volumen, Meta no te cobra nada: las primeras ${int(P.free)} respuestas de cada mes son gratis.`;
+    document.querySelectorAll<HTMLButtonElement>('[data-convs]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.convs) === c)));
     // The WhatsApp message carries what they calculated, so the conversation starts from their numbers.
-    const cta = $<HTMLAnchorElement>('cta');
+    const cta = $('cta') as HTMLAnchorElement;
     const url = new URL(cta.href);
     url.searchParams.set('text', `Hola, quiero empezar con el asistente de WhatsApp. Calculé unas ${int(c)} conversaciones por mes.`);
     cta.href = url.href;
-    $('summary').textContent = `Con ${int(c)} conversaciones por mes y unas ${r} respuestas en cada una.`;
-    $('meta-note').textContent = billed
-      ? `Meta cobra ${int(billed)} de tus ${int(c * r)} respuestas: las primeras ${int(P.free)} del mes son gratis.`
-      : `Con este volumen, Meta no te cobra nada: las primeras ${int(P.free)} respuestas de cada mes son gratis.`;
     if (rate) {
-      $('rate').textContent = `US$ 1 = ${rate.value.toLocaleString('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 2 })}`;
+      $('rate').textContent = `US$ 1 = ${rate.value.toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 2 })}`;
       $('rate-date').textContent = new Date(`${rate.date}T12:00:00`).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' });
     }
-    $('currency').hidden = $('pesos').hidden = !rate;
-    draw(c, r);
+    $('currency').hidden = $('rate-line').hidden = !rate;
   }
 
-  function setVolume(v: number, from?: HTMLInputElement) {
-    if (from !== convs) convs.value = String(v);
-    if (from !== range) range.value = String(Math.min(v, Number(range.max)));
-    document.querySelectorAll<HTMLButtonElement>('[data-convs]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.convs) === v)));
-    render();
-  }
-  range.addEventListener('input', () => setVolume(Number(range.value), range));
-  convs.addEventListener('input', () => setVolume(volume(), convs));
-  document.querySelectorAll<HTMLButtonElement>('[data-convs]').forEach((b) => b.addEventListener('click', () => setVolume(Number(b.dataset.convs))));
+  document.querySelectorAll<HTMLButtonElement>('[data-convs]').forEach((b) =>
+    b.addEventListener('click', () => {
+      convs.value = b.dataset.convs!;
+      render();
+    }),
+  );
+  form.addEventListener('input', render);
   form.addEventListener('change', render);
   form.addEventListener('submit', (e) => e.preventDefault());
 
-  setVolume(volume());
+  render();
   // Today's rate; the one from the build stays if the BCRA doesn't answer.
   fetch(main.dataset.bcra!, { signal: AbortSignal.timeout(5000) })
     .then((r) => r.json())
@@ -375,360 +209,348 @@ const demo = [
 </script>
 
 <style>
-  /* 16px: below that, iPhones zoom in when an input is tapped. */
-  .stv-input { font-size: 16px; }
-
-  /* Steps, the currency switch and the pesos note set display, which would override `hidden`. */
+  /* The currency switch sets display, which would override `hidden`. */
   [hidden] {
     display: none !important;
   }
 
-  /* Mobile first: one narrow column that stays narrow on desktop, like a form. */
-  /* Same top bar as the homepage. */
-  .top {
-    display: flex;
+  .back {
+    display: inline-flex;
     align-items: center;
-    height: 64px;
-    padding: 0 var(--space-6);
-    border-bottom: 1px solid var(--line);
-  }
-  .home {
-    display: inline-block;
-    text-decoration: none;
-  }
-  .home :global(.stv-wordmark) {
-    font-size: 32px;
+    gap: var(--space-2);
+    min-height: 44px;
+    font-size: 15px;
+    font-weight: 500;
   }
 
   main {
-    box-sizing: border-box;
-    flex: 1;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: var(--space-6) var(--space-4) var(--space-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    max-width: 920px;
+    padding-block: var(--space-16) 96px;
   }
-  p {
+
+  p,
+  h2 {
     margin: 0;
   }
-  .muted {
-    color: var(--ink-muted);
+
+  .muted,
+  .question-hint {
+    color: var(--ink-on-bone-muted);
   }
 
-  .intro {
-    margin-bottom: var(--space-10);
-  }
-  .intro h1 {
-    margin: 0 0 var(--space-4);
-    font-size: clamp(40px, 6vw + 16px, 56px);
-  }
-  .lede {
-    color: var(--ink-muted);
+  .strong {
+    font-weight: 700;
   }
 
-  .summary {
+  .title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 144px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .title > * {
+    display: block;
+  }
+
+  .title em {
+    color: var(--accent-fill);
+  }
+
+  .calc {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    column-gap: var(--space-2);
-  }
-  .change {
-    min-height: 44px;
-    padding: 0 var(--space-1);
-    border: 0;
-    background: none;
-    color: var(--accent);
-    font: inherit;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  .change:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+    flex-direction: column;
+    gap: var(--space-16);
   }
 
-  .progress {
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--line);
-    color: var(--ink-subtle);
-  }
-
-  .step {
-    display: grid;
+  .question {
+    display: flex;
+    flex-direction: column;
     gap: var(--space-6);
   }
-  .step h2 {
-    margin: 0;
-    scroll-margin-top: var(--space-6);
-  }
-  .step h2:focus {
-    outline: none;
-  }
 
-  .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-  .chip {
-    min-width: 64px;
-    height: 44px;
-    padding: 0 var(--space-4);
-    border: 1px solid var(--border-control);
-    border-radius: var(--radius-md);
-    background: transparent;
-    color: var(--ink);
-    font: 500 15px var(--font-sans);
-    font-variant-numeric: tabular-nums;
-    cursor: pointer;
-  }
-  .chip[aria-pressed='true'] {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .chip:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  .volume {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-  }
-  .volume .stv-input {
-    flex: 0 0 104px;
-  }
-  input[type='range'] {
-    flex: 1;
-    min-width: 0;
-    height: 44px;
-    accent-color: var(--accent-fill);
-  }
-  input[type='range']:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-
-  /* Buttons stack full-width on a phone, primary first; side by side from tablet up. */
-  .actions {
+  .question-head {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
   }
-  .actions > :global(*) {
-    width: 100%;
-    box-sizing: border-box;
+
+  .question-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
-  .kinds {
-    display: grid;
-    gap: var(--space-2);
-    margin: 0;
-    padding: 0;
-    border: 0;
+  .question-hint {
+    max-width: 620px;
+    font-size: 16px;
+    line-height: 24px;
   }
-  .kind {
+
+  /* Presets as big blocks; the chosen one turns blue and lifts. */
+  .chips {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-4);
-    align-items: flex-start;
-    padding: var(--space-4);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--surface-100);
-    cursor: pointer;
-  }
-  .kind:has(input:checked) {
-    border-color: var(--accent);
-  }
-  .kind input {
-    width: 20px;
-    height: 20px;
-    margin: 3px 0 0;
-    accent-color: var(--accent-fill);
-  }
-  .kind input:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-  .kind-text {
-    display: grid;
-    gap: var(--space-1);
   }
 
-  /* Pesos / Dólares: a two-option switch. */
-  .currency {
-    display: inline-flex;
-    justify-self: start;
-    border: 1px solid var(--border-control);
-    border-radius: var(--radius-md);
-    overflow: hidden;
+  .chip {
+    flex: 1 1 140px;
+    min-height: 96px;
+    padding: 0 var(--space-4);
+    border: var(--stroke);
+    background: var(--paper);
+    color: var(--ink-on-bone);
+    font-family: var(--font-display);
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.12s;
   }
+
+  .chip:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--ink-on-bone);
+  }
+
+  .chip[aria-pressed='true'] {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+    box-shadow: 6px 6px 0 var(--ink-on-bone);
+  }
+
+  .other {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .other input {
+    width: 140px;
+    box-sizing: border-box;
+    min-height: 56px;
+    padding: 0 var(--space-4);
+    border: var(--stroke);
+    border-radius: 0;
+    background: var(--paper);
+    color: var(--ink-on-bone);
+    font: 600 22px var(--font-sans);
+    -moz-appearance: textfield;
+  }
+
+  .result-wrap {
+    position: relative;
+  }
+
+  .sticker {
+    top: -56px;
+    right: -8px;
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+
+  .result {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: clamp(24px, 5vw, 48px);
+    background: var(--highlight);
+    border: var(--stroke);
+    box-shadow: 12px 12px 0 var(--ink-on-bone);
+  }
+
+  /* Room on the right for the sticker, which overlaps the card's corner. */
+  .result-head {
+    padding-right: 104px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  /* Pesos / Dólares: two joined blocks; the chosen one in ink. */
+  .currency {
+    display: flex;
+  }
+
   .currency label {
     position: relative;
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    box-sizing: border-box;
-    padding: 0 var(--space-4);
-    font: 500 15px var(--font-sans);
+    min-height: 48px;
+    padding: 0 20px;
+    border: var(--stroke);
+    background: var(--paper);
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
   }
+
+  .currency label + label {
+    margin-left: -2px;
+  }
+
   .currency input {
     position: absolute;
     opacity: 0;
   }
+
   .currency label:has(input:checked) {
-    background: var(--surface-200);
-    color: var(--accent);
-  }
-  .currency label:has(input:focus-visible) {
-    outline: 2px solid var(--accent);
-    outline-offset: -2px;
+    background: var(--ink-on-bone);
+    color: var(--bone);
   }
 
-  .block {
-    display: grid;
-    gap: var(--space-1);
+  .currency label:has(input:focus-visible) {
+    outline: 3px solid var(--accent-fill);
+    outline-offset: 3px;
   }
+
+  .figures {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .total-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--space-6);
+  }
+
   .total {
     font-family: var(--font-display);
-    font-size: 52px;
-    line-height: 1;
+    font-size: clamp(72px, 14vw, 176px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
     overflow-wrap: anywhere;
   }
-  .soft {
-    opacity: 0.8;
+
+  .per {
+    font-size: 22px;
+    font-weight: 600;
   }
+
+  .after {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+    font-size: 18px;
+    line-height: 26px;
+  }
+
   .breakdown {
     width: 100%;
     border-collapse: collapse;
+    background: var(--paper);
+    border: var(--stroke);
+    font-size: 17px;
+    line-height: 24px;
   }
+
   .breakdown th,
   .breakdown td {
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid rgba(13, 15, 18, 0.2);
+    padding: var(--space-4) 20px;
+    border-bottom: var(--stroke);
     font-variant-numeric: tabular-nums;
-    vertical-align: top;
+    vertical-align: middle;
   }
+
   .breakdown th {
-    text-align: left;
     font-weight: 400;
+    text-align: left;
   }
+
   .breakdown td {
     padding-left: var(--space-4);
     text-align: right;
     white-space: nowrap;
   }
 
-  /* What happens over time: a real sequence, so an ordered list with a rule between months. */
-  .timeline {
-    display: grid;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .timeline li {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: var(--space-1) var(--space-4);
-    padding: var(--space-4) 0;
-    border-bottom: 1px solid var(--line);
-    font-variant-numeric: tabular-nums;
-  }
-  .timeline li > span:last-child {
-    text-align: right;
+  .meta-row > * {
+    border-bottom: 0 !important;
+    background: var(--accent-fill);
+    color: var(--on-accent);
   }
 
-  .chart {
-    display: grid;
-    gap: var(--space-4);
-    margin: 0;
-  }
-  #chart {
-    width: 100%;
-    height: auto;
-    overflow: visible;
-  }
-  #chart :global(.grid) {
-    stroke: var(--line);
-  }
-  #chart :global(.tick) {
-    fill: var(--ink-subtle);
-    font: 500 12px var(--font-sans);
-    font-variant-numeric: tabular-nums;
-  }
-  #chart :global(.fee) {
-    fill: color-mix(in srgb, var(--ink) 22%, transparent);
-  }
-  #chart :global(.meta) {
-    fill: var(--accent-fill);
-  }
-  #chart :global(.free) {
-    stroke: var(--ink-subtle);
-    stroke-dasharray: 3 4;
-  }
-  #chart :global(.marker) {
-    stroke: var(--ink);
-  }
-  #chart :global(.dot) {
-    fill: var(--ink);
-  }
-
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-6);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    color: var(--ink-muted);
-  }
+  /* Square keys: ours in ink, Meta's in white on its blue row. */
   .key {
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    margin-right: var(--space-2);
-    border-radius: var(--radius-sm);
+    width: 14px;
+    height: 14px;
+    margin-right: 12px;
+    background: var(--ink-on-bone);
     vertical-align: -1px;
   }
-  .key-fee {
-    background: color-mix(in srgb, var(--ink) 22%, transparent);
-  }
-  .stv-card-bone .key-fee {
-    background: color-mix(in srgb, var(--ink-on-bone) 30%, var(--bone));
-  }
-  .key-meta {
-    background: var(--accent-fill);
+
+  .meta-row .key {
+    background: var(--paper);
   }
 
-  .pesos,
+  .note {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .start {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+  }
+
   .how {
-    display: grid;
-    gap: var(--space-2);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--line);
+    border-block: var(--stroke);
   }
-  .pesos h3 {
-    margin: 0;
-  }
-  .pesos ul,
-  .how ul {
-    display: grid;
-    gap: var(--space-2);
-    margin: 0;
-    padding-left: var(--space-6);
-    color: var(--ink-muted);
-  }
+
   .how summary {
-    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 72px;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+    list-style: none;
     cursor: pointer;
   }
-  .how[open] summary {
-    margin-bottom: var(--space-2);
+
+  .how summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .chev {
+    flex: none;
+  }
+
+  .how[open] .chev {
+    transform: rotate(180deg);
+  }
+
+  .how ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-6);
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   .visually-hidden {
@@ -740,83 +562,39 @@ const demo = [
     white-space: nowrap;
   }
 
-  /* The launch offer: the one thing on the page set in the accent, before anyone starts. */
-  .offer {
-    display: grid;
-    gap: var(--space-1);
-    margin-top: var(--space-6);
-    padding: var(--space-4);
-    border: 1px solid var(--accent);
-    border-radius: var(--radius-md);
-  }
-  .offer-title {
-    font-family: var(--font-display);
-    font-size: 30px;
-    line-height: 1.1;
-    color: var(--accent);
-  }
-  .offer-body {
-    font-size: 15px;
-    line-height: 22px;
-    color: var(--ink);
-  }
-
-  .strong {
-    font-weight: 600;
-  }
-  .per {
-    margin-left: var(--space-2);
-    font-family: var(--font-sans);
-    font-size: 16px;
-  }
-  /* The regular price, struck through next to the offer: honest about what comes after. */
-  .was {
-    margin-right: var(--space-2);
-    opacity: 0.6;
-  }
-  .then {
-    display: grid;
-    gap: var(--space-2);
-  }
-  .then h3 {
-    margin: 0;
-  }
-
-  /* Closing: what they get, shown as a conversation (the brand's illustration), then the ask. */
-  .close {
-    display: grid;
-    gap: var(--space-6);
-    margin-top: var(--space-10);
-    padding-top: var(--space-10);
-    border-top: 1px solid var(--line);
-  }
-  .close-title {
-    margin: 0;
-    font-size: clamp(32px, 4vw + 16px, 44px);
-  }
-  .facts {
-    display: grid;
-    gap: var(--space-4);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .facts li {
-    display: grid;
-    gap: var(--space-1);
-  }
-
-
-  @media (min-width: 640px) {
-    .actions {
-      flex-direction: row;
-      flex-wrap: wrap;
+  /* On a phone the sticker stays inside the screen: rotated, it reaches ~15px past its box. */
+  @media (max-width: 639px) {
+    .sticker {
+      right: 0;
     }
-    .actions > :global(*) {
-      width: auto;
+  }
+
+  /* On a phone the breakdown's label and amount stack, so long amounts never squeeze the label. */
+  @media (max-width: 559px) {
+    .breakdown tr {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      padding: var(--space-4) 20px;
+      border-bottom: var(--stroke);
     }
-    .total {
-      font-size: 64px;
+
+    .breakdown .meta-row {
+      border-bottom: 0;
+      background: var(--accent-fill);
+    }
+
+    .breakdown th,
+    .breakdown td {
+      padding: 0;
+      border: 0;
+      text-align: left;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chip {
+      transition: none;
     }
   }
 </style>
