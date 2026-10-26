@@ -7,8 +7,8 @@ description: Cómo Solotvj trata los datos personales en su servicio de asistent
 
 # Política de privacidad
 
-**Última actualización:** 18 de octubre de 2026\
-**Versión:** 2.5
+**Última actualización:** 26 de octubre de 2026\
+**Versión:** 2.6
 
 ---
 
@@ -39,6 +39,9 @@ asistente:
   (horarios, precios, coberturas, servicios, ubicación);
 - toma pedidos de turno y recopila los datos necesarios para que el equipo del Cliente
   los confirme;
+- si el Cliente conecta su Google Calendar, ofrece los horarios en que su equipo está libre
+  y, si el Cliente lo autoriza, registra en ese calendario el turno que usted acepta
+  (sección 4.5);
 - deriva la conversación a una persona del equipo del Cliente cuando corresponde.
 
 El asistente funciona sobre la **Plataforma de WhatsApp Business de Meta** y utiliza
@@ -137,6 +140,50 @@ Nuestro sitio web **no utiliza cookies de análisis ni de publicidad, ni herrami
 seguimiento**. No obstante, por estar alojado en un servicio de terceros, su visita queda
 registrada por ese proveedor. Los proveedores del sitio web se detallan en la sección 8.2.
 
+### 4.5 Datos de Google Calendar del Cliente
+
+El Cliente puede conectar su cuenta de Google desde el panel de administración para que el
+asistente ofrezca los horarios en que su equipo está libre y, si el Cliente lo autoriza,
+registre los turnos en su calendario. La conexión es opcional, sólo la puede hacer el
+titular de la cuenta del Cliente, y pide a Google únicamente los permisos que necesitan las
+funciones que el Cliente activó:
+
+| Permiso de Google | Para qué lo usamos |
+|---|---|
+| Ver la lista de calendarios (`calendar.calendarlist.readonly`) | Mostrarle al Cliente sus calendarios, para que elija cuál corresponde a cada persona de su equipo |
+| Ver la disponibilidad (`calendar.events.freebusy`) | Saber en qué horarios está ocupado cada calendario vinculado. Este permiso da acceso **sólo a cuándo** hay eventos, **nunca a su título, descripción, participantes ni ubicación** |
+| Crear eventos (`calendar.events`) | Sólo si el Cliente activa el registro de turnos: crear el evento del turno en el calendario vinculado y, si el equipo del Cliente lo deshace desde el panel, eliminar ese mismo evento. No leemos ni modificamos ningún otro evento |
+
+**Qué guardamos:** la credencial de acceso que entrega Google (cifrada, sección 13), el
+identificador del calendario principal de la cuenta, los permisos concedidos y los
+calendarios que el Cliente vinculó. Los horarios ocupados se consultan en el momento y no
+se guardan; sí se guardan, como parte del historial del servicio, los horarios libres que
+el asistente ofreció en cada respuesta y los turnos propuestos o registrados (fecha, hora y
+persona del equipo).
+
+**Qué enviamos a Google al registrar un turno:** la fecha, la hora y la duración, y un
+título breve con el nombre de la persona del equipo (por ejemplo, «Turno con … (pedido por
+WhatsApp)»). **No enviamos a Google su nombre, su número, el contenido de sus mensajes ni
+el motivo de la consulta.** El evento se crea sin invitados y Google no envía avisos por él.
+
+**Con quién se comparte:** los horarios libres de cada persona del equipo se incluyen en
+las solicitudes al modelo de lenguaje (sección 8.1), con retención nula (sección 10.2),
+para que el asistente pueda ofrecerlos. No se comparten con nadie más ni se usan para
+ningún otro fin.
+
+**Desconexión:** el Cliente puede desconectar su cuenta en cualquier momento desde el
+panel: revocamos el acceso ante Google y eliminamos la credencial y los calendarios
+vinculados. También puede revocarlo desde https://myaccount.google.com/permissions.
+
+**Uso limitado.** El uso y la transferencia a cualquier otra aplicación de la información
+recibida de las API de Google se ajustan a la
+[Política de datos del usuario de los servicios de API de Google](https://developers.google.com/terms/api-services-user-data-policy),
+incluidos los requisitos de Uso limitado. En particular, no usamos esos datos para
+publicidad, no los vendemos, ninguna persona los lee salvo con el consentimiento del
+Cliente, por seguridad o por obligación legal, y **no los usamos para desarrollar, mejorar
+ni entrenar modelos de inteligencia artificial o de aprendizaje automático
+generalizados**.
+
 ---
 
 ## 5. Para qué usamos los datos (finalidades)
@@ -144,7 +191,8 @@ registrada por ese proveedor. Los proveedores del sitio web se detallan en la se
 Tratamos los datos descriptos en 4.1 exclusivamente para:
 
 1. **Responder su consulta** con la información que el Cliente nos proporcionó.
-2. **Tomar su pedido de turno** y transmitirlo al equipo del Cliente para que lo confirme.
+2. **Tomar su pedido de turno** y transmitirlo al equipo del Cliente para que lo confirme
+   o, si el Cliente lo autorizó, registrarlo en su calendario (sección 4.5).
 3. **Derivar la conversación a una persona** del equipo del Cliente cuando usted lo pide
    o cuando el asistente detecta que corresponde.
 4. **Notificar al equipo del Cliente** que hay una conversación que requiere su atención.
@@ -261,6 +309,7 @@ no usar los datos para fines propios ni para entrenar modelos:
 | **Cloudflare R2** | Copias de seguridad cifradas | Todos los datos del servicio, cifrados | EE. UU. |
 | **Cloudflare** — Tunnel | Conexión segura entre Internet y la aplicación | Todo el tráfico de la aplicación en tránsito, incluido el contenido de los mensajes | EE. UU. y otros |
 | **Sentry** (Functional Software, Inc.) | Registro de errores, rendimiento y registros técnicos | El tipo de error y su ubicación en el código, tiempos de respuesta y registros técnicos; sin contenido de mensajes ni datos de contacto | EE. UU. |
+| **Google LLC** — Google Calendar, en la cuenta del propio Cliente | Consultar la disponibilidad del equipo del Cliente y registrar turnos, si el Cliente lo conectó (sección 4.5) | Fecha, hora y duración de cada turno registrado y el nombre de la persona del equipo; ningún dato suyo | EE. UU. y otros |
 | **Google Workspace** | Notificaciones al equipo del Cliente | Dirección de correo del destinatario y un enlace a la conversación; no el contenido clínico | EE. UU. |
 
 ### 8.2 Proveedores del sitio web
@@ -326,6 +375,8 @@ configuración distinta, aplicamos por defecto:
 | Transcripciones de audio | Igual plazo que el contenido de mensajes |
 | Registro del aviso de privacidad (fecha y hora) | Mientras dure la relación con el Cliente. Al finalizar el servicio se entrega al Cliente en su exportación de datos y se elimina de la plataforma junto con los demás datos |
 | Registros técnicos y de acceso | 90 días |
+| Credencial de acceso a Google Calendar y calendarios vinculados (sección 4.5) | Hasta que el Cliente desconecta su cuenta de Google o finaliza el servicio |
+| Horarios libres ofrecidos y turnos propuestos o registrados (sección 4.5) | Mientras dure la relación con el Cliente |
 | Copias de respaldo cifradas | 30 días en rotación |
 | Datos de facturación y administración de Clientes | El plazo exigido por la legislación fiscal y comercial |
 
@@ -481,9 +532,11 @@ El asistente es un sistema automatizado que utiliza modelos de lenguaje para red
 respuestas.
 
 **No adopta decisiones que produzcan efectos jurídicos ni sanitarios sobre usted.** No
-diagnostica, no evalúa la gravedad de un síntoma, no recomienda medicamentos, no confirma
-turnos por sí mismo y no rechaza pacientes. Toda decisión clínica o de agenda la toma una
-persona del equipo del Cliente.
+diagnostica, no evalúa la gravedad de un síntoma, no recomienda medicamentos y no rechaza
+pacientes. Toda decisión clínica la toma una persona del equipo del Cliente. Sólo registra un turno por sí
+mismo si el Cliente activó esa opción, y únicamente en un horario libre de su calendario que
+usted aceptó en la conversación; el equipo del Cliente puede deshacerlo. En los demás casos,
+el turno lo confirma una persona del equipo del Cliente.
 
 Sólo puede responder con información que el Cliente cargó previamente. Está diseñado y
 verificado para reconocer cuándo no dispone de un dato y derivar la consulta a una persona

@@ -7,8 +7,8 @@ description: How Solotvj handles personal data in its automated WhatsApp assista
 
 # Privacy policy
 
-**Last updated:** 18 October 2026\
-**Version:** 2.5
+**Last updated:** 26 October 2026\
+**Version:** 2.6
 
 > English translation provided for convenience and for review by third parties such as
 > Meta Platforms. The operative version is the Spanish one at
@@ -34,7 +34,9 @@ Referred to below as "Solotvj", "the service" or "we".
 Solotvj provides dental practices, clinics and small businesses (the "Customer") with an
 automated assistant that answers WhatsApp messages on the Customer's behalf. It answers
 common questions from information the Customer supplies, takes appointment requests, and
-hands the conversation to the Customer's staff when appropriate.
+hands the conversation to the Customer's staff when appropriate. If the Customer connects
+its Google Calendar, the assistant offers times when its staff are free and, if the Customer
+allows it, records the appointment you accept in that calendar (section 4.5).
 
 It runs on the **Meta WhatsApp Business Platform** and uses third-party language models to
 compose replies (section 8).
@@ -114,12 +116,53 @@ Our website **uses no analytics or advertising cookies and no tracking tools**. 
 being hosted by a third party, your visit is logged by that provider. Website providers are
 listed in section 8.2.
 
+### 4.5 Customer Google Calendar data
+
+The Customer may connect its Google account from the admin panel so that the assistant can
+offer times when its staff are free and, if the Customer allows it, record appointments in
+its calendar. Connecting is optional, only the Customer's account owner can do it, and we
+ask Google only for the permissions the features the Customer turned on need:
+
+| Google permission | What we use it for |
+|---|---|
+| See the calendar list (`calendar.calendarlist.readonly`) | Show the Customer its calendars, so it can choose which one belongs to each staff member |
+| See availability (`calendar.events.freebusy`) | Know when each linked calendar is busy. This permission gives access **only to when** events happen, **never to their title, description, attendees or location** |
+| Create events (`calendar.events`) | Only if the Customer turns on appointment booking: create the appointment's event in the linked calendar and, if the Customer's staff undo it from the panel, delete that same event. We do not read or change any other event |
+
+**What we store:** the access credential Google issues (encrypted, section 13), the
+identifier of the account's primary calendar, the permissions granted and the calendars the
+Customer linked. Busy times are looked up when needed and not stored; the free times the
+assistant offered in each reply and the appointments proposed or recorded (date, time and
+staff member) are kept as part of the service history.
+
+**What we send to Google when recording an appointment:** the date, time and duration, and
+a short title with the staff member's name (for example, "Appointment with … (requested via
+WhatsApp)"). **We do not send Google your name, your number, your messages or the reason
+for your visit.** The event has no guests and Google sends no notifications for it.
+
+**Who it is shared with:** each staff member's free times are included in the requests to
+the language model (section 8.1), with zero data retention (section 10.2), so the assistant
+can offer them. They are not shared with anyone else or used for any other purpose.
+
+**Disconnecting:** the Customer can disconnect its account at any time from the panel: we
+revoke access at Google and delete the credential and the linked calendars. Access can also
+be revoked at https://myaccount.google.com/permissions.
+
+**Limited Use.** Solotvj's use and transfer to any other app of information received from
+Google APIs will adhere to the
+[Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy),
+including the Limited Use requirements. In particular, we do not use this data for
+advertising, we do not sell it, no person reads it except with the Customer's consent, for
+security or as required by law, and **we do not use it to develop, improve or train
+generalized artificial intelligence or machine learning models**.
+
 ---
 
 ## 5. What we use the data for
 
 1. **Answer your question** using information the Customer provided.
-2. **Take your appointment request** and pass it to the Customer's staff.
+2. **Take your appointment request** and pass it to the Customer's staff, or, if the
+   Customer allows it, record it in its calendar (section 4.5).
 3. **Hand the conversation to a person** when you ask, or when warranted.
 4. **Notify the Customer's staff** that a conversation needs attention.
 5. **Operate and maintain the service.**
@@ -228,6 +271,7 @@ the data for its own purposes or for model training:
 | **Cloudflare R2** | Encrypted backups | All service data, encrypted | USA |
 | **Cloudflare** — Tunnel | Secure connection between the internet and the application | All application traffic in transit, including message content | USA and others |
 | **Sentry** (Functional Software, Inc.) | Error, performance and technical logging | The error type and its location in the code, response times and technical logs; no message content or contact details | USA |
+| **Google LLC** — Google Calendar, in the Customer's own account | Checking the Customer's staff availability and recording appointments, if the Customer connected it (section 4.5) | Date, time and duration of each recorded appointment and the staff member's name; none of your data | USA and others |
 | **Google Workspace** | Notifications to the Customer's staff | Recipient address and a link to the conversation; not clinical content | USA |
 
 ### 8.2 Website providers
@@ -289,6 +333,8 @@ Set by the Customer as controller. Unless configured otherwise, our defaults are
 | Audio transcriptions | Same as message content |
 | Record of the privacy notice (date and time) | Duration of the Customer relationship. When the service ends it is handed to the Customer in its data export and deleted from the platform with the rest of the data |
 | Technical and access logs | 90 days |
+| Google Calendar access credential and linked calendars (section 4.5) | Until the Customer disconnects its Google account or the service ends |
+| Free times offered and appointments proposed or recorded (section 4.5) | Duration of the Customer relationship |
 | Encrypted backups | 30 days rolling |
 | Customer billing and administration data | As required by tax and commercial law |
 
@@ -429,9 +475,11 @@ responsible Customer without undue delay so they can meet their notification obl
 The assistant is automated and uses language models to compose replies.
 
 **It takes no decision producing legal or medical effects concerning you.** It does not
-diagnose, assess symptom severity, recommend medication, confirm appointments on its own,
-or turn patients away. Every clinical or scheduling decision is taken by a person on the
-Customer's staff.
+diagnose, assess symptom severity, recommend medication or
+turn patients away. Every clinical decision is taken by a person on the Customer's staff.
+It records an appointment on its own only if the Customer turned that on, and only in a
+free slot of the Customer's calendar that you accepted in the conversation; the Customer's
+staff can undo it. Otherwise, a person on the Customer's staff confirms the appointment.
 
 It can only answer using information the Customer previously uploaded, and is designed and
 tested to recognise when it does not hold a fact and route the question to a person rather
