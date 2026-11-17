@@ -52,6 +52,12 @@ const t = useTranslations(Astro.props.lang);
     color: var(--ink-muted);
   }
 
+  /* Under a page in the bold style the footer lines up with that page's column. */
+  :global(.loca) + footer {
+    max-width: 1200px;
+    padding-inline: clamp(16px, 4vw, 32px);
+  }
+
   .main,
   .legal {
     display: flex;

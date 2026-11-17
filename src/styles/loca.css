@@ -53,6 +53,9 @@
 }
 
 .loca-home {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
 }
 

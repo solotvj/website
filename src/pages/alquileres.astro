@@ -1,0 +1,467 @@
+---
+// The rental system: Solotvj's second product. Spanish only, in the homepage's bold style.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Wordmark from '../components/Wordmark.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { legal, whatsappUrl } from '../i18n';
+import '../styles/loca.css';
+
+// Spanish only: every language's alternate is this page, so its canonical isn't the homepage's.
+const page = new URL('/alquileres', Astro.site).href;
+const wa = whatsappUrl('Hola, quiero saber más sobre el sistema de alquileres.');
+
+const does = [
+  ['Tu sitio de reservas', 'Cada comercio tiene su dirección. Tus clientes eligen fechas y equipos desde el teléfono y dejan la seña con Mercado Pago, directo a tu cuenta.'],
+  ['Nunca reservás de más', 'Si tenés 20 unidades de algo, la reserva número 21 para el mismo día se rechaza, aunque dos personas reserven en el mismo instante.'],
+  ['El mostrador, sin planillas', 'Reservas, retiros con el código de cada unidad, devoluciones parciales y cobros en uno o varios pagos.'],
+  ['Facturas con ARCA', 'La factura electrónica sale a tu nombre con un clic desde la reserva, o sola cuando queda paga.'],
+];
+// One booking from end to end: [title, sentence, picture, what the picture shows].
+const tour = [
+  ['Tus clientes reservan online', 'Eligen fechas y equipos desde el teléfono, y ven solo lo que está libre esos días.', '1-sitio', 'El sitio de reservas de un comercio, con dos equipos elegidos y el total.'],
+  ['Dejan la seña con Mercado Pago', 'La plata va directo a tu cuenta y el lugar queda apartado.', '2-sena', 'Los datos del cliente y el botón para pagar la seña.'],
+  ['La reserva ya está en el mostrador', 'Nadie la vuelve a cargar: aparece sola entre los retiros del día.', '3-mostrador', 'El mostrador con la lista de retiros del día.'],
+  ['Cada unidad sale con su código', 'Escaneás lo que se lleva cada persona y sabés qué unidad tiene quién.', '5-retiro', 'El retiro de una reserva, con el código de cada unidad asignada.'],
+  ['La factura sale con un clic', 'Factura electrónica con ARCA, con su CAE, desde la misma reserva.', '6-factura', 'Una reserva pagada con su factura emitida.'],
+  ['Y ves cuánto entra', 'Ingresos por día y por medio de pago, y qué equipos se alquilan más.', '7-reportes', 'Los reportes de ingresos y de equipos más alquilados.'],
+];
+const soon = [
+  ['Con nuestro asistente de WhatsApp', 'El asistente consulta la disponibilidad y toma reservas por vos, a cualquier hora.'],
+  ['Conector MCP', 'Tu comercio, al alcance de los asistentes de inteligencia artificial.'],
+];
+---
+
+<BaseLayout
+  lang="es"
+  urls={{ es: page, en: page }}
+  title="Sistema de alquileres · Solotvj"
+  description="Un sistema para comercios de alquiler de Argentina: sitio de reservas, stock, cobros con Mercado Pago y facturas con ARCA, en un solo lugar."
+>
+  <div class="loca">
+    <header class="loca-header">
+      <div class="loca-wrap">
+        <a class="loca-home" href={getRelativeLocaleUrl('es')} aria-label="Solotvj"><Wordmark class="stv-on-bone" /></a>
+        <nav class="links" aria-label="Solotvj">
+          <a href={getRelativeLocaleUrl('es', 'asistente')}>Asistente de WhatsApp</a>
+          <a class="cta" href="#contacto">Escribinos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="loca-wrap hero" aria-labelledby="hero-title">
+        <p class="loca-label">Sistema de alquileres</p>
+        <h1 id="hero-title" class="loca-display">Del sitio de reservas <em>al mostrador.</em></h1>
+        <p class="lede">Catálogo, stock, reservas, cobros y facturas en un solo lugar, hecho para comercios de alquiler de Argentina.</p>
+        <div class="actions">
+          <a class="loca-btn loca-btn-blue" href={wa} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+          <a class="more" href="#recorrido">Mirá cómo funciona</a>
+        </div>
+      </section>
+
+      <span id="recorrido"></span>
+      <section class="loca-wrap tour" aria-labelledby="tour-title">
+        <h2 id="tour-title" class="loca-display">Una reserva, <em>de punta a punta.</em></h2>
+        <div class="tour-grid">
+          <ol class="tour-steps">
+            {tour.map(([title, body], i) => (
+              <li class:list={['tour-step', { 'is-on': i === 0 }]} data-step={i}>
+                <h3><span class="tour-n" aria-hidden="true">{i + 1}</span>{title}</h3>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ol>
+          <div class="tour-side">
+            <div class="tour-screen">
+              {tour.map(([, , file, alt], i) => (
+                <img class:list={{ 'is-on': i === 0 }} src={`/alquileres/pasos/${file}.jpg`} alt={alt} width="1440" height="770" loading={i === 0 ? 'eager' : 'lazy'} />
+              ))}
+            </div>
+            <p class="caption">Pantallas del sistema, con datos de demostración. <a href="/alquileres/demo.mp4">Ver el video (1 min 30 s)</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="video" class="loca-wrap video" aria-label="Video del sistema de alquileres">
+        <video controls preload="none" poster="/alquileres/poster.jpg" width="1920" height="1080">
+          <source src="/alquileres/demo.mp4" type="video/mp4" />
+        </video>
+        <p class="caption">Una reserva de punta a punta, en un comercio de ejemplo y con datos de demostración. Dura un minuto y medio y no tiene sonido.</p>
+      </section>
+
+      <section class="band dark" aria-labelledby="does-title">
+        <div class="loca-wrap stack">
+          <h2 id="does-title" class="loca-display">Lo que <em class="accent">resuelve.</em></h2>
+          <ul class="rows">
+            {does.map(([title, body]) => (
+              <li class="row">
+                <h3 class="row-title">{title}</h3>
+                <p class="row-body">{body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="band yellow" aria-labelledby="soon-title">
+        <div class="loca-wrap stack">
+          <p class="loca-label">Próximamente</p>
+          <h2 id="soon-title" class="loca-display">Y esto <em>recién empieza.</em></h2>
+          <ul class="cards">
+            {soon.map(([title, body]) => (
+              <li class="card">
+                <h3 class="card-title">{title}</h3>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="contacto" class="band dark" aria-labelledby="contact-title">
+        <div class="loca-wrap stack contact">
+          <h2 id="contact-title" class="loca-display">¿Lo vemos <em class="accent">con tu comercio?</em></h2>
+          <a class="number" href={wa} target="_blank" rel="noopener">{legal.whatsapp}</a>
+          <p>Contanos qué alquilás y te lo mostramos funcionando. O escribinos a <a href={`mailto:${legal.email}`}>{legal.email}</a>.</p>
+          <a class="loca-btn loca-btn-blue loca-btn-on-dark" href={wa} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>
+
+<script>
+  // The tour: the screen beside the steps follows the step nearest the middle of the window.
+  const steps = [...document.querySelectorAll<HTMLElement>('.tour-step')];
+  const shots = [...document.querySelectorAll<HTMLElement>('.tour-screen img')];
+  let on = 0;
+  const show = (i: number) => {
+    if (i === on) return;
+    shots.forEach((s, n) => {
+      s.classList.toggle('was-on', n === on);
+      s.classList.toggle('is-on', n === i);
+    });
+    steps.forEach((s, n) => s.classList.toggle('is-on', n === i));
+    on = i;
+  };
+  const watcher = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) if (e.isIntersecting) show(Number((e.target as HTMLElement).dataset.step));
+    },
+    { rootMargin: '-45% 0px -45% 0px' },
+  );
+  steps.forEach((s) => watcher.observe(s));
+</script>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-6);
+    font: 500 15px/20px var(--font-sans);
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-underline-offset: 3px;
+  }
+
+  .links .cta {
+    padding: 0 var(--space-4);
+    background: var(--ink-on-bone);
+    color: var(--bone);
+    text-decoration: none;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+    padding-block: var(--space-24) var(--space-16);
+  }
+
+  .hero p {
+    margin: 0;
+  }
+
+  .loca-display em {
+    color: var(--accent-fill);
+  }
+
+  .band.dark .loca-display em {
+    color: var(--accent);
+  }
+
+  .band.yellow .loca-display em {
+    color: inherit;
+  }
+
+  .lede {
+    max-width: 46ch;
+    font: 500 22px/32px var(--font-sans);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6) var(--space-10);
+    padding-top: var(--space-4);
+  }
+
+  .more {
+    font-weight: 600;
+    text-underline-offset: 4px;
+  }
+
+  /* The tour, on a wide screen: the steps scroll past while the product's screen stays and changes. */
+  .tour {
+    display: none;
+  }
+
+  @media (min-width: 1000px) {
+    .tour {
+      display: block;
+      padding-block: var(--space-10) var(--space-24);
+    }
+
+    .video {
+      display: none;
+    }
+  }
+
+  .tour .loca-display {
+    font-size: clamp(48px, 5.4vw, 80px);
+  }
+
+  .tour-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: var(--space-16);
+    margin-top: var(--space-10);
+  }
+
+  .tour-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tour-step {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-3);
+    min-height: 62vh;
+    border-top: var(--stroke);
+  }
+
+  .tour-step:last-child {
+    border-bottom: var(--stroke);
+  }
+
+  .tour-step h3 {
+    margin: 0;
+    font: 400 40px/1 var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .tour-n {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-size: 72px;
+    line-height: 0.9;
+    color: var(--ink-on-bone-muted);
+    transition: color 0.2s;
+  }
+
+  .tour-step.is-on .tour-n {
+    color: var(--accent-fill);
+  }
+
+  .tour-step p {
+    margin: 0;
+  }
+
+  .tour-side {
+    position: sticky;
+    top: max(var(--space-10), calc(50vh - 240px));
+    align-self: start;
+  }
+
+  .tour-screen {
+    position: relative;
+    aspect-ratio: 1440 / 770;
+    overflow: hidden;
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 12px 12px 0 var(--ink-on-bone);
+  }
+
+  /* The new screen wipes down over the one before it. */
+  .tour-screen img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  .tour-screen img.was-on {
+    z-index: 1;
+    clip-path: inset(0);
+  }
+
+  .tour-screen img.is-on {
+    z-index: 2;
+    clip-path: inset(0);
+    transition: clip-path 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tour-screen img.is-on,
+    .tour-n {
+      transition: none;
+    }
+  }
+
+  .video {
+    padding-bottom: var(--space-32);
+  }
+
+  .video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--ink-on-bone);
+    border: var(--stroke);
+    box-shadow: 12px 12px 0 var(--ink-on-bone);
+  }
+
+  .caption {
+    margin: var(--space-6) 0 0;
+    font-size: 15px;
+    line-height: 22px;
+    color: var(--ink-on-bone-muted);
+  }
+
+  .band.dark {
+    background: var(--ink-on-bone);
+    color: var(--bone);
+  }
+
+  .band.yellow {
+    background: var(--highlight);
+    border-block: var(--stroke);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding-block: var(--space-32);
+  }
+
+  .stack p {
+    margin: 0;
+  }
+
+  .band.yellow .stack {
+    gap: var(--space-10);
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--bone);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-10);
+    padding: var(--space-6) var(--space-4);
+    border-bottom: 2px solid var(--bone);
+  }
+
+  .row-title {
+    flex: 0 1 300px;
+    margin: 0;
+    font: 400 36px/40px var(--font-display);
+  }
+
+  .row-body {
+    flex: 1 1 320px;
+    color: var(--ink-muted);
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 280px;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+    padding: var(--space-6);
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 8px 8px 0 var(--ink-on-bone);
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  .contact {
+    align-items: flex-start;
+    gap: var(--space-10);
+  }
+
+  .number {
+    font: 400 clamp(40px, 7vw, 88px) / 1 var(--font-display);
+    text-decoration: none;
+  }
+
+  .contact p {
+    max-width: 52ch;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-block: var(--space-16) var(--space-10);
+    }
+
+    .video {
+      padding-bottom: var(--space-16);
+    }
+
+    .stack {
+      padding-block: var(--space-16);
+    }
+
+    .video video {
+      box-shadow: 6px 6px 0 var(--ink-on-bone);
+    }
+  }
+</style>

@@ -4,11 +4,15 @@ import Wordmark from '../../components/Wordmark.astro';
 import LangNav from '../../components/LangNav.astro';
 import '../../styles/loca.css';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-import { defaultLang, legal, getLangFromUrl, langs, useTranslations, whatsappUrl } from '../../i18n';
+import { defaultLang, legal, getLangFromUrl, langs, useTranslations, whatsappUrl, type Lang } from '../../i18n';
 
 export function getStaticPaths() {
   return langs.map((lang) => ({ params: { lang: lang === defaultLang ? undefined : lang } }));
 }
+
+// The assistant's own page: the homepage's canonical is the studio's, so this one names its own.
+const urls = Object.fromEntries(langs.map((l) => [l, new URL(getRelativeLocaleUrl(l, 'asistente'), Astro.site).href])) as Record<Lang, string>;
+const hrefs = Object.fromEntries(langs.map((l) => [l, getRelativeLocaleUrl(l, 'asistente')])) as Record<Lang, string>;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -34,7 +38,7 @@ const startHour = 3;
 const band = bands.findLast((b) => b.from <= startHour)!;
 ---
 
-<BaseLayout lang={lang}>
+<BaseLayout lang={lang} urls={urls} title={t('agentTitle')} description={t('agentDescription')}>
   <div class="loca">
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track"><span>{ticker}</span><span>{ticker}</span></div>
@@ -43,7 +47,7 @@ const band = bands.findLast((b) => b.from <= startHour)!;
     <header class="loca-header">
       <div class="loca-wrap">
         <a class="loca-home" href={getRelativeLocaleUrl(lang)} aria-label="Solotvj"><Wordmark class="stv-on-bone" /></a>
-        <LangNav lang={lang}>
+        <LangNav lang={lang} hrefs={hrefs}>
           <a class="nav-link" href="#como">{t('navSteps')}</a>
           <a class="nav-link" href="#precio">{t('navPricing')}</a>
           <a class="nav-link nav-cta nav-extra" href="#contacto">{t('navContact')}</a>
