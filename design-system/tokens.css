@@ -14,6 +14,13 @@
   --on-accent: #ffffff;
   --bone: #ecebe6;
   --ink-on-bone: #0d0f12;
+  --ink-muted-on-bone: #3b4048;
+  --line-on-bone: #c9c7bf;
+  --accent-on-bone: #1f4fd6;
+  --accent-fill-hover: #2756d6;
+  --link-hover: #8aaeff;
+  --chart-neutral: #3a3f48;
+  --highlight: #ffe14d;
   --success: #4cc38a;
   --danger: #ff6b5e;
   color-scheme: dark;
@@ -33,6 +40,13 @@
   --on-accent: #ffffff;
   --bone: #ecebe6;
   --ink-on-bone: #0d0f12;
+  --ink-muted-on-bone: #3b4048;
+  --line-on-bone: #c9c7bf;
+  --accent-on-bone: #1f4fd6;
+  --accent-fill-hover: #1a43bd;
+  --link-hover: #173fb0;
+  --chart-neutral: #a9aeb6;
+  --highlight: #ffe14d;
   --success: #177249;
   --danger: #b42318;
   color-scheme: light;
@@ -41,13 +55,21 @@
 :root {
   --space-1: 4px;
   --space-2: 8px;
+  --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-10: 40px;
   --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --radius-none: 0;
   --radius-sm: 2px;
   --radius-md: 6px;
   --radius-full: 9999px;
+  --shadow-hard-sm: 6px 6px 0 #0d0f12;
+  --shadow-hard-md: 8px 8px 0 #0d0f12;
+  --shadow-hard-lg: 12px 12px 0 #0d0f12;
   --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
   --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -56,10 +78,18 @@
 /* Type styles */
 .display-xl { font-family: var(--font-display); font-size: 72px; line-height: 1; font-weight: 400; letter-spacing: -0.01em; }
 .display { font-family: var(--font-display); font-size: 44px; line-height: 1.05; font-weight: 400; }
+.display-mega { font-family: var(--font-display); font-size: 168px; line-height: 0.88; font-weight: 400; letter-spacing: -0.03em; }
+.display-mega-italic { font-family: var(--font-display); font-size: 168px; line-height: 0.88; font-weight: 400; font-style: italic; letter-spacing: -0.03em; }
+.display-price { font-family: var(--font-display); font-size: 232px; line-height: 0.9; font-weight: 400; letter-spacing: -0.03em; }
 .heading { font-family: var(--font-sans); font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -0.01em; }
 .subheading { font-family: var(--font-sans); font-size: 18px; line-height: 26px; font-weight: 500; }
 .body { font-family: var(--font-sans); font-size: 16px; line-height: 26px; font-weight: 400; }
 .small { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.reading { font-family: var(--font-sans); font-size: 17px; line-height: 29px; font-weight: 400; }
+.heading-legal { font-family: var(--font-sans); font-size: 28px; line-height: 36px; font-weight: 600; letter-spacing: -0.01em; }
+.stat { font-family: var(--font-sans); font-size: 40px; line-height: 48px; font-weight: 600; }
+.stat-sm { font-family: var(--font-sans); font-size: 32px; line-height: 40px; font-weight: 600; }
+.lead { font-family: var(--font-sans); font-size: 22px; line-height: 32px; font-weight: 500; }
 .label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
 .code { font-family: var(--font-mono); font-size: 14px; line-height: 22px; font-weight: 400; }
 

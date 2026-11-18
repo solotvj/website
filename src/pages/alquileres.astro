@@ -1,0 +1,578 @@
+---
+// The rental system: Solotvj's second product. Spanish only, in the homepage's bold style.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Wordmark from '../components/Wordmark.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { legal, whatsappUrl } from '../i18n';
+import '../styles/loca.css';
+
+// Spanish only: every language's alternate is this page, so its canonical isn't the homepage's.
+const page = new URL('/alquileres', Astro.site).href;
+const wa = whatsappUrl('Hola, quiero saber más sobre el sistema de alquileres.');
+
+const does = [
+  ['Tu sitio de reservas', 'Cada comercio tiene su dirección. Tus clientes eligen fechas y equipos desde el teléfono y dejan la seña con Mercado Pago, directo a tu cuenta.'],
+  ['Nunca reservás de más', 'Si tenés 20 unidades de algo, la reserva número 21 para el mismo día se rechaza, aunque dos personas reserven en el mismo instante.'],
+  ['El mostrador, sin planillas', 'Reservas, retiros con el código de cada unidad, devoluciones parciales y cobros en uno o varios pagos.'],
+  ['Facturas con ARCA', 'La factura electrónica sale a tu nombre con un clic desde la reserva, o sola cuando queda paga.'],
+];
+// One booking from end to end, filmed like the video: each screen opens whole, then the camera
+// moves in on the part that matters. focus = [x, y] of that part as a fraction of the screen, and how far to zoom.
+const tour = [
+  { tag: 'Sitio de reservas', title: 'Tus clientes reservan', em: 'online.', body: 'Eligen fechas y equipos desde el teléfono, y ven solo lo que está libre esos días.', file: '1-sitio', alt: 'El sitio de reservas de un comercio, con dos equipos elegidos y el total.', focus: [0.5, 0.22, 1.7] },
+  { tag: 'Seña', title: 'Dejan la seña', em: 'con Mercado Pago.', body: 'La plata va directo a tu cuenta y el lugar queda apartado.', file: '2-sena', alt: 'Los datos del cliente y el botón para pagar la seña.', focus: [0.62, 0.5, 1.6] },
+  { tag: 'Mostrador', title: 'La reserva ya está', em: 'en el mostrador.', body: 'Nadie la vuelve a cargar: aparece sola entre los retiros del día.', file: '3-mostrador', alt: 'El mostrador con la lista de retiros del día.', focus: [0.5, 0.42, 1.9] },
+  { tag: 'Retiro', title: 'Cada unidad sale', em: 'con su código.', body: 'Escaneás lo que se lleva cada persona y sabés qué unidad tiene quién.', file: '5-retiro', alt: 'El retiro de una reserva, con el código de cada unidad asignada.', focus: [0.46, 0.53, 1.8] },
+  { tag: 'Factura', title: 'La factura sale', em: 'con un clic.', body: 'Factura electrónica con ARCA, con su CAE, desde la misma reserva.', file: '6-factura', alt: 'Una reserva pagada con su factura emitida.', focus: [0.52, 0.5, 1.6] },
+  { tag: 'Reportes', title: 'Y ves', em: 'cuánto entra.', body: 'Ingresos por día y por medio de pago, y qué equipos se alquilan más.', file: '7-reportes', alt: 'Los reportes de ingresos y de equipos más alquilados.', focus: [0.47, 0.42, 1.6] },
+];
+const soon = [
+  ['Con nuestro asistente de WhatsApp', 'El asistente consulta la disponibilidad y toma reservas por vos, a cualquier hora.'],
+  ['Conector MCP', 'Tu comercio, al alcance de los asistentes de inteligencia artificial.'],
+];
+---
+
+<BaseLayout
+  lang="es"
+  urls={{ es: page, en: page }}
+  title="Sistema de alquileres · Solotvj"
+  description="Un sistema para comercios de alquiler de Argentina: sitio de reservas, stock, cobros con Mercado Pago y facturas con ARCA, en un solo lugar."
+>
+  <div class="loca">
+    <header class="loca-header">
+      <div class="loca-wrap">
+        <a class="loca-home" href={getRelativeLocaleUrl('es')} aria-label="Solotvj"><Wordmark class="stv-on-bone" /></a>
+        <nav class="links" aria-label="Solotvj">
+          <a href={getRelativeLocaleUrl('es', 'asistente')}>Asistente de WhatsApp</a>
+          <a href="/precios#alquileres">Precio</a>
+          <a class="cta" href="#contacto">Escribinos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="loca-wrap hero" aria-labelledby="hero-title">
+        <h1 id="hero-title" class="loca-display">Del sitio de reservas <em>al mostrador.</em></h1>
+        <p class="lede">Catálogo, stock, reservas, cobros y facturas en un solo lugar, hecho para comercios de alquiler de Argentina.</p>
+        <div class="actions">
+          <a class="loca-btn loca-btn-blue" href={wa} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+          <a class="more" href="#recorrido">Mirá cómo funciona</a>
+        </div>
+      </section>
+
+      <span id="recorrido"></span>
+      <section class="tour" aria-labelledby="tour-title" style={`--steps: ${tour.length}`}>
+        <div class="loca-wrap tour-head">
+          <h2 id="tour-title" class="loca-display">Una reserva, <em>de punta a punta.</em></h2>
+          <p class="caption"><a href="/alquileres/demo.mp4">Ver el video (1 min 30 s)</a></p>
+        </div>
+        <div class="tour-track">
+          <div class="tour-stage loca-wrap">
+            <ol class="tour-rail" aria-hidden="true">
+              {tour.map(({ tag }) => (
+                <li><span class="rail-bar"><span class="rail-fill"></span></span><span class="rail-tag">{tag}</span></li>
+              ))}
+            </ol>
+            <ol class="tour-shots">
+              {tour.map(({ tag, title, em, body, file, alt, focus }, i) => (
+                <li class:list={['shot', { 'is-on': i === 0 }]} data-focus={focus.join(' ')}>
+                  <div class="lens">
+                    <img src={`/alquileres/pasos/${file}.jpg`} alt={alt} width="1440" height="770" loading={i === 0 ? 'eager' : 'lazy'} />
+                  </div>
+                  <div class="note">
+                    <p class="note-tag loca-label"><span class="note-n">{i + 1} de {tour.length}</span> · {tag}</p>
+                    <h3 class="note-title">{title} <em>{em}</em></h3>
+                    <p class="note-body">{body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="band dark" aria-labelledby="does-title">
+        <div class="loca-wrap stack">
+          <h2 id="does-title" class="loca-display">Lo que <em class="accent">resuelve.</em></h2>
+          <ul class="rows">
+            {does.map(([title, body]) => (
+              <li class="row">
+                <h3 class="row-title">{title}</h3>
+                <p class="row-body">{body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="band yellow" aria-labelledby="soon-title">
+        <div class="loca-wrap stack">
+          <h2 id="soon-title" class="loca-display">Y esto <em>recién empieza.</em></h2>
+          <ul class="cards">
+            {soon.map(([title, body]) => (
+              <li class="card">
+                <h3 class="card-title">{title}</h3>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="contacto" class="band dark" aria-labelledby="contact-title">
+        <div class="loca-wrap stack contact">
+          <h2 id="contact-title" class="loca-display">¿Lo vemos <em class="accent">con tu comercio?</em></h2>
+          <a class="number" href={wa} target="_blank" rel="noopener">{legal.whatsapp}</a>
+          <p>Contanos qué alquilás y te lo mostramos funcionando. O escribinos a <a href={`mailto:${legal.email}`}>{legal.email}</a>.</p>
+          <a class="loca-btn loca-btn-blue loca-btn-on-dark" href={wa} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>
+
+<script>
+  // The tour, filmed by scrolling: the section pins, each screen wipes in whole, the camera moves in
+  // on the part that matters, then pulls back for the cut. Without JS or with reduced motion it stays a plain list.
+  const tour = document.querySelector<HTMLElement>('.tour');
+  const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+  if (tour && motion.matches) {
+    const track = tour.querySelector<HTMLElement>('.tour-track')!;
+    const shots = [...tour.querySelectorAll<HTMLElement>('.shot')];
+    const imgs = shots.map((s) => s.querySelector('img')!);
+    const fills = [...tour.querySelectorAll<HTMLElement>('.rail-fill')];
+    const focus = shots.map((s) => s.dataset.focus!.split(' ').map(Number));
+    const n = shots.length;
+    const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+    const ease = (a: number, b: number, t: number) => 1 - Math.pow(1 - clamp((t - a) / (b - a), 0, 1), 3);
+    let on = 0;
+    let queued = false;
+
+    tour.classList.add('is-live');
+    imgs.forEach((img) => (img.loading = 'eager'));
+
+    const frame = () => {
+      queued = false;
+      const r = track.getBoundingClientRect();
+      const p = clamp(-r.top / (r.height - innerHeight), 0, 1) * n;
+      const i = Math.min(Math.floor(p), n - 1);
+      const t = p - i;
+
+      if (i !== on) {
+        shots.forEach((s, k) => {
+          s.classList.toggle('was-on', k === on);
+          s.classList.toggle('is-on', k === i);
+        });
+        on = i;
+      }
+
+      // Zoom in over the first half of the step, hold, and pull back before the next cut (not after the last).
+      const [fx, fy, z0] = focus[i];
+      const z = innerWidth < 700 ? z0 * 1.15 : z0;
+      const k = ease(0.1, 0.55, t) * (i < n - 1 ? 1 - ease(0.82, 1, t) : 1);
+      const s = 1 + (z - 1) * k;
+      const tx = clamp(0.5 - s * (0.5 + (fx - 0.5) * k), 1 - s, 0);
+      const ty = clamp(0.5 - s * (0.5 + (fy - 0.5) * k), 1 - s, 0);
+      imgs[i].style.transform = `translate(${tx * 100}%, ${ty * 100}%) scale(${s})`;
+
+      fills.forEach((f, k2) => (f.style.transform = `scaleX(${clamp(p - k2, 0, 1)})`));
+    };
+    const ask = () => {
+      if (!queued) requestAnimationFrame(frame), (queued = true);
+    };
+    addEventListener('scroll', ask, { passive: true });
+    addEventListener('resize', ask);
+    frame();
+  }
+</script>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-6);
+    font: 500 15px/20px var(--font-sans);
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-underline-offset: 3px;
+  }
+
+  .links .cta {
+    padding: 0 var(--space-4);
+    background: var(--ink-on-bone);
+    color: var(--bone);
+    text-decoration: none;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+    padding-block: var(--space-24) var(--space-16);
+  }
+
+  .hero p {
+    margin: 0;
+  }
+
+  .loca-display em {
+    color: var(--accent-fill);
+  }
+
+  .band.dark .loca-display em {
+    color: var(--accent);
+  }
+
+  .band.yellow .loca-display em {
+    color: inherit;
+  }
+
+  .lede {
+    max-width: 46ch;
+    font: 500 22px/32px var(--font-sans);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6) var(--space-10);
+    padding-top: var(--space-4);
+  }
+
+  .more {
+    font-weight: 600;
+    text-underline-offset: 4px;
+  }
+
+  /* The tour. By default (no JS, reduced motion) it is a plain list of screens with their notes. */
+  .tour {
+    padding-block: var(--space-10) var(--space-24);
+  }
+
+  .tour .loca-display {
+    font-size: clamp(48px, 5.4vw, 80px);
+  }
+
+  .tour-head .caption {
+    margin-top: var(--space-4);
+  }
+
+  .tour-rail {
+    display: none;
+  }
+
+  .tour-shots {
+    display: grid;
+    gap: var(--space-24);
+    margin: var(--space-16) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lens {
+    position: relative;
+    aspect-ratio: 1440 / 770;
+    overflow: hidden;
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 12px 12px 0 var(--ink-on-bone);
+  }
+
+  .lens img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: 0 0;
+  }
+
+  /* The note reads like the video's captions: a paper card, the step and a serif line. */
+  .note {
+    position: relative;
+    max-width: 440px;
+    margin: calc(-1 * var(--space-10)) 0 0 var(--space-4);
+    padding: var(--space-5) var(--space-6) var(--space-6);
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 8px 8px 0 var(--ink-on-bone);
+    rotate: -1deg;
+  }
+
+  .note-tag {
+    margin: 0;
+    color: var(--ink-on-bone-muted);
+  }
+
+  .note-n {
+    color: var(--accent-fill);
+  }
+
+  .note-title {
+    margin: var(--space-2) 0 0;
+    font: 400 clamp(30px, 3.4vw, 44px) / 1 var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .note-title em {
+    color: var(--accent-fill);
+  }
+
+  .note-body {
+    margin: var(--space-3) 0 0;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--ink-on-bone-muted);
+  }
+
+  /* Live: the track is tall, the stage pins to the window and plays one screen per stretch of scroll. */
+  .tour.is-live .tour-track {
+    height: calc(var(--steps) * 115svh);
+    margin-top: var(--space-10);
+  }
+
+  .tour.is-live .tour-stage {
+    position: sticky;
+    top: 0;
+    display: grid;
+    align-content: center;
+    gap: var(--space-10);
+    height: 100svh;
+    padding-block: var(--space-6) var(--space-10);
+  }
+
+  .tour.is-live .tour-rail {
+    display: grid;
+    grid-template-columns: repeat(var(--steps), 1fr);
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rail-bar {
+    display: block;
+    height: 6px;
+    overflow: hidden;
+    background: var(--line-on-bone);
+  }
+
+  .rail-fill {
+    display: block;
+    height: 100%;
+    background: var(--accent-fill);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+  }
+
+  .rail-tag {
+    display: block;
+    margin-top: var(--space-2);
+    font: 500 13px/16px var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-on-bone-muted);
+  }
+
+  /* Every screen sits in the same grid cell, so the stage centres as one block. */
+  .tour.is-live .tour-shots {
+    display: grid;
+    margin: 0;
+  }
+
+  .tour.is-live .shot {
+    position: relative;
+    grid-area: 1 / 1;
+    visibility: hidden;
+  }
+
+  .tour.is-live .shot.is-on,
+  .tour.is-live .shot.was-on {
+    visibility: visible;
+  }
+
+  .tour.is-live .shot.is-on {
+    z-index: 2;
+  }
+
+  .tour.is-live .shot.was-on {
+    z-index: 1;
+  }
+
+  .tour.is-live .lens {
+    width: min(100%, calc((100svh - 300px) * 1440 / 770));
+    margin-inline: auto;
+  }
+
+  /* The cut: the next screen wipes down over the last one, then its note drops in. */
+  .tour.is-live .shot.is-on .lens {
+    animation: wipe 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .tour.is-live .shot.was-on .note {
+    visibility: hidden;
+  }
+
+  .tour.is-live .shot.is-on .note {
+    animation: drop 0.5s 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes wipe {
+    from { clip-path: inset(0 -16px 100% 0); }
+    to { clip-path: inset(0 -16px -16px 0); }
+  }
+
+  @keyframes drop {
+    from { opacity: 0; translate: 0 32px; rotate: 2deg; }
+    to { opacity: 1; translate: 0 0; rotate: -1deg; }
+  }
+
+  @media (max-width: 699px) {
+    .tour.is-live .rail-tag {
+      display: none;
+    }
+
+    .tour.is-live .lens {
+      width: 100%;
+    }
+
+    .note {
+      margin: var(--space-5) var(--space-2) 0;
+      padding: var(--space-4) var(--space-5) var(--space-5);
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .tour.is-live .note {
+      position: absolute;
+      left: calc(-1 * var(--space-4));
+      bottom: var(--space-4);
+      margin: 0;
+    }
+  }
+
+  .caption {
+    margin: var(--space-6) 0 0;
+    font-size: 15px;
+    line-height: 22px;
+    color: var(--ink-on-bone-muted);
+  }
+
+  .band.dark {
+    background: var(--ink-on-bone);
+    color: var(--bone);
+  }
+
+  .band.yellow {
+    background: var(--highlight);
+    border-block: var(--stroke);
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    padding-block: var(--space-32);
+  }
+
+  .stack p {
+    margin: 0;
+  }
+
+  .band.yellow .stack {
+    gap: var(--space-10);
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 2px solid var(--bone);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-10);
+    padding: var(--space-6) var(--space-4);
+    border-bottom: 2px solid var(--bone);
+  }
+
+  .row-title {
+    flex: 0 1 300px;
+    margin: 0;
+    font: 400 36px/40px var(--font-display);
+  }
+
+  .row-body {
+    flex: 1 1 320px;
+    color: var(--ink-muted);
+  }
+
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 280px;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 0;
+    padding: var(--space-6);
+    background: var(--paper);
+    border: var(--stroke);
+    box-shadow: 8px 8px 0 var(--ink-on-bone);
+  }
+
+  .card-title {
+    margin: 0;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  .contact {
+    align-items: flex-start;
+    gap: var(--space-10);
+  }
+
+  .number {
+    font: 400 clamp(40px, 7vw, 88px) / 1 var(--font-display);
+    text-decoration: none;
+  }
+
+  .contact p {
+    max-width: 52ch;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding-block: var(--space-16) var(--space-10);
+    }
+
+    .stack {
+      padding-block: var(--space-16);
+    }
+
+    .lens {
+      box-shadow: 6px 6px 0 var(--ink-on-bone);
+    }
+  }
+</style>

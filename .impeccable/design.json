@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T15:31:18+00:00",
+  "title": "Design System: Solotvj website",
+  "extensions": {
+    "sourceOfTruth": [
+      "design-system/tokens.css",
+      "design-system/README.md",
+      "design-system/expressive.md",
+      "design-system/patterns.md",
+      "src/styles/loca.css"
+    ],
+    "colorMeta": {
+      "accent-fill": {
+        "role": "primary",
+        "displayName": "Working Blue",
+        "canonical": "#2f5fe8",
+        "tonalRamp": [
+          "#09132e",
+          "#13265d",
+          "#1c398b",
+          "#264cba",
+          "#597fed",
+          "#8da7f2",
+          "#c1cff8",
+          "#e6ecfc"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#5b8cff",
+        "tonalRamp": [
+          "#121c33",
+          "#243866",
+          "#375499",
+          "#4970cc",
+          "#7ca3ff",
+          "#a5c0ff",
+          "#cedcff",
+          "#ebf1ff"
+        ]
+      },
+      "highlight": {
+        "role": "secondary",
+        "displayName": "Highlighter Yellow",
+        "canonical": "#ffe14d",
+        "tonalRamp": [
+          "#332d0f",
+          "#665a1f",
+          "#99872e",
+          "#ccb43e",
+          "#ffe771",
+          "#ffee9d",
+          "#fff6ca",
+          "#fffbea"
+        ]
+      },
+      "bone": {
+        "role": "neutral",
+        "displayName": "Bone",
+        "canonical": "#ecebe6",
+        "tonalRamp": [
+          "#2f2f2e",
+          "#5e5e5c",
+          "#8e8d8a",
+          "#bdbcb8",
+          "#f0efeb",
+          "#f5f4f1",
+          "#f9f9f8",
+          "#fdfdfc"
+        ]
+      },
+      "ink-on-bone": {
+        "role": "neutral",
+        "displayName": "Ink on Bone",
+        "canonical": "#0d0f12",
+        "tonalRamp": [
+          "#030304",
+          "#050607",
+          "#08090b",
+          "#0a0c0e",
+          "#3d3f41",
+          "#7a7b7d",
+          "#b6b7b8",
+          "#e2e2e3"
+        ]
+      },
+      "ink-on-bone-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink on Bone",
+        "canonical": "#3b4048",
+        "tonalRamp": [
+          "#0c0d0e",
+          "#181a1d",
+          "#23262b",
+          "#2f333a",
+          "#62666d",
+          "#93969a",
+          "#c4c6c8",
+          "#e7e8e9"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#333333",
+          "#666666",
+          "#999999",
+          "#cccccc",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff"
+        ]
+      },
+      "on-accent": {
+        "role": "neutral",
+        "displayName": "On Accent",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#333333",
+          "#666666",
+          "#999999",
+          "#cccccc",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff",
+          "#ffffff"
+        ]
+      },
+      "surface-000": {
+        "role": "neutral",
+        "displayName": "Calm Ground",
+        "canonical": "#0a0b0d",
+        "tonalRamp": [
+          "#020203",
+          "#040405",
+          "#060708",
+          "#08090a",
+          "#3b3c3d",
+          "#78797a",
+          "#b6b6b6",
+          "#e2e2e2"
+        ]
+      },
+      "surface-100": {
+        "role": "neutral",
+        "displayName": "Calm Card",
+        "canonical": "#111317",
+        "tonalRamp": [
+          "#030405",
+          "#070809",
+          "#0a0b0e",
+          "#0e0f12",
+          "#414245",
+          "#7c7d7f",
+          "#b8b8b9",
+          "#e2e3e3"
+        ]
+      },
+      "surface-200": {
+        "role": "neutral",
+        "displayName": "Calm Inset",
+        "canonical": "#181b21",
+        "tonalRamp": [
+          "#050507",
+          "#0a0b0d",
+          "#0e1014",
+          "#13161a",
+          "#46494d",
+          "#808285",
+          "#babbbc",
+          "#e3e4e4"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#ecebe6",
+        "tonalRamp": [
+          "#2f2f2e",
+          "#5e5e5c",
+          "#8e8d8a",
+          "#bdbcb8",
+          "#f0efeb",
+          "#f5f4f1",
+          "#f9f9f8",
+          "#fdfdfc"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "canonical": "#9ba1aa",
+        "tonalRamp": [
+          "#1f2022",
+          "#3e4044",
+          "#5d6166",
+          "#7c8188",
+          "#afb4bb",
+          "#c8cbd0",
+          "#e1e3e6",
+          "#f3f4f5"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#272b33",
+        "tonalRamp": [
+          "#08090a",
+          "#101114",
+          "#171a1f",
+          "#1f2229",
+          "#52555c",
+          "#888a8f",
+          "#bebfc2",
+          "#e5e6e7"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Expressive headlines; pages push it to 114-232px where the line is the page, never below 40px."
+      },
+      "display-calm": {
+        "displayName": "Display (Calm)",
+        "purpose": "Calm hero lines and section openers (tokens.css .display)."
+      },
+      "title": {
+        "displayName": "Index title",
+        "purpose": "Product names in the homepage index card; 30px under 640px."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Paragraph under a band headline, max 46ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Expressive running copy."
+      },
+      "body-calm": {
+        "displayName": "Body (Calm)",
+        "purpose": "Calm running copy (tokens.css .body)."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Card headers, status words, field labels, captions. 12px on Calm pages."
+      }
+    },
+    "shadows": [
+      {
+        "name": "press",
+        "value": "6px 6px 0 var(--ink-on-bone)",
+        "purpose": "Buttons at rest; cards and screenshots on phones. Colour follows the ground."
+      },
+      {
+        "name": "lift",
+        "value": "8px 8px 0 var(--ink-on-bone)",
+        "purpose": "Paper cards; the index card on smaller screens."
+      },
+      {
+        "name": "pin",
+        "value": "12px 12px 0 var(--ink-on-bone)",
+        "purpose": "The hero object of a band."
+      },
+      {
+        "name": "pressed",
+        "value": "2px 2px 0 var(--ink-on-bone)",
+        "purpose": "Button hover, with translate(4px, 4px)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-press",
+        "value": "transform 120ms, box-shadow 120ms",
+        "purpose": "Button moves into its shadow on hover."
+      },
+      {
+        "name": "index-flood",
+        "value": "background-color 150ms, color 150ms",
+        "purpose": "Index row floods blue on hover and focus."
+      },
+      {
+        "name": "index-arrow",
+        "value": "transform 250ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Arrow slides 6px right."
+      },
+      {
+        "name": "ticker",
+        "value": "40s linear loop",
+        "purpose": "Mono ticker band on /asistente; hidden from assistive tech."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "Every transition, lift and loop stops under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "split",
+        "value": "900px"
+      },
+      {
+        "name": "opening",
+        "value": "1000px"
+      },
+      {
+        "name": "min",
+        "value": "320px"
+      }
+    ],
+    "focus": [
+      {
+        "name": "expressive",
+        "value": "outline: 3px solid var(--accent-fill); outline-offset: 3px",
+        "purpose": "On bone, paper and yellow."
+      },
+      {
+        "name": "expressive-on-blue",
+        "value": "outline-color: var(--on-accent)",
+        "purpose": "On the blue band."
+      },
+      {
+        "name": "calm",
+        "value": "outline: 2px solid var(--accent); outline-offset: 2px",
+        "purpose": "Calm pages (tokens.css)."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Blue Button",
+      "kind": "button",
+      "refersTo": "button-blue",
+      "description": "The strong action on bone or yellow; presses into its hard ink shadow on hover.",
+      "html": "<a class=\"ds-btn ds-btn-blue\" href=\"#\">Escribinos por WhatsApp</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;min-height:64px;padding:0 32px;border:2px solid var(--ink-on-bone);border-radius:0;font:600 20px/26px var(--font-sans);text-decoration:none;cursor:pointer;transition:transform .12s,box-shadow .12s}.ds-btn:hover{transform:translate(4px,4px)}.ds-btn:focus-visible{outline:3px solid var(--accent-fill);outline-offset:3px}@media (prefers-reduced-motion:reduce){.ds-btn{transition:none}.ds-btn:hover{transform:none}}.ds-btn-blue{background:var(--accent-fill);color:var(--on-accent);box-shadow:6px 6px 0 var(--ink-on-bone)}.ds-btn-blue:hover{box-shadow:2px 2px 0 var(--ink-on-bone)}"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "The second strong action; black with a blue hard shadow (yellow on the blue band).",
+      "html": "<a class=\"ds-btn ds-btn-ink\" href=\"#\">Ver el asistente</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;min-height:64px;padding:0 32px;border:2px solid var(--ink-on-bone);border-radius:0;font:600 20px/26px var(--font-sans);text-decoration:none;cursor:pointer;transition:transform .12s,box-shadow .12s}.ds-btn:hover{transform:translate(4px,4px)}.ds-btn:focus-visible{outline:3px solid var(--accent-fill);outline-offset:3px}@media (prefers-reduced-motion:reduce){.ds-btn{transition:none}.ds-btn:hover{transform:none}}.ds-btn-ink{background:var(--ink-on-bone);color:var(--bone);box-shadow:6px 6px 0 var(--accent-fill)}.ds-btn-ink:hover{box-shadow:2px 2px 0 var(--accent-fill)}"
+    },
+    {
+      "name": "Header",
+      "kind": "nav",
+      "description": "Bone bar with a 2px ink rule: wordmark, underlined text links, one ink contact pill.",
+      "html": "<header class=\"ds-head\"><a class=\"ds-mark\" href=\"#\">Solotvj<span>.</span></a><nav><a class=\"ds-link\" href=\"#\">Precios</a><a class=\"ds-pill\" href=\"#\">Contacto</a></nav></header>",
+      "css": ".ds-head{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px;padding:0 24px;background:var(--bone);color:var(--ink-on-bone);border-bottom:2px solid var(--ink-on-bone)}.ds-mark{display:inline-flex;align-items:center;min-height:44px;font:400 36px/1 var(--font-display);color:inherit;text-decoration:none}.ds-mark span{color:var(--accent-fill)}.ds-head nav{display:flex;align-items:center;gap:24px}.ds-link{font:500 15px/20px var(--font-sans);color:inherit;text-underline-offset:3px}.ds-pill{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;background:var(--ink-on-bone);color:var(--bone);font:500 15px/20px var(--font-sans);text-decoration:none}.ds-head a:focus-visible{outline:3px solid var(--accent-fill);outline-offset:3px}"
+    },
+    {
+      "name": "Index Card",
+      "kind": "card",
+      "refersTo": "index-entry",
+      "description": "Signature: tilted paper card listing what Solotvj makes; a row floods blue and its arrow advances on hover and focus.",
+      "html": "<nav class=\"ds-index\"><p class=\"ds-index-head\">Qué hacemos</p><a class=\"ds-entry\" href=\"#\"><span class=\"ds-n\">01</span><span class=\"ds-name\">Asistente de WhatsApp</span><svg class=\"ds-go\" viewBox=\"0 0 24 24\" width=\"28\" height=\"28\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg><span class=\"ds-line\">Contesta a cualquier hora y pasa el chat a tu equipo.</span></a><a class=\"ds-entry ds-yellow\" href=\"#\"><span class=\"ds-n\">03</span><span class=\"ds-name\">Software a medida</span><svg class=\"ds-go\" viewBox=\"0 0 24 24\" width=\"28\" height=\"28\" aria-hidden=\"true\"><path d=\"M4 12h15M13 6l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg><span class=\"ds-line\">Lo hacemos para tu negocio.</span></a></nav>",
+      "css": ".ds-index{max-width:440px;background:var(--paper);color:var(--ink-on-bone);border:2px solid var(--ink-on-bone);box-shadow:12px 12px 0 var(--ink-on-bone);transform:rotate(1.5deg)}.ds-index-head{margin:0;padding:12px 20px;background:var(--ink-on-bone);color:var(--bone);font:500 13px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase}.ds-entry{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:4px 12px;padding:20px;color:inherit;text-decoration:none;transition:background-color .15s,color .15s}.ds-entry+.ds-entry{border-top:2px solid var(--ink-on-bone)}.ds-yellow{background:var(--highlight)}.ds-n{font:500 14px/20px var(--font-mono);color:var(--ink-on-bone-muted)}.ds-name{font:400 36px/1 var(--font-display);letter-spacing:-.02em}.ds-go{align-self:center;color:var(--accent-fill);transition:transform .25s cubic-bezier(.16,1,.3,1)}.ds-line{grid-column:2/-1;font:400 16px/23px var(--font-sans);color:var(--ink-on-bone-muted)}.ds-yellow .ds-n,.ds-yellow .ds-line{color:var(--ink-on-bone)}.ds-entry:hover,.ds-entry:focus-visible{background:var(--accent-fill);color:var(--on-accent);outline:3px solid var(--accent-fill);outline-offset:3px}.ds-entry:hover :is(.ds-n,.ds-line,.ds-go),.ds-entry:focus-visible :is(.ds-n,.ds-line,.ds-go){color:inherit}.ds-entry:hover .ds-go,.ds-entry:focus-visible .ds-go{transform:translateX(6px)}@media (prefers-reduced-motion:reduce){.ds-entry,.ds-go{transition:none}.ds-entry:hover .ds-go,.ds-entry:focus-visible .ds-go{transform:none}}"
+    },
+    {
+      "name": "Example Conversation",
+      "kind": "custom",
+      "refersTo": "bubble-business",
+      "description": "Signature: tilted paper chat card with square stroked bubbles; the business always speaks in blue.",
+      "html": "<section class=\"ds-chat\"><header class=\"ds-chat-head\"><span>Tu negocio</span><span class=\"ds-time\">03:12</span></header><div class=\"ds-chat-body\"><p class=\"ds-bubble ds-in\">Hola, ¿abren mañana?</p><p class=\"ds-bubble ds-out\">Sí, de 9 a 18. ¿Te reservo un turno?</p><p class=\"ds-note\">Ejemplo: así contesta el asistente</p></div></section>",
+      "css": ".ds-chat{max-width:460px;background:var(--paper);color:var(--ink-on-bone);border:2px solid var(--ink-on-bone);box-shadow:12px 12px 0 var(--ink-on-bone);transform:rotate(2deg)}.ds-chat-head{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:2px solid var(--ink-on-bone);font:500 12px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase}.ds-time{padding:2px 8px;background:var(--ink-on-bone);color:var(--bone)}.ds-chat-body{display:flex;flex-direction:column;gap:16px;padding:24px}.ds-bubble{max-width:88%;margin:0;padding:12px 16px;border:2px solid var(--ink-on-bone);font:400 17px/24px var(--font-sans)}.ds-in{align-self:flex-start;background:var(--bone)}.ds-out{align-self:flex-end;background:var(--accent-fill);color:var(--on-accent)}.ds-note{align-self:center;margin:0;font:500 12px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-on-bone-muted)}"
+    },
+    {
+      "name": "Paper Card",
+      "kind": "card",
+      "refersTo": "paper-card",
+      "description": "A white card on bone with a 2px ink stroke and the Lift shadow.",
+      "html": "<article class=\"ds-card\"><h3>Reservas por WhatsApp</h3><p>El asistente toma reservas en el chat. Próximamente.</p></article>",
+      "css": ".ds-card{max-width:320px;padding:24px;background:var(--paper);color:var(--ink-on-bone);border:2px solid var(--ink-on-bone);box-shadow:8px 8px 0 var(--ink-on-bone)}.ds-card h3{margin:0 0 8px;font:600 24px/32px var(--font-sans)}.ds-card p{margin:0;font:400 18px/28px var(--font-sans);color:var(--ink-on-bone-muted)}"
+    },
+    {
+      "name": "Sticker",
+      "kind": "chip",
+      "description": "One round tilted badge per screen, decoration only, in mono.",
+      "html": "<div class=\"ds-sticker\" aria-hidden=\"true\">Mitad de<br>precio</div>",
+      "css": ".ds-sticker{display:flex;align-items:center;justify-content:center;width:132px;height:132px;background:var(--highlight);color:var(--ink-on-bone);border:2px solid var(--ink-on-bone);border-radius:var(--radius-full);font:500 13px/16px var(--font-mono);letter-spacing:.06em;text-align:center;text-transform:uppercase;transform:rotate(12deg)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Studio Workbench",
+    "overview": "The site has two modes and never mixes them on one page. Calm mode is the brand at rest: dark surfaces, warm off-white ink, hairlines, one blue that always means something. Legal pages and anything product-like use it. Expressive mode is for the public marketing pages, and on this site that means the homepage, `/asistente`, `/precios` and `/alquileres`. It is the same brand at full voice: a bone page, black, blue and yellow bands, 2px ink edges, square corners, hard offset shadows with no blur, and Instrument Serif at poster scale with an italic punchline.\n\nExpressive mode is loud in scale and tone, not in claims. What fills the frames is the work itself: a real example conversation, a screenshot of the rental system with demo data, a price you can calculate. Paper cards and screenshots sit on the bone as objects on a bench, tilted a degree or two and casting a hard shadow. Everything functional stays in Instrument Sans, and the mono label is kept for status words, card headers and captions.",
+    "keyCharacteristics": [
+      "Bone ground with full-width ink, blue and yellow bands.",
+      "2px ink strokes, square corners, hard offset shadows (no blur, no gradient, no glow).",
+      "Serif headlines at 40 to 232px with one italic phrase in a contrasting colour.",
+      "White paper cards, tilted at most 2 degrees, holding the real product.",
+      "Several strong buttons per view are allowed; the copy stays plain.",
+      "Everything that moves stops under `prefers-reduced-motion`."
+    ],
+    "rules": [
+      {
+        "name": "The Ground Decides Rule",
+        "body": "Colour follows the band. On bone and yellow: ink text, ink shadow, `accent-fill` punchline. On blue: white text, yellow punchline, white focus ring. On black: bone text and outlines, `accent` punchline.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Extras Rule",
+        "body": "Expressive mode may use only `highlight`, `paper` and `ink-on-bone-muted` beyond `tokens.css`. A new colour is a design-system change, not a page decision.",
+        "section": "colors"
+      },
+      {
+        "name": "The Italic Punchline Rule",
+        "body": "A display headline carries at most one italic phrase, and it is the point of the line (\"Y respondemos.\"). The italic takes the band's contrast colour.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Blur Rule",
+        "body": "Every shadow has zero blur and zero spread. A soft shadow, glow or gradient is outside this system in both modes.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Two Degrees Rule",
+        "body": "Only objects tilt (a paper card, a screenshot, the sticker), never text columns or bands, and nothing but the sticker passes 2 degrees.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** take every value from `design-system/tokens.css`, plus only `highlight`, `paper` and `ink-on-bone-muted` from `src/styles/loca.css`.",
+      "**Do** reuse the `.loca-*` classes (wrap, header, display, label, button variants, sticker) before writing page CSS.",
+      "**Do** let the ground set text, shadow and punchline colours (The Ground Decides Rule).",
+      "**Do** fill frames with the real product: example conversations, screenshots with demo data, the calculator.",
+      "**Do** keep the mono label to card headers, status words, field labels and captions.",
+      "**Do** stop every hover lift, ticker and slide under `prefers-reduced-motion`, and check 320px for sideways scroll."
+    ],
+    "donts": [
+      "**Don't** mix Calm and Expressive on one page; legal and product screens stay Calm.",
+      "**Don't** use gradients, glows, blurred shadows or rounded corners in Expressive mode.",
+      "**Don't** tilt anything past 2 degrees except the sticker, or tilt text and bands.",
+      "**Don't** put more than one italic phrase in a headline.",
+      "**Don't** invent numbers, logos, testimonials or customers to fill a frame."
+    ]
+  }
+}
