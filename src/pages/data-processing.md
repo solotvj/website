@@ -10,7 +10,7 @@ paths:
 
 # Data processing annex
 
-**Last updated:** 13 October 2026\
+**Last updated:** 17 November 2026\
 **Version:** 1.0
 
 ---
@@ -118,7 +118,7 @@ The Customer agrees to:
 - During the service, data is kept for the periods in section 10 of the
   [Privacy policy](/privacy).
 - When the service ends, Solotvj **returns** the data to the Customer through the export
-  and then **destroys** it, backups included, within the periods in section 10 of the
+  and then **destroys** it, backups included, within the periods in section 9 of the
   [Terms](/terms).
 
 ---

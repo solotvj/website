@@ -127,7 +127,7 @@
   box-shadow: 2px 2px 0 var(--bone);
 }
 
-/* The round, tilted "half price" sticker. */
+/* The round, tilted sticker. */
 .loca-sticker {
   position: absolute;
   z-index: 2;

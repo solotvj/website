@@ -10,8 +10,8 @@ paths:
 
 # Términos y condiciones
 
-**Última actualización:** 13 de octubre de 2026\
-**Versión:** 1.0
+**Última actualización:** 17 de noviembre de 2026\
+**Versión:** 1.1
 
 ---
 
@@ -45,7 +45,7 @@ servicio, sus condiciones particulares prevalecen sobre estos términos.
 - **Mantenimiento:** mantenemos el servicio funcionando y probamos cada cambio de
   información antes de que llegue a sus clientes.
 
-No incluye los cargos que Meta cobra por las respuestas enviadas por WhatsApp (sección 7).
+No incluye los cargos que Meta cobra por las respuestas enviadas por WhatsApp (sección 6).
 
 ---
 
@@ -92,27 +92,14 @@ por correo electrónico. Le confirmamos el pedido con un número de trámite den
   factura.
 - El abono es mensual y **se paga por adelantado.** Emitimos la factura al comienzo de cada
   mes de servicio, con el período que cubre.
-- Podemos cambiar los precios avisándole como indica la sección 21, con al menos
+- Podemos cambiar los precios avisándole como indica la sección 20, con al menos
   **30 días** de anticipación. El cambio se aplica desde el mes siguiente a ese plazo,
   nunca a un mes ya pagado. Si no está de acuerdo, puede darse de baja antes de que se
   aplique.
 
 ---
 
-## 6. Promoción de inicio
-
-Para nuevos Clientes que contraten **entre el 12 de octubre y el 31 de diciembre de
-2026**, los primeros **3 meses** de abono se cobran **US$ 60 por mes** en lugar de
-US$ 120. Desde el cuarto mes se aplica el abono regular vigente.
-
-- Aplica a un número de WhatsApp por Cliente.
-- El cargo de configuración se cobra aparte y no está incluido en la promoción.
-- No hay permanencia mínima: puede darse de baja en cualquier momento (sección 9).
-- No se acumula con otras promociones.
-
----
-
-## 7. Cargos de Meta
+## 6. Cargos de Meta
 
 Meta cobra por las respuestas que el asistente envía por WhatsApp, según su propia tarifa
 para Argentina, después de una cantidad mensual gratuita por número.
@@ -127,7 +114,7 @@ para Argentina, después de una cantidad mensual gratuita por número.
 
 ---
 
-## 8. Falta de pago
+## 7. Falta de pago
 
 El abono vence en la fecha indicada en la factura. Si no se paga, la mora se produce
 sin necesidad de intimación previa:
@@ -138,14 +125,14 @@ sin necesidad de intimación previa:
    automático a sus clientes; su equipo puede seguir respondiendo desde la app WhatsApp
    Business, y la información de su negocio se conserva.
 3. **A los 30 días** de vencida, le comunicamos por escrito la resolución del contrato por
-   falta de pago, y el servicio se da de baja con los efectos de la sección 10.
+   falta de pago, y el servicio se da de baja con los efectos de la sección 9.
 
-Los avisos se envían a sus domicilios electrónicos (sección 21). Mientras el asistente esté
+Los avisos se envían a sus domicilios electrónicos (sección 20). Mientras el asistente esté
 pausado, se reactiva al pagar lo adeudado, sin un nuevo cargo de configuración.
 
 ---
 
-## 9. Baja
+## 8. Baja
 
 Puede darse de baja **cuando quiera, sin permanencia mínima ni penalidad**, desde el
 [botón de baja](/baja), por WhatsApp al +54 11 7812-1723 o por correo a
@@ -160,11 +147,11 @@ ventas@solotvj.com.ar.
 - Al dejar de enviarse respuestas por el asistente, Meta deja de cobrarlas.
 
 Nosotros podemos terminar el servicio avisándole con **30 días** de anticipación, o en los
-casos de las secciones 8 y 13.
+casos de las secciones 7 y 12.
 
 ---
 
-## 10. Sus datos al terminar el servicio
+## 9. Sus datos al terminar el servicio
 
 Al terminar el servicio, por cualquier causa, y como indica la sección 10.3 de la
 [Política de privacidad](/privacidad#103-qué-pasa-cuando-un-cliente-deja-de-usar-el-servicio):
@@ -177,7 +164,7 @@ Al terminar el servicio, por cualquier causa, y como indica la sección 10.3 de 
 
 ---
 
-## 11. Tratamiento de datos personales
+## 10. Tratamiento de datos personales
 
 Respecto de los datos de sus clientes, **usted es el responsable** y Solotvj actúa como
 **encargado del tratamiento**, en los términos del artículo 25 de la Ley N° 25.326:
@@ -188,7 +175,7 @@ internacionales que allí se indican.
 
 ---
 
-## 12. Sus responsabilidades
+## 11. Sus responsabilidades
 
 Usted se compromete a:
 
@@ -213,7 +200,7 @@ de seguridad de los datos.
 
 ---
 
-## 13. Suspensión por uso indebido
+## 12. Suspensión por uso indebido
 
 Podemos suspender el servicio de inmediato, avisándole, si:
 
@@ -222,11 +209,11 @@ Podemos suspender el servicio de inmediato, avisándole, si:
 - hay un riesgo de seguridad para usted, para sus clientes o para el servicio.
 
 Si la causa se resuelve, reactivamos el servicio. Si no se resuelve en 30 días, podemos
-darlo de baja, con los efectos de la sección 10.
+darlo de baja, con los efectos de la sección 9.
 
 ---
 
-## 14. Lo que hace y no hace el asistente
+## 13. Lo que hace y no hace el asistente
 
 - Responde **solo con la información que usted nos dio**. Si no sabe algo, no lo inventa:
   pasa la conversación a su equipo.
@@ -241,7 +228,7 @@ darlo de baja, con los efectos de la sección 10.
 
 ---
 
-## 15. Disponibilidad y soporte
+## 14. Disponibilidad y soporte
 
 Hacemos todo lo razonable para que el servicio funcione de forma continua, pero no
 garantizamos que esté libre de interrupciones. Depende también de servicios de terceros
@@ -254,7 +241,7 @@ El soporte es por WhatsApp o por correo electrónico, en días hábiles.
 
 ---
 
-## 16. Responsabilidad
+## 15. Responsabilidad
 
 **Esta cláusula se acepta en forma expresa y separada.** En la medida que permita la ley:
 
@@ -270,7 +257,7 @@ personales.
 
 ---
 
-## 17. Confidencialidad
+## 16. Confidencialidad
 
 Cada parte guardará reserva de la información de la otra que conozca por el servicio —la
 información de su negocio, sus conversaciones, sus precios y condiciones— y la usará solo
@@ -280,7 +267,7 @@ autoridad competente.
 
 ---
 
-## 18. Propiedad intelectual
+## 17. Propiedad intelectual
 
 - **Lo suyo es suyo:** la información de su negocio, sus textos y las conversaciones con
   sus clientes le pertenecen. Nos autoriza a usarlos solo para prestar el servicio.
@@ -290,7 +277,7 @@ autoridad competente.
 
 ---
 
-## 19. Fuerza mayor
+## 18. Fuerza mayor
 
 Ninguna de las partes responde por incumplimientos causados por caso fortuito o fuerza
 mayor (artículo 1730 del Código Civil y Comercial), como cortes generales de Internet o de
@@ -300,7 +287,7 @@ cualquiera de las partes puede terminar el servicio sin penalidad.
 
 ---
 
-## 20. Cesión
+## 19. Cesión
 
 Usted puede ceder este contrato con nuestro acuerdo previo por escrito. Solotvj puede
 cederlo a una sociedad que continúe el servicio —por ejemplo, si se constituye una
@@ -309,7 +296,7 @@ puede darse de baja antes.
 
 ---
 
-## 21. Notificaciones
+## 20. Notificaciones
 
 Las partes constituyen **domicilios electrónicos**, donde son válidas todas las
 comunicaciones:
@@ -322,23 +309,23 @@ Además, los avisos sobre el servicio se muestran en la consola.
 
 ---
 
-## 22. Cambios en estos términos
+## 21. Cambios en estos términos
 
 Podemos modificar estos términos. Cuando el cambio lo afecte, le avisaremos como indica la
-sección 21 con al menos **30 días** de anticipación, y le pediremos que acepte la nueva
+sección 20 con al menos **30 días** de anticipación, y le pediremos que acepte la nueva
 versión en la consola. El cambio se aplica desde el mes siguiente a ese plazo, nunca a un
 mes ya pagado.
 
 Si no acepta la nueva versión antes de que se aplique, el servicio continúa con la versión
 anterior hasta el final del mes ya pagado y luego se da de baja, con los efectos de la
-sección 10.
+sección 9.
 
 La versión vigente es la publicada en esta dirección, con su fecha al inicio. Conservamos
 las versiones anteriores.
 
 ---
 
-## 23. Ley aplicable, negociación y jurisdicción
+## 22. Ley aplicable, negociación y jurisdicción
 
 Estos términos se rigen por las leyes de la República Argentina.
 
@@ -350,7 +337,7 @@ domicilio que la ley disponga en su favor.
 
 ---
 
-## 24. Contacto
+## 23. Contacto
 
 - **WhatsApp:** +54 11 7812-1723
 - **Correo electrónico:** ventas@solotvj.com.ar
@@ -359,7 +346,7 @@ domicilio que la ley disponga en su favor.
 
 ---
 
-## 25. Relación con Meta y con WhatsApp
+## 24. Relación con Meta y con WhatsApp
 
 Este servicio utiliza la Plataforma de WhatsApp Business de Meta como canal. WhatsApp y
 Meta son marcas de Meta Platforms, Inc.

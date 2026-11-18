@@ -24,7 +24,7 @@ const made: [string, string, string, boolean][] = [
   [t('stRent'), t('stRentLine'), rentals, false],
   [t('stCustom'), t('stCustomBody'), waCustom, true],
 ];
-const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body` as 'stDo1Body')]);
+const promises = [1, 2, 3].map((n) => t(`stDo${n}` as 'stDo1'));
 ---
 
 <BaseLayout lang={lang}>
@@ -61,12 +61,11 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
 
         <section id="como" class="promises" aria-label={t('stNavHow')}>
           {
-            promises.map(([line, body], i) => {
+            promises.map((line, i) => {
               const Line = i === 0 ? 'h1' : 'h2';
               return (
                 <div class="promise">
                   <Line class:list={['loca-display', { last: i === 2 }]}>{line}</Line>
-                  <p>{body}</p>
                 </div>
               );
             })
@@ -81,7 +80,7 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
             <p class="lede">{t('heroLede')}</p>
             <div class="actions">
               <a class="loca-btn loca-btn-ink loca-btn-on-blue" href={agent}>{t('stAgentCta')}</a>
-              <a class="more" href="/precios" hreflang="es">{t('heroPricing')}</a>
+              <a class="more" href="/precios#asistente" hreflang="es">{t('heroPricing')}</a>
             </div>
           </div>
           <section class="chat" aria-label={t('chatLabel')}>
@@ -92,7 +91,6 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
             <div class="chat-body">
               <p class="bubble bubble-in">{t('chat1')}</p>
               <p class="bubble bubble-out">{t('chat2')}</p>
-              <p class="chat-note loca-label">{t('stChatNote')}</p>
             </div>
           </section>
         </div>
@@ -112,7 +110,6 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
                 <img src="/alquileres/mostrador.jpg" alt={t('stShotAlt')} width="1920" height="1200" loading="lazy" />
               </picture>
             </a>
-            <p class="shot-note">{t('stDemoNote')}</p>
           </div>
         </div>
       </section>
@@ -296,12 +293,6 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
     color: var(--accent-fill);
   }
 
-  .promise p {
-    max-width: 40ch;
-    margin: var(--space-3) 0 0;
-    color: var(--ink-on-bone-muted);
-  }
-
   /* Full-width colour bands. */
   .band.dark {
     background: var(--ink-on-bone);
@@ -401,11 +392,6 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
     min-width: 0;
   }
 
-  .shot-note {
-    font-size: 15px;
-    line-height: 22px;
-  }
-
   /* The assistant's example conversation, as on its own page. */
   .chat {
     width: 100%;
@@ -459,13 +445,6 @@ const promises = [1, 2, 3].map((n) => [t(`stDo${n}` as 'stDo1'), t(`stDo${n}Body
     align-self: flex-end;
     background: var(--accent-fill);
     color: var(--on-accent);
-  }
-
-  .chat-note {
-    align-self: center;
-    font-size: 12px;
-    text-align: center;
-    color: var(--ink-on-bone-muted);
   }
 
   .split-shot img {

@@ -10,8 +10,8 @@ paths:
 
 # Terms of service
 
-**Last updated:** 13 October 2026\
-**Version:** 1.0
+**Last updated:** 17 November 2026\
+**Version:** 1.1
 
 ---
 
@@ -45,7 +45,7 @@ these terms.
 - **Maintenance:** we keep the service running and test every information change before it
   reaches your customers.
 
-It does not include the charges Meta bills for replies sent through WhatsApp (section 7).
+It does not include the charges Meta bills for replies sent through WhatsApp (section 6).
 
 ---
 
@@ -89,26 +89,13 @@ We confirm your request with a reference number within 24 hours.
   3500) published on the business day before the invoice is issued.
 - The fee is monthly and **paid in advance.** We issue the invoice at the start of each
   month of service, stating the period it covers.
-- We may change prices by notifying you as in section 21, at least **30 days** in advance.
+- We may change prices by notifying you as in section 20, at least **30 days** in advance.
   The change applies from the month after that notice period, never to a month already
   paid. If you disagree, you can cancel before it applies.
 
 ---
 
-## 6. Introductory offer
-
-For new Customers who sign up **between 12 October and 31 December 2026**, the first
-**3 months** of the fee are charged at **US$ 60 a month** instead of US$ 120. From the
-fourth month the current regular fee applies.
-
-- It applies to one WhatsApp number per Customer.
-- The setup fee is charged separately and is not included in the offer.
-- There is no minimum term: you can cancel at any time (section 9).
-- It cannot be combined with other offers.
-
----
-
-## 7. Meta's charges
+## 6. Meta's charges
 
 Meta charges for the replies the assistant sends through WhatsApp, at its own rate for
 Argentina, after a free monthly amount per number.
@@ -121,7 +108,7 @@ Argentina, after a free monthly amount per number.
 
 ---
 
-## 8. Late payment
+## 7. Late payment
 
 The fee is due on the date shown on the invoice. If it is not paid, you are in default
 without the need for prior notice:
@@ -133,14 +120,14 @@ without the need for prior notice:
    business's information is kept.
 3. **30 days** after the due date, we notify you in writing that the contract is
    terminated for non-payment, and the service is cancelled with the effects in
-   section 10.
+   section 9.
 
-Notices go to your electronic addresses (section 21). While the assistant is paused, it is
+Notices go to your electronic addresses (section 20). While the assistant is paused, it is
 turned back on when you pay what is owed, with no new setup fee.
 
 ---
 
-## 9. Cancellation
+## 8. Cancellation
 
 You can cancel **at any time, with no minimum term or penalty**, using the
 [cancellation button](/baja), by WhatsApp at +54 11 7812-1723 or by email at
@@ -154,11 +141,11 @@ ventas@solotvj.com.ar.
   before you hired us.
 - Once the assistant stops sending replies, Meta stops charging for them.
 
-We may end the service with **30 days'** notice, or in the cases in sections 8 and 13.
+We may end the service with **30 days'** notice, or in the cases in sections 7 and 12.
 
 ---
 
-## 10. Your data when the service ends
+## 9. Your data when the service ends
 
 When the service ends, for any reason, and as section 10.3 of the
 [Privacy policy](/privacy#103-what-happens-when-a-customer-leaves) states:
@@ -170,7 +157,7 @@ When the service ends, for any reason, and as section 10.3 of the
 
 ---
 
-## 11. Processing of personal data
+## 10. Processing of personal data
 
 For your customers' data, **you are the controller** and Solotvj acts as **processor**
 under article 25 of Law No. 25,326: we process that data only on your instructions and to
@@ -180,7 +167,7 @@ international transfers it describes.
 
 ---
 
-## 12. Your responsibilities
+## 11. Your responsibilities
 
 You agree to:
 
@@ -204,7 +191,7 @@ caused by a breach by Solotvj of its confidentiality or data security obligation
 
 ---
 
-## 13. Suspension for misuse
+## 12. Suspension for misuse
 
 We may suspend the service immediately, telling you, if:
 
@@ -213,11 +200,11 @@ We may suspend the service immediately, telling you, if:
 - there is a security risk to you, your customers or the service.
 
 If the cause is resolved, we turn the service back on. If it isn't resolved within
-30 days, we may cancel it, with the effects in section 10.
+30 days, we may cancel it, with the effects in section 9.
 
 ---
 
-## 14. What the assistant does and doesn't do
+## 13. What the assistant does and doesn't do
 
 - It replies **only with the information you gave us**. When it doesn't know something, it
   doesn't make it up: it passes the conversation to your team.
@@ -232,7 +219,7 @@ If the cause is resolved, we turn the service back on. If it isn't resolved with
 
 ---
 
-## 15. Availability and support
+## 14. Availability and support
 
 We do everything reasonable to keep the service running continuously, but we do not
 guarantee it will be free of interruptions. It also depends on third-party services —
@@ -245,7 +232,7 @@ Support is by WhatsApp or email, on business days.
 
 ---
 
-## 16. Liability
+## 15. Liability
 
 **This clause is accepted expressly and separately.** To the extent the law allows:
 
@@ -259,7 +246,7 @@ breaches of the confidentiality and personal data protection obligations.
 
 ---
 
-## 17. Confidentiality
+## 16. Confidentiality
 
 Each party will keep confidential the other's information it learns through the service —
 your business's information, conversations, prices and terms — and use it only to perform
@@ -268,7 +255,7 @@ information that is public or must be disclosed by order of a competent authorit
 
 ---
 
-## 18. Intellectual property
+## 17. Intellectual property
 
 - **Yours is yours:** your business's information, your texts and the conversations with
   your customers belong to you. You authorise us to use them only to provide the service.
@@ -278,7 +265,7 @@ information that is public or must be disclosed by order of a competent authorit
 
 ---
 
-## 19. Force majeure
+## 18. Force majeure
 
 Neither party is liable for failures caused by unforeseeable events or force majeure
 (article 1730 of the Civil and Commercial Code), such as general Internet or power
@@ -288,7 +275,7 @@ affected party will notify the other as soon as possible. If the situation lasts
 
 ---
 
-## 20. Assignment
+## 19. Assignment
 
 You may assign this contract with our prior written consent. Solotvj may assign it to a
 company that continues the service — for example, if a company is formed to provide it —
@@ -296,7 +283,7 @@ giving you 30 days' notice; if you disagree, you can cancel before then.
 
 ---
 
-## 21. Notices
+## 20. Notices
 
 The parties set **electronic addresses**, where all communications are valid:
 
@@ -308,22 +295,22 @@ Service notices are also shown in the console.
 
 ---
 
-## 22. Changes to these terms
+## 21. Changes to these terms
 
-We may change these terms. When a change affects you, we will tell you as in section 21 at
+We may change these terms. When a change affects you, we will tell you as in section 20 at
 least **30 days** in advance and ask you to accept the new version in the console. The
 change applies from the month after that notice period, never to a month already paid.
 
 If you don't accept the new version before it applies, the service continues under the
 previous version until the end of the month already paid and is then cancelled, with the
-effects in section 10.
+effects in section 9.
 
 The current version is the one published at this address, dated at the top. We keep
 earlier versions.
 
 ---
 
-## 23. Governing law, negotiation and jurisdiction
+## 22. Governing law, negotiation and jurisdiction
 
 These terms are governed by the laws of Argentina.
 
@@ -335,7 +322,7 @@ favour have jurisdiction.
 
 ---
 
-## 24. Contact
+## 23. Contact
 
 - **WhatsApp:** +54 11 7812-1723
 - **Email:** ventas@solotvj.com.ar
@@ -344,7 +331,7 @@ favour have jurisdiction.
 
 ---
 
-## 25. Relationship with Meta and WhatsApp
+## 24. Relationship with Meta and WhatsApp
 
 This service uses Meta's WhatsApp Business Platform as a channel. WhatsApp and Meta are
 trademarks of Meta Platforms, Inc.

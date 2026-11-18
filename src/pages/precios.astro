@@ -1,10 +1,10 @@
 ---
-// Client-facing pricing: pick a volume, see our fees plus what Meta bills for the replies, in pesos or dollars.
+// Client-facing pricing for both products, in pesos or dollars: the assistant (with a calculator for Meta's share) and the rental system.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Wordmark from '../components/Wordmark.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { whatsappUrl } from '../i18n';
-import { pricing } from '../pricing';
+import { pricing, rentals } from '../pricing';
 import '../styles/loca.css';
 
 // Spanish only: every language's alternate is this page, so its canonical isn't the homepage's.
@@ -26,38 +26,43 @@ const presets = [100, 300, 600, 1500];
 // One rate for every business: about 3 assistant replies per conversation.
 const replies = 3;
 const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
+const rentalsStart = whatsappUrl('Hola, quiero empezar con el sistema de alquileres.');
 ---
 
 <BaseLayout
   lang="es"
   urls={{ es: page, en: page }}
-  title="Cuánto pagás por mes · Solotvj"
-  description="Calculá lo que pagás por el asistente de WhatsApp: nuestro abono y lo que cobra Meta, en pesos o en dólares."
+  title="Precios · Solotvj"
+  description="Cuánto pagás por mes: el asistente de WhatsApp, con lo que cobra Meta, y el sistema de alquileres, en pesos o en dólares."
 >
   <div class="loca">
     <header class="loca-header">
       <div class="loca-wrap">
         <a class="loca-home" href={getRelativeLocaleUrl('es')} aria-label="Solotvj"><Wordmark class="stv-on-bone" /></a>
-        <a class="back" href={getRelativeLocaleUrl('es', 'asistente')}><span aria-hidden="true">←</span> Volver al asistente</a>
+        <a class="back" href={getRelativeLocaleUrl('es')}><span aria-hidden="true">←</span> Volver al inicio</a>
       </div>
     </header>
 
     <main class="loca-wrap" data-pricing={JSON.stringify({ ...pricing, replies })} data-rate={JSON.stringify(rate)} data-bcra={BCRA}>
-      <h1 class="title">
-        <span>Cuánto pagás</span>
-        <em>por mes.</em>
-      </h1>
+      <h1 class="title"><span>Cuánto pagás</span> <em>por mes.</em></h1>
 
-      <form id="calc" class="calc" novalidate>
-        <section class="question" aria-labelledby="q1">
-          <div class="question-head">
-            <p class="loca-label">Una sola pregunta</p>
-            <h2 id="q1" class="question-title">¿Cuántas conversaciones tenés por mes?</h2>
-            <p class="question-hint">
-              Cada cliente que te escribe es una conversación. Si vuelve otro día, cuenta de nuevo. Si no sabés, elegí lo
-              más parecido.
-            </p>
-          </div>
+      <div class="bar">
+        <ul class="index">
+          <li><a href="#asistente">Asistente de WhatsApp</a></li>
+          <li><a href="#alquileres">Sistema de alquileres</a></li>
+        </ul>
+        <div class="currency" role="radiogroup" aria-label="Moneda" id="currency" hidden>
+          <label><input type="radio" name="currency" value="ARS" /> Pesos</label>
+          <label><input type="radio" name="currency" value="USD" checked /> Dólares</label>
+        </div>
+      </div>
+
+      <section id="asistente" class="poster agent" aria-labelledby="agent-title">
+        <h2 id="agent-title" class="name">Asistente de WhatsApp</h2>
+        <p class="price"><output data-money={pricing.fee}>US$ {pricing.fee}</output><em> por mes.</em></p>
+        <p class="lede">Más <output data-money={pricing.setup}>US$ {pricing.setup}</output> de configuración, una sola vez. Lo de Meta depende de cuánto te escriben:</p>
+        <form id="calc" class="strip" novalidate aria-labelledby="q1">
+          <p id="q1" class="strip-q">¿Cuántas conversaciones tenés por mes?</p>
           <div class="chips" role="group" aria-label="Valores frecuentes">
             {presets.map((n) => <button type="button" class="chip" data-convs={n}>{n.toLocaleString('es-AR')}</button>)}
           </div>
@@ -65,56 +70,22 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
             <label for="convs">¿Otro número?</label>
             <input id="convs" type="number" inputmode="numeric" min="0" step="50" value="300" />
           </div>
-        </section>
+          <dl class="sum" aria-live="polite">
+            <div><dt>Abono, a nosotros</dt><dd><output data-money={pricing.fee}>–</output></dd></div>
+            <div><dt>Respuestas por WhatsApp, a Meta</dt><dd><output id="meta">–</output></dd></div>
+            <div class="sum-total"><dt>Por mes</dt><dd><output id="monthly">–</output></dd></div>
+          </dl>
+          <p class="note" id="meta-note"></p>
+        </form>
+        <a id="cta" class="loca-btn loca-btn-ink" href={start} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+      </section>
 
-        <section class="result-wrap" aria-labelledby="result-title" aria-live="polite">
-          <div class="loca-sticker sticker" aria-hidden="true">{`Mitad de\nprecio\n×${pricing.introMonths} meses`}</div>
-          <div class="result">
-            <div class="result-head">
-              <h2 id="result-title" class="loca-label">Tu precio, los primeros {pricing.introMonths} meses</h2>
-              <div class="currency" role="radiogroup" aria-label="Moneda" id="currency" hidden>
-                <label><input type="radio" name="currency" value="ARS" checked /> Pesos</label>
-                <label><input type="radio" name="currency" value="USD" /> Dólares</label>
-              </div>
-            </div>
-
-            <div class="figures">
-              <p class="total-row">
-                <output class="total" id="monthly-intro">–</output>
-                <span class="per">por mes</span>
-              </p>
-              <p class="after">
-                <span>Después: <output id="monthly-after">–</output> por mes.</span>
-                <span class="muted" id="per-day"></span>
-              </p>
-            </div>
-
-            <table class="breakdown">
-              <caption class="visually-hidden">Qué pagás, a quién y cada cuánto</caption>
-              <tbody>
-                <tr>
-                  <th scope="row"><span class="key" aria-hidden="true"></span>Abono desde el mes {pricing.introMonths + 1}, a nosotros</th>
-                  <td><output class="strong" data-money={pricing.fee}>–</output> por mes</td>
-                </tr>
-                <tr>
-                  <th scope="row"><span class="key" aria-hidden="true"></span>Configuración, una sola vez, a nosotros</th>
-                  <td><output class="strong" data-money={pricing.setup}>–</output></td>
-                </tr>
-                <tr class="meta-row">
-                  <th scope="row"><span class="key" aria-hidden="true"></span>Respuestas por WhatsApp, a Meta</th>
-                  <td><output class="strong" id="meta">–</output> por mes</td>
-                </tr>
-              </tbody>
-            </table>
-            <p class="note" id="meta-note"></p>
-
-            <div class="start">
-              <a id="cta" class="loca-btn loca-btn-ink" href={start} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
-              <span class="note">Sin compromiso: podés darte de baja cuando quieras.</span>
-            </div>
-          </div>
-        </section>
-      </form>
+      <section id="alquileres" class="poster rent" aria-labelledby="rent-title">
+        <h2 id="rent-title" class="name">Sistema de alquileres</h2>
+        <p class="price"><output data-money={rentals.fee}>US$ {rentals.fee}</output><em> por mes.</em></p>
+        <p class="lede">Tu sitio de reservas, el stock, el mostrador, las señas con Mercado Pago y las facturas con ARCA, en un solo lugar.</p>
+        <a class="loca-btn loca-btn-blue loca-btn-on-dark" href={rentalsStart} target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+      </section>
 
       <details class="how">
         <summary>
@@ -128,8 +99,8 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
             factura.<span id="rate-line" hidden>{' '}Hoy: <output id="rate">–</output>, según el BCRA del <output id="rate-date">–</output>.</span>
           </li>
           <li>
-            Abono: US$ {pricing.fee} por mes, US$ {pricing.intro} los primeros {pricing.introMonths} meses. Configuración:
-            US$ {pricing.setup}, una sola vez.
+            Asistente de WhatsApp: US$ {pricing.fee} por mes y US$ {pricing.setup} de configuración, una sola vez. Sistema
+            de alquileres: US$ {rentals.fee} por mes.
           </li>
           <li>
             Calculamos unas {replies} respuestas del asistente por conversación. Meta no cobra las primeras
@@ -143,17 +114,16 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
 </BaseLayout>
 
 <script>
-  type Pricing = { setup: number; intro: number; fee: number; metaRate: number; free: number; replies: number };
+  type Pricing = { setup: number; fee: number; metaRate: number; free: number; replies: number };
   const main = document.querySelector('main')!;
   const P = JSON.parse(main.dataset.pricing!) as Pricing;
   let rate = JSON.parse(main.dataset.rate!) as { value: number; date: string } | null;
 
-  const form = document.getElementById('calc') as HTMLFormElement;
   const $ = (id: string) => document.getElementById(id)!;
   const convs = $('convs') as HTMLInputElement;
 
   const int = (n: number) => Math.round(n).toLocaleString('es-AR');
-  const currency = () => (rate ? (form.elements.namedItem('currency') as RadioNodeList).value : 'USD');
+  const currency = () => (rate ? (document.querySelector<HTMLInputElement>('input[name="currency"]:checked')?.value ?? 'USD') : 'USD');
   const money = (usd: number) =>
     currency() === 'ARS'
       ? (usd * rate!.value).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 })
@@ -163,13 +133,11 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
   function render() {
     const c = volume();
     const meta = Math.max(0, c * P.replies - P.free) * P.metaRate;
-    const intro = P.intro + meta;
 
+    // Every price on the page, both products, in the chosen currency.
     document.querySelectorAll<HTMLOutputElement>('[data-money]').forEach((o) => (o.textContent = money(Number(o.dataset.money))));
     $('meta').textContent = money(meta);
-    $('monthly-intro').textContent = money(intro);
-    $('monthly-after').textContent = money(P.fee + meta);
-    $('per-day').textContent = `Hoy son unos ${money(intro / 30)} por día.`;
+    $('monthly').textContent = money(P.fee + meta);
     $('meta-note').textContent = meta
       ? `Meta te factura esa parte aparte, en pesos y con su propia tarifa: acá es una estimación. Las primeras ${int(P.free)} respuestas de cada mes son gratis.`
       : `Con este volumen, Meta no te cobra nada: las primeras ${int(P.free)} respuestas de cada mes son gratis.`;
@@ -192,9 +160,9 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
       render();
     }),
   );
-  form.addEventListener('input', render);
-  form.addEventListener('change', render);
-  form.addEventListener('submit', (e) => e.preventDefault());
+  main.addEventListener('input', render);
+  main.addEventListener('change', render);
+  $('calc').addEventListener('submit', (e) => e.preventDefault());
 
   render();
   // Today's rate; the one from the build stays if the BCRA doesn't answer.
@@ -236,15 +204,6 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
     margin: 0;
   }
 
-  .muted,
-  .question-hint {
-    color: var(--ink-on-bone-muted);
-  }
-
-  .strong {
-    font-weight: 700;
-  }
-
   .title {
     margin: 0;
     font-family: var(--font-display);
@@ -262,39 +221,135 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
     color: var(--accent-fill);
   }
 
-  .calc {
+  /* The two products, then Pesos / Dólares for both. */
+  .bar {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-16);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4) var(--space-6);
+    margin-top: calc(-1 * var(--space-10));
   }
 
-  .question {
+  .index {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .index a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 600;
+    text-underline-offset: 4px;
+  }
+
+  /* Pesos / Dólares: two joined blocks; the chosen one in ink. */
+  .currency {
+    display: flex;
+  }
+
+  .currency label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 20px;
+    border: var(--stroke);
+    background: var(--paper);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .currency label + label {
+    margin-left: -2px;
+  }
+
+  .currency input {
+    position: absolute;
+    opacity: 0;
+  }
+
+  .currency label:has(input:checked) {
+    background: var(--ink-on-bone);
+    color: var(--bone);
+  }
+
+  .currency label:has(input:focus-visible) {
+    outline: 3px solid var(--accent-fill);
+    outline-offset: 3px;
+  }
+
+  /* One poster per product: the price at full size, yellow for the assistant, black for rentals. */
+  .poster {
+    display: grid;
     gap: var(--space-6);
+    padding: var(--space-16) clamp(16px, 4vw, 40px) var(--space-10);
+    border: var(--stroke);
+    box-shadow: 12px 12px 0 var(--ink-on-bone);
+    scroll-margin-top: var(--space-6);
   }
 
-  .question-head {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+  .agent {
+    background: var(--highlight);
   }
 
-  .question-title {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1;
+  .rent {
+    background: var(--ink-on-bone);
+    color: var(--bone);
+    box-shadow: 12px 12px 0 var(--accent-fill);
+  }
+
+  .name {
+    font: 400 clamp(32px, 4vw, 48px) / 1 var(--font-display);
     letter-spacing: -0.02em;
   }
 
-  .question-hint {
-    max-width: 620px;
-    font-size: 16px;
-    line-height: 24px;
+  /* Sized so a peso amount ("$ 153.549") still fits on one line at every width. */
+  .price {
+    font: 400 clamp(56px, 13vw, 200px) / 0.85 var(--font-display);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Presets as big blocks; the chosen one turns blue and lifts. */
+  .price em {
+    font-size: max(0.24em, 22px);
+    letter-spacing: 0;
+    color: var(--accent-fill);
+  }
+
+  .rent .price em {
+    color: var(--accent);
+  }
+
+  .lede {
+    max-width: 46ch;
+    font: 500 20px / 30px var(--font-sans);
+  }
+
+  .poster .loca-btn {
+    justify-self: start;
+  }
+
+  /* The assistant's calculator, on paper inside its poster. */
+  .strip {
+    display: grid;
+    gap: var(--space-6);
+    padding: var(--space-6) clamp(16px, 3vw, 24px);
+    background: var(--paper);
+    color: var(--ink-on-bone);
+    border: var(--stroke);
+  }
+
+  .strip-q {
+    font-weight: 600;
+  }
+
   .chips {
     display: flex;
     flex-wrap: wrap;
@@ -302,14 +357,14 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
   }
 
   .chip {
-    flex: 1 1 140px;
-    min-height: 96px;
+    flex: 1 1 120px;
+    min-height: 80px;
     padding: 0 var(--space-4);
     border: var(--stroke);
     background: var(--paper);
     color: var(--ink-on-bone);
     font-family: var(--font-display);
-    font-size: 56px;
+    font-size: 48px;
     line-height: 1;
     letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums;
@@ -350,168 +405,49 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
     -moz-appearance: textfield;
   }
 
-  .result-wrap {
-    position: relative;
+  .sum {
+    margin: 0;
   }
 
-  .sticker {
-    top: -56px;
-    right: -8px;
-    background: var(--accent-fill);
-    color: var(--on-accent);
-  }
-
-  .result {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    padding: clamp(24px, 5vw, 48px);
-    background: var(--highlight);
-    border: var(--stroke);
-    box-shadow: 12px 12px 0 var(--ink-on-bone);
-  }
-
-  /* Room on the right for the sticker, which overlaps the card's corner. */
-  .result-head {
-    padding-right: 104px;
+  .sum div {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
-    gap: var(--space-4);
+    gap: var(--space-1) var(--space-4);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--line-on-bone);
   }
 
-  /* Pesos / Dólares: two joined blocks; the chosen one in ink. */
-  .currency {
-    display: flex;
+  .sum dt {
+    color: var(--ink-on-bone-muted);
   }
 
-  .currency label {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    min-height: 48px;
-    padding: 0 20px;
-    border: var(--stroke);
-    background: var(--paper);
-    font-size: 16px;
+  .sum dd {
+    margin: 0;
     font-weight: 600;
-    cursor: pointer;
-  }
-
-  .currency label + label {
-    margin-left: -2px;
-  }
-
-  .currency input {
-    position: absolute;
-    opacity: 0;
-  }
-
-  .currency label:has(input:checked) {
-    background: var(--ink-on-bone);
-    color: var(--bone);
-  }
-
-  .currency label:has(input:focus-visible) {
-    outline: 3px solid var(--accent-fill);
-    outline-offset: 3px;
-  }
-
-  .figures {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .total-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0 var(--space-6);
-  }
-
-  .total {
-    font-family: var(--font-display);
-    font-size: clamp(72px, 14vw, 176px);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
     font-variant-numeric: tabular-nums;
-    overflow-wrap: anywhere;
   }
 
-  .per {
-    font-size: 22px;
+  .sum .sum-total {
+    align-items: baseline;
+    padding-top: var(--space-4);
+    border-bottom: 0;
+  }
+
+  .sum .sum-total dt {
+    color: var(--ink-on-bone);
     font-weight: 600;
   }
 
-  .after {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: var(--space-2) var(--space-4);
-    font-size: 18px;
-    line-height: 26px;
-  }
-
-  .breakdown {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--paper);
-    border: var(--stroke);
-    font-size: 17px;
-    line-height: 24px;
-  }
-
-  .breakdown th,
-  .breakdown td {
-    padding: var(--space-4) 20px;
-    border-bottom: var(--stroke);
-    font-variant-numeric: tabular-nums;
-    vertical-align: middle;
-  }
-
-  .breakdown th {
-    font-weight: 400;
-    text-align: left;
-  }
-
-  .breakdown td {
-    padding-left: var(--space-4);
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  .meta-row > * {
-    border-bottom: 0 !important;
-    background: var(--accent-fill);
-    color: var(--on-accent);
-  }
-
-  /* Square keys: ours in ink, Meta's in white on its blue row. */
-  .key {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    margin-right: 12px;
-    background: var(--ink-on-bone);
-    vertical-align: -1px;
-  }
-
-  .meta-row .key {
-    background: var(--paper);
+  .sum .sum-total dd {
+    font: 400 44px / 1 var(--font-display);
+    letter-spacing: -0.02em;
   }
 
   .note {
     font-size: 15px;
     line-height: 22px;
-  }
-
-  .start {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-4) var(--space-6);
+    color: var(--ink-on-bone-muted);
   }
 
   .how {
@@ -553,42 +489,12 @@ const start = whatsappUrl('Hola, quiero empezar con el asistente de WhatsApp.');
     line-height: 24px;
   }
 
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  /* On a phone the sticker stays inside the screen: rotated, it reaches ~15px past its box. */
-  @media (max-width: 639px) {
-    .sticker {
-      right: 0;
-    }
-  }
-
-  /* On a phone the breakdown's label and amount stack, so long amounts never squeeze the label. */
+  /* On a phone the four presets sit two by two instead of one per row. */
   @media (max-width: 559px) {
-    .breakdown tr {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-1);
-      padding: var(--space-4) 20px;
-      border-bottom: var(--stroke);
-    }
-
-    .breakdown .meta-row {
-      border-bottom: 0;
-      background: var(--accent-fill);
-    }
-
-    .breakdown th,
-    .breakdown td {
-      padding: 0;
-      border: 0;
-      text-align: left;
+    .chip {
+      flex-basis: calc(50% - var(--space-2));
+      min-height: 72px;
+      font-size: 40px;
     }
   }
 

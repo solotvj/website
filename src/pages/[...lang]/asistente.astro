@@ -66,7 +66,7 @@ const band = bands.findLast((b) => b.from <= startHour)!;
           <p class="hero-lede">{t('heroLede')}</p>
           <div class="actions">
             <a class="loca-btn loca-btn-blue" href="#contacto">{t('heroCta')}</a>
-            <a class="more" href="/precios" hreflang="es">{t('heroPricing')} <span aria-hidden="true">→</span></a>
+            <a class="more" href="/precios#asistente" hreflang="es">{t('heroPricing')} <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -80,7 +80,6 @@ const band = bands.findLast((b) => b.from <= startHour)!;
             <div class="chat-body">
               <p class="bubble bubble-in">{t('chat1')}</p>
               <p class="bubble bubble-out">{t('chat2')}</p>
-              <p class="chat-note loca-label">{t('chatNote')}</p>
             </div>
           </section>
         </div>
@@ -142,11 +141,10 @@ const band = bands.findLast((b) => b.from <= startHour)!;
           <h2 id="price-title" class="price-title">{t('priceTitle1')}<br /><em>{t('priceTitle2')}</em></h2>
           <p class="price-row">
             <span class="price-now">{t('priceNow')}</span>
-            <s class="price-was"><span class="visually-hidden">{t('priceWasLabel')} </span>{t('priceWas')}</s>
             <span class="price-per">{t('perMonth')}</span>
           </p>
           <p class="price-note">{t('priceNote')}</p>
-          <a class="loca-btn loca-btn-ink" href="/precios" hreflang="es">{t('offerCta')}</a>
+          <a class="loca-btn loca-btn-ink" href="/precios#asistente" hreflang="es">{t('offerCta')}</a>
         </div>
       </section>
 
@@ -369,14 +367,6 @@ const band = bands.findLast((b) => b.from <= startHour)!;
     align-self: flex-end;
     background: var(--accent-fill);
     color: var(--on-accent);
-  }
-
-  .chat-note {
-    align-self: center;
-    margin: 0;
-    font-size: 12px;
-    text-align: center;
-    color: var(--ink-on-bone-muted);
   }
 
   /* Full-width colour bands. */

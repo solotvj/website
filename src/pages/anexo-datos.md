@@ -10,7 +10,7 @@ paths:
 
 # Anexo de tratamiento de datos
 
-**Última actualización:** 13 de octubre de 2026\
+**Última actualización:** 17 de noviembre de 2026\
 **Versión:** 1.0
 
 ---
@@ -120,7 +120,7 @@ El Cliente se compromete a:
   [Política de privacidad](/privacidad).
 - Al terminar el servicio, Solotvj **devuelve** los datos al Cliente mediante la
   exportación y luego los **destruye**, incluidas las copias de respaldo, en los plazos de
-  la sección 10 de los [Términos](/terminos).
+  la sección 9 de los [Términos](/terminos).
 
 ---
 

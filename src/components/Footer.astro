@@ -13,7 +13,10 @@ const t = useTranslations(Astro.props.lang);
   <div class="main">
     <!-- The wordmark, with ARCA's Data Fiscal beside it. -->
     <div class="brand-block">
-      <Wordmark class="brand" />
+      <div class="name">
+        <Wordmark class="brand" />
+        <p class="say">{t('sayIt')}</p>
+      </div>
       <!-- ARCA's Data Fiscal (form F960/NM), as ARCA issues it. The link redirects to https; the image is loaded over https. -->
       <a class="data-fiscal" href="http://qr.afip.gob.ar/?qr=zcNxLI9w2PbVkd5sgKuBAw,," target="_F960AFIPInfo" rel="noopener">
         <img src="https://www.afip.gob.ar/images/f960/DATAWEB.jpg" width="239" height="327" alt="Data Fiscal (ARCA)" loading="lazy" />
@@ -122,6 +125,16 @@ const t = useTranslations(Astro.props.lang);
     display: flex;
     align-items: center;
     gap: var(--space-4);
+  }
+
+  .name {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .say {
+    font-size: 14px;
+    color: var(--ink-subtle);
   }
 
   .data-fiscal img {
