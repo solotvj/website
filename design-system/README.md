@@ -29,11 +29,11 @@ Solotvj designs, builds and operates software, today mostly WhatsApp agents for 
 
 ## Type
 
-- Headlines in `display-xl` and `display` (Instrument Serif) give the brand its composure; use them for hero lines, section openers and slide titles only.
-- Everything functional is Instrument Sans: `heading`, `subheading`, `body`, `small`. Dashboard figures use `stat` and `stat-sm`.
+- Headlines in `display-xl` and `display` (Barlow Condensed, bold) give the brand its voice; use them for hero lines, section openers and slide titles only.
+- Everything functional is Barlow: `heading`, `subheading`, `body`, `small`. Dashboard figures use `stat` and `stat-sm`.
 - Long reading (privacy policy, terms) uses `reading` and `heading-legal`, in `ink`, never `ink-muted`.
 - JetBrains Mono for `label` (eyebrows, tags, dates, set uppercase) and `code`. The mono touch signals engineering; keep it to small sizes.
-- All three families are served from Google Fonts: `Instrument Serif` 400 (plus its italic, used in Expressive mode), `Instrument Sans` 400 to 600, `JetBrains Mono` 400 to 500.
+- All three families are served from Google Fonts: `Barlow Condensed` 600 (roman and italic; display rules ask for 400 and get the 600), `Barlow` 400 to 600, `JetBrains Mono` 400 to 500.
 
 ## Shape and layout
 

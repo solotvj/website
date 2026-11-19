@@ -20,34 +20,34 @@ colors:
   line: "#272b33"
 typography:
   display:
-    fontFamily: "Instrument Serif, Iowan Old Style, Georgia, serif"
+    fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
     fontSize: "clamp(48px, 8vw, 112px)"
-    fontWeight: 400
+    fontWeight: 600
     lineHeight: 0.95
     letterSpacing: "-0.02em"
   display-calm:
-    fontFamily: "Instrument Serif, Iowan Old Style, Georgia, serif"
+    fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
     fontSize: "44px"
-    fontWeight: 400
+    fontWeight: 600
     lineHeight: 1.05
   title:
-    fontFamily: "Instrument Serif, Iowan Old Style, Georgia, serif"
+    fontFamily: "Barlow Condensed, Arial Narrow, sans-serif"
     fontSize: "36px"
-    fontWeight: 400
+    fontWeight: 600
     lineHeight: 1
     letterSpacing: "-0.02em"
   lead:
-    fontFamily: "Instrument Sans, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Barlow, Helvetica Neue, Arial, sans-serif"
     fontSize: "22px"
     fontWeight: 500
     lineHeight: "32px"
   body:
-    fontFamily: "Instrument Sans, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Barlow, Helvetica Neue, Arial, sans-serif"
     fontSize: "18px"
     fontWeight: 400
     lineHeight: "28px"
   body-calm:
-    fontFamily: "Instrument Sans, Helvetica Neue, Arial, sans-serif"
+    fontFamily: "Barlow, Helvetica Neue, Arial, sans-serif"
     fontSize: "16px"
     fontWeight: 400
     lineHeight: "26px"
@@ -118,14 +118,14 @@ This file records the system as it ships on this site. It is not the rulebook. T
 
 **Creative North Star: "The Studio Workbench"**
 
-The site has two modes and never mixes them on one page. Calm mode is the brand at rest: dark surfaces, warm off-white ink, hairlines, one blue that always means something. Legal pages and anything product-like use it. Expressive mode is for the public marketing pages, and on this site that means the homepage, `/asistente`, `/precios` and `/alquileres`. It is the same brand at full voice: a bone page, black, blue and yellow bands, 2px ink edges, square corners, hard offset shadows with no blur, and Instrument Serif at poster scale with an italic punchline.
+The site has two modes and never mixes them on one page. Calm mode is the brand at rest: dark surfaces, warm off-white ink, hairlines, one blue that always means something. Legal pages and anything product-like use it. Expressive mode is for the public marketing pages, and on this site that means the homepage, `/asistente`, `/precios` and `/alquileres`. It is the same brand at full voice: a bone page, black, blue and yellow bands, 2px ink edges, square corners, hard offset shadows with no blur, and Barlow Condensed at poster scale with an italic punchline.
 
-Expressive mode is loud in scale and tone, not in claims. What fills the frames is the work itself: a real example conversation, a screenshot of the rental system with demo data, a price you can calculate. Paper cards and screenshots sit on the bone as objects on a bench, tilted a degree or two and casting a hard shadow. Everything functional stays in Instrument Sans, and the mono label is kept for status words, card headers and captions.
+Expressive mode is loud in scale and tone, not in claims. What fills the frames is the work itself: a real example conversation, a screenshot of the rental system with demo data, a price you can calculate. Paper cards and screenshots sit on the bone as objects on a bench, tilted a degree or two and casting a hard shadow. Everything functional stays in Barlow, and the mono label is kept for status words, card headers and captions.
 
 **Key Characteristics:**
 - Bone ground with full-width ink, blue and yellow bands.
 - 2px ink strokes, square corners, hard offset shadows (no blur, no gradient, no glow).
-- Serif headlines at 40 to 232px with one italic phrase in a contrasting colour.
+- Condensed bold headlines at 40 to 232px with one italic phrase in a contrasting colour.
 - White paper cards, tilted at most 2 degrees, holding the real product.
 - Several strong buttons per view are allowed; the copy stays plain.
 - Everything that moves stops under `prefers-reduced-motion`.
@@ -155,15 +155,15 @@ One blue and one yellow on bone and ink; calm pages drop the yellow and the bone
 
 ## Typography
 
-**Display Font:** Instrument Serif (with Iowan Old Style, Georgia), regular and italic
-**Body Font:** Instrument Sans (with Helvetica Neue, Arial)
+**Display Font:** Barlow Condensed (with Arial Narrow), 600, roman and italic
+**Body Font:** Barlow (with Helvetica Neue, Arial), 400 to 600
 **Label/Mono Font:** JetBrains Mono (with ui-monospace, Menlo)
 
-**Character:** A composed book serif blown up to poster size, against a plain, slightly technical sans. The mono is the engineering accent and stays small.
+**Character:** A narrow, bold grotesque at poster size, like street signage and shop posters, against its own wider sibling for reading. Chosen on 2026-11-19 over Instrument Serif, which reads as the default of AI-made sites. The mono is the engineering accent and stays small.
 
 ### Hierarchy
-- **Display** (400, `clamp(48px, 8vw, 112px)`, 0.95, -0.02em): Expressive headlines. Pages push it further where the line is the page (homepage promises up to 132px on a phone-to-tablet range and 114px beside the index card; heroes on sibling pages up to 168px; prices up to 232px). Never below 40px.
-- **Title** (400 serif, 36px, 1; 30px under 640px): product names inside the homepage index card.
+- **Display** (600, `clamp(48px, 8vw, 112px)`, 0.95, -0.02em): Expressive headlines. Pages push it further where the line is the page (homepage promises at 16vw up to 132px on a phone-to-tablet range and 114px beside the index card; heroes on sibling pages up to 168px; prices up to 232px). Never below 40px.
+- **Title** (600 condensed, 36px, 1; 30px under 640px): product names inside the homepage index card.
 - **Lead** (500, 22px/32px, max 46ch): the paragraph under a band headline.
 - **Body** (400, 18px/28px in Expressive, 16px/26px in Calm): running copy, max about 40 to 52ch.
 - **Label** (500 mono, 13px in Expressive and 12px in Calm, 0.08em, uppercase): card headers, status words, field labels, captions.
@@ -216,7 +216,7 @@ Expressive corners are square (`radius-none`); the only round thing is the stick
 - **Header:** a 72px bar on bone with a 2px ink bottom stroke. The wordmark at 36px (44px target), then text links in 15px sans, underlined, and one ink contact pill. The price link stays on phones.
 
 ### Index card (signature)
-A white paper card, tilted 1.5 degrees on desktop (1 degree below), with a black mono header and numbered rows split by 2px ink strokes. Each row is a link: mono number, serif product name, drawn arrow in `accent-fill`, one sans line beneath. On hover and focus the whole row floods `accent-fill`, its text turns white and the arrow slides 6px right (250ms ease-out; off under reduced motion). One row may sit on yellow.
+A white paper card, tilted 1.5 degrees on desktop (1 degree below), with a black mono header and numbered rows split by 2px ink strokes. Each row is a link: mono number, condensed product name, drawn arrow in `accent-fill`, one sans line beneath. On hover and focus the whole row floods `accent-fill`, its text turns white and the arrow slides 6px right (250ms ease-out; off under reduced motion). One row may sit on yellow.
 
 ### Example conversation (signature)
 A paper card tilted 2 degrees with the Pin shadow: a mono header with the title and a black time chip, then square bubbles with a 2px stroke. The customer bubble is bone, the business bubble `accent-fill` with white text. A centred mono caption says it is an example.

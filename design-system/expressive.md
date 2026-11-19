@@ -6,7 +6,7 @@ A second mode for the public marketing pages only (home and pricing). A visitor 
 
 - **Ground**: a `bone` page, with full-width bands in `ink-on-bone` black, `accent-fill` blue or `highlight` yellow. Text on bone is `ink-on-bone`; on black it is `ink`; on blue it is `on-accent`.
 - **Edges**: 2px `ink-on-bone` borders, `radius-none`, and the hard shadows `shadow-hard-sm`, `shadow-hard-md` and `shadow-hard-lg`. On a black ground the shadow colour becomes bone or `accent-fill`.
-- **Type**: `display-mega` for headlines, `display-mega-italic` for one phrase, `display-price` for the price, `lead` for the intro, 18px for body. Everything functional is still Instrument Sans and `label`.
+- **Type**: `display-mega` for headlines, `display-mega-italic` for one phrase, `display-price` for the price, `lead` for the intro, 18px for body. Everything functional is still Barlow and `label`.
 - **Space**: `space-24` and `space-32` for section padding.
 
 ## Components
