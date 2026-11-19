@@ -1,6 +1,5 @@
 /* The bold look shared by the homepage and the calculator: bone pages, 2px ink borders, hard offset shadows.
    It goes beyond the design system on purpose; the extra colours are defined here, next to the tokens they sit with. */
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap');
 
 :root {
   --highlight: #ffe14d; /* the yellow: price band, stickers, the assistant's card */

@@ -24,7 +24,7 @@ The homepage (`src/pages/[...lang]/index.astro`) has its own, bolder look. There
 - Bone page (`--bone`, `--ink-on-bone`) with full-width bands in ink, `--accent-fill` and `--highlight` (yellow).
 - 2px ink borders (`--stroke`) and hard offset shadows with no blur (`6px 6px 0`, up to `12px 12px 0`). Still no gradients, glows or blurred shadows.
 - Extra colours are only the ones defined in `loca.css`: `--highlight`, `--paper`, `--ink-on-bone-muted`. Everything else comes from `tokens.css`.
-- Big Instrument Serif headlines, often with an italic half in the accent as the punchline.
+- Big Barlow Condensed headlines, often with an italic half in the accent as the punchline.
 - Several strong buttons per view are fine (`.loca-btn-blue`, `.loca-btn-ink`), and small tilts (stickers, the chat card, hover lifts).
 - The voice can be playful ("Tu negocio nunca duerme. Vos sí.", "Quiero dormir tranquilo"), but the rest still applies: "we" and "you", sentence case, no emoji, no exclamation marks, no hype words.
 - Motion stays optional: everything that moves stops under `prefers-reduced-motion`.

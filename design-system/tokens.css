@@ -70,8 +70,10 @@
   --shadow-hard-sm: 6px 6px 0 #0d0f12;
   --shadow-hard-md: 8px 8px 0 #0d0f12;
   --shadow-hard-lg: 12px 12px 0 #0d0f12;
-  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  /* Barlow Condensed is loaded at 600 only, roman and italic: every display rule asks for 400 and
+     gets 600 (the nearest weight there is), so the headlines are bold without a weight per rule. */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-sans: "Barlow", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 }
 

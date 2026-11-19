@@ -38,7 +38,7 @@ Solotvj builds and operates its own products, so what a visitor sees working is 
 
 ## Brand Commitments
 
-- The name is written **Solotvj**; the wordmark is the name in Instrument Serif with a blue full stop. There is no logo mark yet.
+- The name is written **Solotvj**; the wordmark is the name in Barlow Condensed with a blue full stop. There is no logo mark yet.
 - The Solotvj design system (`design-system/`) is binding: its tokens, its voice (we and you, sentence case, no emoji, no exclamation marks, no hype words) and its two modes. Marketing pages may use Expressive mode; legal pages stay calm.
 - Fixed customer-facing terms: *conversación*, *pasada a tu equipo*, *modo prueba*.
 
